@@ -4,7 +4,10 @@ GREEN="\033[0;32m"
 
 Changelog="changelog.md"
 
-DEVICE=$(echo $TARGET_PRODUCT | sed -e 's/lineage_//g')
+DEVICE=$1
+if [ -z $DEVICE ]; then
+	DEVICE=$(echo $TARGET_PRODUCT | sed -e 's/lineage_//g')
+fi
 
 if [ -f $Changelog ];
 then
