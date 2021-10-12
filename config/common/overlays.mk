@@ -7,7 +7,12 @@ PRODUCT_PACKAGE_OVERLAYS += \
 
 # Cutout control overlay
 PRODUCT_PACKAGES += \
-    DummyCutoutOverlay
+    DummyCutoutOverlay \
+    NoCutoutOverlay \
+    AvoidAppsInCutoutOverlay
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.support_hide_display_cutout=true
 
 # Navigation bar IME space overlay
 PRODUCT_PACKAGES += \
