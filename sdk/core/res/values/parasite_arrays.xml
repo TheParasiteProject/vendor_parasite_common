@@ -50,4 +50,8 @@
 
     <!-- Whitelist of package names to bypass foreground service type validation -->
     <string-array name="config_fgsTypeValidationBypassPackages" translatable="false"/>
+
+    <!-- Whitelist of package names to bypass alarm manager validation -->
+    <string-array name="config_alarmManagerValidationBypassPackages" translatable="false"/>
+
 </resources>
