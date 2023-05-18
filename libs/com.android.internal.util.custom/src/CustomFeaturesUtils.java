@@ -9,6 +9,14 @@ public class CustomFeaturesUtils {
     private static final int REPORT_TRUE = 1;
     private static final int REPORT_SKIP = 255;
 
+    private static final String[] pTensorCodenames = {
+            "cheetah",
+            "panther",
+            "bluejay",
+            "oriole",
+            "raven"
+    };
+
     private static final String[] featuresPixel = {
             "com.google.android.apps.photos.PIXEL_2019_PRELOAD",
             "com.google.android.apps.photos.PIXEL_2019_MIDYEAR_PRELOAD",
@@ -24,10 +32,6 @@ public class CustomFeaturesUtils {
             "com.google.android.feature.PIXEL_2024_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2023_EXPERIENCE",
             "com.google.android.feature.PIXEL_2023_MIDYEAR_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2022_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2022_MIDYEAR_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2021_EXPERIENCE",
-            "com.google.android.feature.PIXEL_2021_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2020_EXPERIENCE",
             "com.google.android.feature.PIXEL_2020_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2019_EXPERIENCE",
@@ -48,6 +52,13 @@ public class CustomFeaturesUtils {
             "com.google.android.apps.dialer.SUPPORTED"
     };
 
+    private static final String[] featuresTensor = {
+            "com.google.android.feature.PIXEL_2022_EXPERIENCE",
+            "com.google.android.feature.PIXEL_2022_MIDYEAR_EXPERIENCE",
+            "com.google.android.feature.PIXEL_2021_EXPERIENCE",
+            "com.google.android.feature.PIXEL_2021_MIDYEAR_EXPERIENCE"
+    };
+
     private static final String[] featuresNexus = {
             "com.google.android.apps.photos.NEXUS_PRELOAD",
             "com.google.android.apps.photos.nexus_preload",
@@ -61,7 +72,17 @@ public class CustomFeaturesUtils {
         if (packageName != null &&
                 packageName.equals("com.google.android.apps.photos")) {
             if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
+            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
+        }
+        if (Arrays.asList(featuresTensor).contains(name) &&
+                !Arrays.asList(pTensorCodenames).contains(SystemProperties.get("ro.product.device"))) {
+            return false;
+        } else if (packageName != null && Arrays.asList(featuresTensor).contains(name)) {
+            if (packageName.contains("com.google.android.as")
+                || packageName.contains("com.google.android.apps.nexuslauncher")) {
+                return false;
+            }
         }
         if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
         return REPORT_SKIP;
