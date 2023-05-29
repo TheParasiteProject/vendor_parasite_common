@@ -73,6 +73,10 @@ public class CustomFeaturesUtils {
             "com.google.android.feature.GOOGLE_EXPERIENCE"
     };
 
+    private static final String[] featuresAndroid = {
+            "android.software.freeform_window_management"
+    };
+
     public int hasSystemFeatureCustom(String name) {
         String packageName = ActivityThread.currentPackageName();
         if (packageName != null &&
@@ -92,6 +96,7 @@ public class CustomFeaturesUtils {
                 return false;
             }
         }
+        if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
         if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
         if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
         return REPORT_SKIP;
