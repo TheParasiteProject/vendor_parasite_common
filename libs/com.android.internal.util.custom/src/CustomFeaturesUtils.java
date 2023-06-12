@@ -42,8 +42,6 @@ public class CustomFeaturesUtils {
             "com.google.photos.trust_debug_certs",
             "com.google.android.feature.AER_OPTIMIZED",
             "com.google.android.feature.NEXT_GENERATION_ASSISTANT",
-            "com.google.android.feature.ADAPTIVE_CHARGING",
-            "com.google.android.feature.DREAMLINER",
             "android.software.game_service",
             "com.google.android.feature.EXCHANGE_6_2",
             "com.google.android.apps.dialer.call_recording_audio",
