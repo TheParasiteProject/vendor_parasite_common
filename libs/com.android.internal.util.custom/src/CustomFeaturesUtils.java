@@ -32,9 +32,6 @@ public class CustomFeaturesUtils {
             "com.google.android.feature.PIXEL_2019_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2018_EXPERIENCE",
             "com.google.android.feature.PIXEL_2017_EXPERIENCE",
-            "com.google.android.feature.PIXEL_EXPERIENCE",
-            "com.google.android.feature.GOOGLE_BUILD",
-            "com.google.android.feature.GOOGLE_EXPERIENCE"
     };
 
     private static final String[] featuresPixelOthers = {
