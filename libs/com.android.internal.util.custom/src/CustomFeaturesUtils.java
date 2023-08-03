@@ -78,22 +78,17 @@ public class CustomFeaturesUtils {
     };
 
     public int hasSystemFeatureCustom(String name) {
+        if (name != null && Arrays.asList(featuresTensor).contains(name) &&
+                !Arrays.asList(pTensorCodenames).contains(SystemProperties.get("org.pixelexperience.device"))) {
+            return REPORT_FALSE;
+        }
         String packageName = ActivityThread.currentPackageName();
         if (packageName != null &&
                 packageName.equals("com.google.android.apps.photos")) {
             if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
             if (Arrays.asList(featuresP23).contains(name)) return REPORT_FALSE;
-            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
-        }
-        if (Arrays.asList(featuresTensor).contains(name) &&
-                !Arrays.asList(pTensorCodenames).contains(SystemProperties.get("ro.product.device"))) {
-            return false;
-        } else if (packageName != null && Arrays.asList(featuresTensor).contains(name)) {
-            if (packageName.contains("com.google.android.apps.nexuslauncher")) {
-                return false;
-            }
         }
         if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
         if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
