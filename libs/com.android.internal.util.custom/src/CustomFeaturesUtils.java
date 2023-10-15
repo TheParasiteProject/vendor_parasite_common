@@ -10,6 +10,8 @@ public class CustomFeaturesUtils {
     private static final int REPORT_SKIP = 255;
 
     private static final String[] pTensorCodenames = {
+            "husky",
+            "shiba",
             "felix",
             "tangorpro",
             "lynx",
