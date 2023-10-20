@@ -54,14 +54,11 @@ public class CustomFeaturesUtils {
             "com.google.android.apps.dialer.SUPPORTED"
     };
 
-    private static final String[] featuresP23 = {
+    private static final String[] featuresTensor = {
             "com.google.android.feature.PIXEL_2024_EXPERIENCE",
             "com.google.android.feature.PIXEL_2024_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2023_EXPERIENCE",
             "com.google.android.feature.PIXEL_2023_MIDYEAR_EXPERIENCE",
-    };
-
-    private static final String[] featuresTensor = {
             "com.google.android.feature.PIXEL_2022_EXPERIENCE",
             "com.google.android.feature.PIXEL_2022_MIDYEAR_EXPERIENCE",
             "com.google.android.feature.PIXEL_2021_EXPERIENCE",
@@ -90,7 +87,6 @@ public class CustomFeaturesUtils {
                 && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", true))) {
             if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
-            if (Arrays.asList(featuresP23).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
         }
         if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
