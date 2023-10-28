@@ -9,18 +9,8 @@ public class CustomFeaturesUtils {
     private static final int REPORT_TRUE = 1;
     private static final int REPORT_SKIP = 255;
 
-    private static final String[] pTensorCodenames = {
-            "husky",
-            "shiba",
-            "felix",
-            "tangorpro",
-            "lynx",
-            "cheetah",
-            "panther",
-            "bluejay",
-            "oriole",
-            "raven"
-    };
+    private static final Boolean sHasTensorSoC =
+            SystemProperties.get("ro.soc.manufacturer", "").toLowerCase().contains("google");
 
     private static final String[] featuresPixel = {
             "com.google.android.apps.photos.PIXEL_2019_PRELOAD",
@@ -77,8 +67,7 @@ public class CustomFeaturesUtils {
     };
 
     public int hasSystemFeatureCustom(String name) {
-        if (name != null && Arrays.asList(featuresTensor).contains(name) &&
-                !Arrays.asList(pTensorCodenames).contains(SystemProperties.get("org.pixelexperience.device"))) {
+        if (name != null && Arrays.asList(featuresTensor).contains(name) && !sHasTensorSoC) {
             return REPORT_FALSE;
         }
         String packageName = ActivityThread.currentPackageName();
