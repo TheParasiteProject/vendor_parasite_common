@@ -204,46 +204,31 @@ public class PixelPropsUtils {
             customGoogleCameraPackages.contains(packageName);
     }
 
-    private static void spoofBuildGms() {
-        String[] sCertifiedProps = {
-            SystemProperties.get("persist.sys.pihooks.manufacturer", ""),
-            SystemProperties.get("persist.sys.pihooks.model", ""),
-            SystemProperties.get("persist.sys.pihooks.fingerprint", ""),
-            SystemProperties.get("persist.sys.pihooks.brand", ""),
-            SystemProperties.get("persist.sys.pihooks.product", ""),
-            SystemProperties.get("persist.sys.pihooks.device", ""),
-            SystemProperties.get("persist.sys.pihooks.release", ""),
-            SystemProperties.get("persist.sys.pihooks.id", ""),
-            SystemProperties.get("persist.sys.pihooks.incremental", ""),
-            SystemProperties.get("persist.sys.pihooks.type", ""),
-            SystemProperties.get("persist.sys.pihooks.tags", ""),
-            SystemProperties.get("persist.sys.pihooks.security_patch", ""),
-            SystemProperties.get("persist.sys.pihooks.api_level", "")
-        };
+    private static final String cert_device = SystemProperties.get("persist.sys.pihooks.device", "");
+    private static final String cert_fp = SystemProperties.get("persist.sys.pihooks.fingerprint", "");
+    private static final String cert_model = SystemProperties.get("persist.sys.pihooks.model", "");
+    private static final String cert_spl = SystemProperties.get("persist.sys.pihooks.security_patch", "");
+    private static final String cert_manufacturer = SystemProperties.get("persist.sys.pihooks.manufacturer", "");
+    private static final int cert_sdk = SystemProperties.getInt("persist.sys.pihooks.api_level", "");
 
-        if (sCertifiedProps == null || sCertifiedProps.length == 0) return;
-        // Alter model name and fingerprint to avoid hardware attestation enforcement
-        setPropValue("MANUFACTURER", sCertifiedProps[0]);
-        setPropValue("MODEL", sCertifiedProps[1]);
-        setPropValue("FINGERPRINT", sCertifiedProps[2]);
-        setPropValue("BRAND", sCertifiedProps[3]);
-        setPropValue("PRODUCT", sCertifiedProps[4].isEmpty() ? getDeviceName(sCertifiedProps[2]) : sCertifiedProps[4]);
-        setPropValue("DEVICE", sCertifiedProps[5].isEmpty() ? getDeviceName(sCertifiedProps[2]) : sCertifiedProps[5]);
-        if (!sCertifiedProps[6].isEmpty()) {
-            setPropValue("RELEASE", sCertifiedProps[6]);
-        }
-        setPropValue("ID", sCertifiedProps[7].isEmpty() ? getBuildID(sCertifiedProps[2]) : sCertifiedProps[7]);
-        if (!sCertifiedProps[8].isEmpty()) {
-            setPropValue("INCREMENTAL", sCertifiedProps[8]);
-        }
-        setPropValue("TYPE", sCertifiedProps[9].isEmpty() ? "user" : sCertifiedProps[9]);
-        setPropValue("TAGS", sCertifiedProps[10].isEmpty() ? "release-keys" : sCertifiedProps[10]);
-        if (!sCertifiedProps[11].isEmpty()) {
-            setPropValue("SECURITY_PATCH", sCertifiedProps[11]);
-        }
-        if (!sCertifiedProps[12].isEmpty() && sCertifiedProps[12].matches("\\d+")) {
-            setPropValue("DEVICE_INITIAL_SDK_INT", Integer.parseInt(sCertifiedProps[12]));
-        }
+    private static final HashMap<String, Object> certifiedProps;
+    static {
+        Map<String, Object> tMap = new HashMap<>();
+        String[] sections = cert_fp.split("/");
+        tMap.put("MANUFACTURER", cert_manufacturer);
+        tMap.put("MODEL", cert_model);
+        tMap.put("FINGERPRINT", cert_fp);
+        tMap.put("BRAND", sections[0]);
+        tMap.put("PRODUCT", sections[1]);
+        tMap.put("DEVICE", cert_device);
+        tMap.put("RELEASE", sections[2].split(":")[1]);
+        tMap.put("ID", sections[3]);
+        tMap.put("INCREMENTAL", sections[4].split(":")[0]);
+        tMap.put("TYPE", sections[4].split(":")[1]);
+        tMap.put("TAGS", sections[5]);
+        tMap.put("SECURITY_PATCH", cert_spl);
+        tMap.put("DEVICE_INITIAL_SDK_INT", cert_sdk);
+        certifiedProps = new HashMap<>(tMap);
     }
 
     public static void setProps(Context context) {
@@ -433,7 +418,7 @@ public class PixelPropsUtils {
             }
         };
         if (!was) {
-            spoofBuildGms();
+            certifiedProps.forEach(PixelPropsUtils::setPropValue);
         } else {
             dlog("Skip spoofing build for GMS, because GmsAddAccountActivityOnTop!");
         }
