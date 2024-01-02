@@ -7,3 +7,7 @@ ifneq ($(PRODUCT_TYPE),go)
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.freeform_window_management.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.software.freeform_window_management.xml
 endif
+
+# Cloned app exemption
+PRODUCT_COPY_FILES += \
+     $(VENDOR_PARASITE_COMMON_DIR)/prebuilt/common/etc/sysconfig/preinstalled-packages-platform-custom-product.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/sysconfig/preinstalled-packages-platform-custom-product.xml
