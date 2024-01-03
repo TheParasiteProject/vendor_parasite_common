@@ -546,6 +546,20 @@ public final class PixelPropsUtils {
         return false;
     }
 
+    // Whitelist of package names to bypass broadcast reciever validation
+    public static boolean shouldBypassBroadcastReceiverValidation(String packageName) {
+        // Check if the app is whitelisted
+        if (Arrays.asList(getStringArrayResSafely(R.array.config_broadcaseReceiverValidationBypassPackages))
+                .contains(packageName)) {
+            dlog(
+                    "shouldBypassBroadcastReceiverValidation: "
+                            + "Bypassing broadcast receiver validation for whitelisted app: "
+                            + packageName);
+            return true;
+        }
+        return false;
+    }
+
     public static void dlog(String msg) {
         if (DEBUG) Log.d(TAG, msg);
     }
