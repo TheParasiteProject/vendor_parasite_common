@@ -26,6 +26,10 @@ PRODUCT_SYSTEM_PROPERTIES += \
     init.svc_debug.no_fatal.zygote=true \
     persist.device_config.configuration.disable_rescue_party=true
 
+# Permissions
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.control_privapp_permissions=log
+
 # Sensors
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor

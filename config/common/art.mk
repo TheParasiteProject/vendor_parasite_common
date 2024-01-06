@@ -27,6 +27,7 @@ SYSTEMUI_OPTIMIZE_JAVA ?= true
 # Disable debug infos
 ifeq ($(TARGET_BUILD_VARIANT), user)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    dalvik.vm.minidebuginfo=false \
     dalvik.vm.dex2oat-minidebuginfo=false
 endif
 
@@ -45,9 +46,20 @@ PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
 
 # Dexopt boot types
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    pm.dexopt.post-boot=extract \
+    pm.dexopt.boot-after-mainline-update=verify \
     pm.dexopt.first-boot=verify \
     pm.dexopt.boot-after-ota=verify \
     pm.dexopt.boot-after-mainline-update=verify
+
+# Dexopt install
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    pm.dexopt.install=speed-profile \
+    pm.dexopt.install-fast=skip \
+    pm.dexopt.install-bulk=speed-profile \
+    pm.dexopt.install-bulk-secondary=verify \
+    pm.dexopt.install-bulk-downgraded=verify \
+    pm.dexopt.install-bulk-secondary-downgraded=extract
 
 # Dexopt filters
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
@@ -56,6 +68,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.systemuicompilerfilter=speed \
     dalvik.vm.madvise-random=true \
     pm.dexopt.bg-dexopt=speed-profile \
+    pm.dexopt.ab-ota=speed-profile \
     pm.dexopt.cmdline=verify \
     pm.dexopt.inactive=verify \
     pm.dexopt.shared=speed \
