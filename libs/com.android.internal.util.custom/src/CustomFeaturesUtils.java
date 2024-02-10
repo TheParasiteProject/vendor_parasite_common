@@ -61,11 +61,18 @@ public class CustomFeaturesUtils {
             return REPORT_FALSE;
         }
         String packageName = ActivityThread.currentPackageName();
-        if (packageName != null &&
-                (packageName.equals("com.google.android.apps.photos")
-                && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false))) {
+        if (packageName != null
+                && packageName.equals("com.google.android.apps.photos")
+                && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
             if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
+            if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
+        }
+        if (packageName != null
+                && packageName.equals("com.google.android.googlequicksearchbox")) {
+            if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
+            if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
+            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_TRUE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
         }
         if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
