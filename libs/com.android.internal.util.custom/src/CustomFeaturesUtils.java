@@ -57,9 +57,6 @@ public class CustomFeaturesUtils {
     };
 
     public int hasSystemFeatureCustom(String name) {
-        if (name != null && Arrays.asList(featuresTensor).contains(name) && !sHasTensorSoC) {
-            return REPORT_FALSE;
-        }
         String packageName = ActivityThread.currentPackageName();
         if (packageName != null
                 && packageName.equals("com.google.android.apps.photos")
@@ -74,6 +71,9 @@ public class CustomFeaturesUtils {
             if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
             if (Arrays.asList(featuresTensor).contains(name)) return REPORT_TRUE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
+        }
+        if (name != null && Arrays.asList(featuresTensor).contains(name) && !sHasTensorSoC) {
+            return REPORT_FALSE;
         }
         if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
         if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
