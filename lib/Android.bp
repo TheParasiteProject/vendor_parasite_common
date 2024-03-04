@@ -27,6 +27,10 @@ java_library {
         lineage_sdk_lib_src + "/phone/*.java",
         ":spn-info",
     ],
+    
+    required: [
+        "sensitive_pn.xml",
+    ],
 }
 
 // Sensitive Phone Numbers schema
@@ -41,4 +45,11 @@ xsd_config {
     srcs: [":spn-schema"],
     api_dir: "schema",
     package_name: "org.lineageos.lib.phone.spn",
+}
+
+prebuilt_etc_xml {
+    name: "sensitive_pn.xml",
+    product_specific: true,
+    src: "sensitive_pn.xml",
+    schema: ":spn-schema",
 }
