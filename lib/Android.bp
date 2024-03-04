@@ -19,6 +19,8 @@ lineage_sdk_lib_src = "src/java/org/lineageos/lib/"
 java_library {
     name: "org.lineageos.lib.phone",
     sdk_version: "current",
+    installable: true,
+    provides_uses_lib: "org.lineageos.lib.phone",
     static_libs: [
         "libphonenumber",
     ],
@@ -30,6 +32,7 @@ java_library {
     
     required: [
         "sensitive_pn.xml",
+        "org.lineageos.lib.phone.xml",
     ],
 }
 
@@ -45,6 +48,12 @@ xsd_config {
     srcs: [":spn-schema"],
     api_dir: "schema",
     package_name: "org.lineageos.lib.phone.spn",
+}
+
+prebuilt_etc {
+    name: "org.lineageos.lib.phone.xml",
+    src: "org.lineageos.lib.phone.xml",
+    sub_dir: "permissions",
 }
 
 prebuilt_etc_xml {
