@@ -5,6 +5,10 @@ import android.app.ActivityThread;
 import java.util.Arrays;
 
 public class CustomFeaturesUtils {
+    private static final int REPORT_FALSE = 0;
+    private static final int REPORT_TRUE = 1;
+    private static final int REPORT_SKIP = 255;
+
     private static final String[] featuresPixel = {
             "com.google.android.apps.photos.PIXEL_2019_PRELOAD",
             "com.google.android.apps.photos.PIXEL_2019_MIDYEAR_PRELOAD",
@@ -39,15 +43,16 @@ public class CustomFeaturesUtils {
             "com.google.android.feature.GOOGLE_EXPERIENCE"
     };
 
-    public boolean hasSystemFeatureCustom(String name) {
+    public int hasSystemFeatureCustom(String name) {
         String packageName = ActivityThread.currentPackageName();
         if (packageName != null &&
                 packageName.equals("com.google.android.apps.photos")) {
-            if (Arrays.asList(featuresPixel).contains(name)) return false;
-            if (Arrays.asList(featuresP22).contains(name)) return false;
-            if (Arrays.asList(featuresP21).contains(name)) return false;
-            if (Arrays.asList(featuresNexus).contains(name)) return true;
+            if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
+            if (Arrays.asList(featuresP22).contains(name)) return REPORT_FALSE;
+            if (Arrays.asList(featuresP21).contains(name)) return REPORT_FALSE;
+            if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
         }
-        if (Arrays.asList(featuresPixel).contains(name)) return true;
+        if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
+        return REPORT_SKIP;
     }
 }
