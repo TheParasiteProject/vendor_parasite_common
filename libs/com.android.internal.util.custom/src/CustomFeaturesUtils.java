@@ -63,6 +63,7 @@ public class CustomFeaturesUtils {
                 && packageName.equals("com.google.android.apps.photos")
                 && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
             if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
+            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_FALSE;
             if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
             if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
         }
