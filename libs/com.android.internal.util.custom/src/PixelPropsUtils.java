@@ -26,8 +26,8 @@ import android.app.ActivityManager;
 import android.app.ActivityTaskManager;
 import android.app.Application;
 import android.app.TaskStackListener;
-import android.content.Context;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Binder;
@@ -43,12 +43,12 @@ import org.lineageos.platform.internal.R;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class PixelPropsUtils {
 
@@ -89,31 +89,31 @@ public class PixelPropsUtils {
     private static final ArrayList<String> packagesToChangeRecentPixel = 
         new ArrayList<String> (
             Arrays.asList(
-                "com.google.android.apps.emojiwallpaper",
-                "com.google.android.wallpaper.effects",
-                "com.google.pixel.livewallpaper",
-                "com.google.android.apps.wallpaper.pixel",
-                "com.google.android.apps.wallpaper",
                 "com.google.android.apps.bard",
                 "com.google.android.apps.customization.pixel",
+                "com.google.android.apps.emojiwallpaper",
+                "com.google.android.apps.photos",
                 "com.google.android.apps.privacy.wildlife",
                 "com.google.android.apps.subscriptions.red",
-                "com.google.android.apps.photos",
+                "com.google.android.apps.wallpaper.pixel",
+                "com.google.android.apps.wallpaper",
                 "com.google.android.gms",
-                "com.google.android.googlequicksearchbox"
+                "com.google.android.googlequicksearchbox",
+                "com.google.android.wallpaper.effects",
+                "com.google.pixel.livewallpaper"
         ));
 
     private static final ArrayList<String> extraPackagesToChange = 
         new ArrayList<String> (
             Arrays.asList(
+                "com.amazon.avod.thirdpartyclient",
                 "com.android.chrome",
                 "com.breel.wallpapers20",
-                "com.microsoft.android.smsorganizer",
-                "com.nothing.smartcenter",
-                "com.nhs.online.nhsonline",
-                "com.amazon.avod.thirdpartyclient",
                 "com.disney.disneyplus",
+                "com.microsoft.android.smsorganizer",
                 "com.netflix.mediaclient",
+                "com.nhs.online.nhsonline",
+                "com.nothing.smartcenter",
                 "in.startv.hotstar",
                 "jp.id_credit_sp2.android"
         ));
@@ -121,37 +121,37 @@ public class PixelPropsUtils {
     private static final ArrayList<String> customGoogleCameraPackages = 
         new ArrayList<String> (
             Arrays.asList(
+                "com.google.android.apps.cameralite",
                 "com.google.android.MTCL83",
-                "com.google.android.UltraCVM",
-                "com.google.android.apps.cameralite"
+                "com.google.android.UltraCVM"
         ));
 
     private static final ArrayList<String> packagesToKeep = 
         new ArrayList<String> (
             Arrays.asList(
-                "com.google.android.as",
-                "com.google.android.apps.miphone.aiai.AiaiApplication",
-                "com.google.android.apps.motionsense.bridge",
-                "com.google.android.euicc",
-                "com.google.ar.core",
-                "com.google.android.youtube",
-                "com.google.android.apps.youtube.kids",
-                "com.google.android.apps.youtube.music",
-                "com.google.android.apps.wearables.maestro.companion",
-                "com.google.android.apps.subscriptions.red",
-                "com.google.android.apps.tachyon",
-                "com.google.android.apps.tycho",
-                "com.google.android.apps.restore",
-                "com.google.oslo",
-                "it.ingdirect.app",
-                "com.google.android.apps.nexuslauncher",
-                "com.google.intelligence.sense",
-                "com.google.android.apps.tips",
                 "com.google.android.apps.dreamliner",
                 "com.google.android.apps.dreamlinerupdater",
+                "com.google.android.apps.miphone.aiai.AiaiApplication",
+                "com.google.android.apps.motionsense.bridge",
+                "com.google.android.apps.nexuslauncher",
                 "com.google.android.apps.pixelmigrate",
+                "com.google.android.apps.restore",
+                "com.google.android.apps.subscriptions.red",
+                "com.google.android.apps.tachyon",
+                "com.google.android.apps.tips",
+                "com.google.android.apps.tycho",
+                "com.google.android.apps.wearables.maestro.companion",
+                "com.google.android.apps.youtube.kids",
+                "com.google.android.apps.youtube.music",
+                "com.google.android.as",
+                "com.google.android.backuptransport",
                 "com.google.android.backupuses",
-                "com.google.android.backuptransport"
+                "com.google.android.euicc",
+                "com.google.android.youtube",
+                "com.google.ar.core",
+                "com.google.intelligence.sense",
+                "com.google.oslo",
+                "it.ingdirect.app"
         ));
 
     private static final String sNetflixModel =
@@ -283,6 +283,10 @@ public class PixelPropsUtils {
             return;
         }
 
+        if (isGoogleCameraPackage(packageName)) {
+            return;
+        }
+
         Map<String, Object> propsToChange = new HashMap<>();
         if (sIsGoogle || sIsSamsung
             || extraPackagesToChange.contains(packageName)
@@ -296,11 +300,6 @@ public class PixelPropsUtils {
             } else {
                 propsToChange = propsToChangePixel5a;
             }
-            if (packageName.equals("com.google.android.apps.photos")) {
-                if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
-                    propsToChange = propsToChangePixelXL;
-                }
-            }
             if (sIsGms
                 && (processName.toLowerCase().contains("ui")
                 || processName.toLowerCase().contains("chimera")
@@ -311,9 +310,10 @@ public class PixelPropsUtils {
                 || processName.toLowerCase().contains("search"))) {
                 propsToChange = propsToChangePixel5a;
             }
-            // Allow process spoofing for GoogleCamera packages
-            if (isGoogleCameraPackage(packageName) && (propsToChange == null || propsToChange.isEmpty())) {
-                return;
+            if (packageName.equals("com.google.android.apps.photos")) {
+                if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
+                    propsToChange = propsToChangePixelXL;
+                }
             }
         }
         if (propsToChange == null || propsToChange.isEmpty()) return;
@@ -400,9 +400,8 @@ public class PixelPropsUtils {
         if (!sIsGms) return false;
 
         final String processName = Application.getProcessName();
-        if (!processName.toLowerCase().contains("unstable")
-                && !processName.toLowerCase().contains("pixelmigrate")
-                && !processName.toLowerCase().contains("instrumentation")) {
+        if (!processName.toLowerCase().contains("unstable") &&
+            !processName.toLowerCase().contains("instrumentation")) {
             return false;
         }
 
