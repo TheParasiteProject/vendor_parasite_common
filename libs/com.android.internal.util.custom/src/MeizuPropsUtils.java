@@ -37,14 +37,14 @@ public class MeizuPropsUtils {
     private static final Map<String, Object> propsToChange;
 
     private static final String[] packagesToChange = {
-        "com.hihonor.cloudmusic",
-        "com.netease.cloudmusic",
-        "com.tencent.qqmusic",
-        "com.kugou.android",
-        "com.kugou.android.lite",
         "cmccwm.mobilemusic",
         "cn.kuwo.player",
-        "com.meizu.media.music"
+        "com.hihonor.cloudmusic",
+        "com.kugou.android.lite",
+        "com.kugou.android",
+        "com.meizu.media.music",
+        "com.netease.cloudmusic",
+        "com.tencent.qqmusic",
     };
 
     static {
