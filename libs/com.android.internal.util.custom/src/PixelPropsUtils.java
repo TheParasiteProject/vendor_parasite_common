@@ -302,7 +302,6 @@ public class PixelPropsUtils {
             }
             if (sIsGms
                 && (processName.toLowerCase().contains("ui")
-                || processName.toLowerCase().contains("chimera")
                 || processName.toLowerCase().contains("gapps")
                 || processName.toLowerCase().contains("gservice")
                 || processName.toLowerCase().contains("learning")
