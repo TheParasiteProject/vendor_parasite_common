@@ -399,8 +399,7 @@ public class PixelPropsUtils {
         if (!sIsGms) return false;
 
         final String processName = Application.getProcessName();
-        if (!processName.toLowerCase().contains("unstable") &&
-            !processName.toLowerCase().contains("instrumentation")) {
+        if (!processName.toLowerCase().contains("unstable")) {
             return false;
         }
 
