@@ -8,9 +8,11 @@ PRODUCT_PACKAGES += \
 
 # Camera
 ifneq ($(PRODUCT_NO_CAMERA),true)
+ifneq ($(TARGET_INCLUDE_APERTURE),false)
 PRODUCT_PACKAGES += \
     Aperture
-endif
+endif #TARGET_INCLUDE_APERTURE
+endif #PRODUCT_NO_CAMERA
 
 # SystemUI Flag configuration
 PRODUCT_PACKAGES += \
