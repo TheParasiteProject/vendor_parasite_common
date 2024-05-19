@@ -104,16 +104,21 @@ public class PixelPropsUtils {
                 "com.google.pixel.livewallpaper"
         ));
 
+    private static final ArrayList<String> packagesToChangePixel5a = 
+        new ArrayList<String> (
+            Arrays.asList(
+                "com.android.chrome",
+                "com.breel.wallpapers20",
+                "com.nhs.online.nhsonline"
+        ));
+
     private static final ArrayList<String> extraPackagesToChange = 
         new ArrayList<String> (
             Arrays.asList(
                 "com.amazon.avod.thirdpartyclient",
-                "com.android.chrome",
-                "com.breel.wallpapers20",
                 "com.disney.disneyplus",
                 "com.microsoft.android.smsorganizer",
                 "com.netflix.mediaclient",
-                "com.nhs.online.nhsonline",
                 "com.nothing.smartcenter",
                 "in.startv.hotstar",
                 "jp.id_credit_sp2.android"
@@ -305,7 +310,9 @@ public class PixelPropsUtils {
                 propsToChange = propsToChangeRecentPixel;
             } else if (sIsTablet) {
                 propsToChange = propsToChangePixelTablet;
-            } else {
+            } else if (packagesToChangePixel5a.contains(packageName)
+                || packagesToChangePixel5a.contains(processName)
+                || sIsSamsung) {
                 propsToChange = propsToChangePixel5a;
             }
             if (sIsGms
