@@ -209,25 +209,27 @@ public class PixelPropsUtils {
     private static final String cert_model = SystemProperties.get("persist.sys.pihooks.model", "");
     private static final String cert_spl = SystemProperties.get("persist.sys.pihooks.security_patch", "");
     private static final String cert_manufacturer = SystemProperties.get("persist.sys.pihooks.manufacturer", "");
-    private static final int cert_sdk = SystemProperties.getInt("persist.sys.pihooks.api_level", "");
+    private static final int cert_sdk = SystemProperties.getInt("persist.sys.pihooks.api_level", 0);
 
     private static final HashMap<String, Object> certifiedProps;
     static {
         Map<String, Object> tMap = new HashMap<>();
         String[] sections = cert_fp.split("/");
-        tMap.put("MANUFACTURER", cert_manufacturer);
-        tMap.put("MODEL", cert_model);
-        tMap.put("FINGERPRINT", cert_fp);
-        tMap.put("BRAND", sections[0]);
-        tMap.put("PRODUCT", sections[1]);
-        tMap.put("DEVICE", cert_device);
-        tMap.put("RELEASE", sections[2].split(":")[1]);
-        tMap.put("ID", sections[3]);
-        tMap.put("INCREMENTAL", sections[4].split(":")[0]);
-        tMap.put("TYPE", sections[4].split(":")[1]);
-        tMap.put("TAGS", sections[5]);
-        tMap.put("SECURITY_PATCH", cert_spl);
-        tMap.put("DEVICE_INITIAL_SDK_INT", cert_sdk);
+        if (!cert_manufacturer.isEmpty()) tMap.put("MANUFACTURER", cert_manufacturer);
+        if (!cert_model.isEmpty()) tMap.put("MODEL", cert_model);
+        if (!cert_fp.isEmpty()) {
+            tMap.put("FINGERPRINT", cert_fp);
+            tMap.put("BRAND", sections[0]);
+            tMap.put("PRODUCT", sections[1]);
+            tMap.put("RELEASE", sections[2].split(":")[1]);
+            tMap.put("ID", sections[3]);
+            tMap.put("INCREMENTAL", sections[4].split(":")[0]);
+            tMap.put("TYPE", sections[4].split(":")[1]);
+            tMap.put("TAGS", sections[5]);
+        }
+        if (!cert_device.isEmpty()) tMap.put("DEVICE", cert_device);
+        if (!cert_spl.isEmpty()) tMap.put("SECURITY_PATCH", cert_spl);
+        if (cert_sdk != 0) tMap.put("DEVICE_INITIAL_SDK_INT", cert_sdk);
         certifiedProps = new HashMap<>(tMap);
     }
 
@@ -404,6 +406,8 @@ public class PixelPropsUtils {
         }
 
         setPropValue("TIME", System.currentTimeMillis());
+
+        if (certifiedProps.isEmpty()) return false;
 
         final boolean was = isGmsAddAccountActivityOnTop();
         final TaskStackListener taskStackListener = new TaskStackListener() {
