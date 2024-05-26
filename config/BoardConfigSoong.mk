@@ -14,10 +14,12 @@ SOONG_CONFIG_lineageGlobalVars += \
     target_camera_package_name \
     target_inputdispatcher_skip_event_key \
     target_uses_prebuilt_dynamic_partitions \
-    uses_legacy_fd_fbdev
+    uses_legacy_fd_fbdev \
+    target_libcameraservice_ext_lib
 
 # Set default values
 TARGET_INPUTDISPATCHER_SKIP_EVENT_KEY ?= 0
+TARGET_CAMERA_SERVICE_EXT_LIB ?= libcameraservice_ext_lib
 
 # Soong value variables
 SOONG_CONFIG_lineageGlobalVars_camera_needs_camera_needs_depth_sensor_override := $(TARGET_USES_DEPTHSENSOR_OVERRIDE)
@@ -36,3 +38,4 @@ SOONG_CONFIG_lineageGlobalVars_target_camera_package_name := $(TARGET_CAMERA_PAC
 SOONG_CONFIG_lineageGlobalVars_target_inputdispatcher_skip_event_key := $(TARGET_INPUTDISPATCHER_SKIP_EVENT_KEY)
 SOONG_CONFIG_lineageGlobalVars_target_uses_prebuilt_dynamic_partitions := $(TARGET_USES_PREBUILT_DYNAMIC_PARTITIONS)
 SOONG_CONFIG_lineageGlobalVars_uses_legacy_fd_fbdev := $(TARGET_USES_LEGACY_FD_FBDEV)
+SOONG_CONFIG_lineageGlobalVars_target_libcameraservice_ext_lib := $(TARGET_CAMERA_SERVICE_EXT_LIB)
