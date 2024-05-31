@@ -6,6 +6,7 @@
  * Copyright (C) 2023 the RisingOS Android Project
  *           (C) 2023 ArrowOS
  *           (C) 2023 The LibreMobileOS Foundation
+ *           (C) 2019-2024 The Evolution X Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -104,7 +105,6 @@ public class PixelPropsUtils {
                 "com.google.android.apps.wallpaper",
                 "com.google.android.gms",
                 "com.google.android.googlequicksearchbox",
-                "com.google.android.inputmethod.latin",
                 "com.google.android.wallpaper.effects",
                 "com.google.pixel.livewallpaper"
         ));
@@ -149,6 +149,7 @@ public class PixelPropsUtils {
                 "com.google.android.backuptransport",
                 "com.google.android.backupuses",
                 "com.google.android.euicc",
+                "com.google.android.inputmethod.latin",
                 "com.google.android.youtube",
                 "com.google.ar.core",
                 "com.google.intelligence.sense",
@@ -162,7 +163,7 @@ public class PixelPropsUtils {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static volatile boolean sIsGms, sIsFinsky, sIsSetupWizard, sIsGoogle, sIsSamsung;
+    private static volatile boolean sIsGms, sIsSetupWizard, sIsGoogle, sIsSamsung;
 
     private static String getBuildID(String fingerprint) {
         Pattern pattern = Pattern.compile("([A-Za-z0-9]+\\.\\d+\\.\\d+\\.\\w+)");
@@ -268,7 +269,6 @@ public class PixelPropsUtils {
         sIsGoogle = packageName.toLowerCase().contains("google") || processName.toLowerCase().contains("google");
         sIsSamsung = packageName.toLowerCase().contains("samsung") || processName.toLowerCase().contains("samsung");
         sIsGms = packageName.equals("com.google.android.gms");
-        sIsFinsky = packageName.equals("com.android.vending");
         sIsSetupWizard = packageName.equals("com.google.android.setupwizard");
 
         if (shouldTryToCertifyDevice()) {
@@ -467,7 +467,7 @@ public class PixelPropsUtils {
             Process.killProcess(Process.myPid());
             return;
         }
-        if (isCallerSafetyNet() || sIsFinsky) {
+        if (isCallerSafetyNet()) {
             dlog("Blocked key attestation");
             throw new UnsupportedOperationException();
         }
