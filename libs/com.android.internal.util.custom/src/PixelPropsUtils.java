@@ -89,6 +89,9 @@ public class PixelPropsUtils {
     private static final ArrayList<String> packagesToChangeRecentPixel = 
         new ArrayList<String> (
             Arrays.asList(
+                "com.android.chrome",
+                "com.breel.wallpapers20",
+                "com.nhs.online.nhsonline",
                 "com.google.android.apps.aiwallpapers",
                 "com.google.android.apps.bard",
                 "com.google.android.apps.customization.pixel",
@@ -104,14 +107,6 @@ public class PixelPropsUtils {
                 "com.google.android.inputmethod.latin",
                 "com.google.android.wallpaper.effects",
                 "com.google.pixel.livewallpaper"
-        ));
-
-    private static final ArrayList<String> packagesToChangePixel5a = 
-        new ArrayList<String> (
-            Arrays.asList(
-                "com.android.chrome",
-                "com.breel.wallpapers20",
-                "com.nhs.online.nhsonline"
         ));
 
     private static final ArrayList<String> extraPackagesToChange = 
@@ -299,9 +294,7 @@ public class PixelPropsUtils {
                 propsToChange = propsToChangeRecentPixel;
             } else if (sIsTablet) {
                 propsToChange = propsToChangePixelTablet;
-            } else if (packagesToChangePixel5a.contains(packageName)
-                || packagesToChangePixel5a.contains(processName)
-                || sIsSamsung) {
+            } else if (sIsSamsung) {
                 propsToChange = propsToChangePixel5a;
             }
             if (sIsGms
