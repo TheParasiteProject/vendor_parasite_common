@@ -92,7 +92,6 @@ public class PixelPropsUtils {
             Arrays.asList(
                 "com.android.chrome",
                 "com.breel.wallpapers20",
-                "com.nhs.online.nhsonline",
                 "com.google.android.apps.aiwallpapers",
                 "com.google.android.apps.bard",
                 "com.google.android.apps.customization.pixel",
@@ -106,7 +105,8 @@ public class PixelPropsUtils {
                 "com.google.android.gms",
                 "com.google.android.googlequicksearchbox",
                 "com.google.android.wallpaper.effects",
-                "com.google.pixel.livewallpaper"
+                "com.google.pixel.livewallpaper",
+                "com.nhs.online.nhsonline"
         ));
 
     private static final ArrayList<String> extraPackagesToChange = 
