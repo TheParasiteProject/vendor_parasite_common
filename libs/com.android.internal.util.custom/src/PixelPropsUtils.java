@@ -231,9 +231,27 @@ public class PixelPropsUtils {
         certifiedProps = new HashMap<>(tMap);
     }
 
+    public static boolean setPropsForGphotos(Context context) {
+        if (context == null) return false;
+
+        final String packageName = context.getPackageName();
+        if (packageName == null || packageName.isEmpty()) {
+            return false;
+        }
+
+        if (packageName.equals("com.google.android.apps.photos")) {
+            if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
+                propsToChangePixelXL.forEach((k, v) -> setPropValue(k, v));
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void setProps(Context context) {
         if (!sEnablePixelProps) {
             dlog("Pixel props is disabled by config");
+            setPropsForGphotos(context);
             return;
         }
 
@@ -284,6 +302,10 @@ public class PixelPropsUtils {
             return;
         }
 
+        if (setPropsForGphotos(context)) {
+            return;
+        } 
+
         Map<String, Object> propsToChange = new HashMap<>();
         if (sIsGoogle || sIsSamsung
             || extraPackagesToChange.contains(packageName)
@@ -305,11 +327,6 @@ public class PixelPropsUtils {
                 || processName.toLowerCase().contains("persistent")
                 || processName.toLowerCase().contains("search"))) {
                 propsToChange = propsToChangePixel5a;
-            }
-            if (packageName.equals("com.google.android.apps.photos")) {
-                if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
-                    propsToChange = propsToChangePixelXL;
-                }
             }
         }
         if (propsToChange == null || propsToChange.isEmpty()) return;
