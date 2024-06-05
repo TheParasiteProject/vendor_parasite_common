@@ -27,3 +27,12 @@ ifeq ($(TARGET_ENABLE_BLUR),true)
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.custom.blur.enable=true
 endif
+
+# Disable QCom Radio (IMS) logging
+ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+persist.vendor.ims.disableADBLogs=1 \
+persist.vendor.ims.disableDebugLogs=1 \
+persist.vendor.ims.disableIMSLogs=1 \
+persist.vendor.ims.disableQXDMLogs=1
+endif
