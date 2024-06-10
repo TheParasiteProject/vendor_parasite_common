@@ -18,12 +18,12 @@ LOCAL_PATH := $(call my-dir)
 
 include $(CLEAR_VARS)
 
-LINEAGE_SRC_API_DIR := $(TOPDIR)vendor/parasite/api
+LINEAGE_SRC_API_DIR := $(TOPDIR)vendor/parasite/common/api
 INTERNAL_LINEAGE_PLATFORM_API_FILE := $(TARGET_OUT_COMMON_INTERMEDIATES)/PACKAGING/lineage_public_api.txt
 INTERNAL_LINEAGE_PLATFORM_REMOVED_API_FILE := $(TARGET_OUT_COMMON_INTERMEDIATES)/PACKAGING/lineage_removed.txt
 FRAMEWORK_LINEAGE_PLATFORM_API_FILE := $(TOPDIR)lineage-sdk/api/lineage_current.txt
 FRAMEWORK_LINEAGE_PLATFORM_REMOVED_API_FILE := $(TOPDIR)lineage-sdk/api/lineage_removed.txt
-FRAMEWORK_LINEAGE_API_NEEDS_UPDATE_TEXT := $(TOPDIR)vendor/parasite/build/core/apicheck_msg_current.txt
+FRAMEWORK_LINEAGE_API_NEEDS_UPDATE_TEXT := $(TOPDIR)vendor/parasite/common/build/core/apicheck_msg_current.txt
 
 # We have a special case here where we build the library's resources
 # independently from its code, so we need to find where the resource
@@ -122,7 +122,7 @@ LOCAL_SRC_FILES := $(lineage_platform_docs_src_files)
 LOCAL_ADDITONAL_JAVA_DIR := $(lineage_platform_docs_LOCAL_ADDITIONAL_JAVA_DIR)
 
 LOCAL_IS_HOST_MODULE := false
-LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR := vendor/parasite/build/tools/droiddoc/templates-lineage-sdk
+LOCAL_DROIDDOC_CUSTOM_TEMPLATE_DIR := vendor/parasite/common/build/tools/droiddoc/templates-lineage-sdk
 
 LOCAL_JAVA_LIBRARIES := $(lineage_platform_docs_java_libraries)
 

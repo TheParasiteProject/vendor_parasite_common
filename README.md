@@ -1,3 +1,3 @@
-# vendor_parasite
+# vendor_parasite_common
 
 Vendor customisations for TheParasiteProject.
