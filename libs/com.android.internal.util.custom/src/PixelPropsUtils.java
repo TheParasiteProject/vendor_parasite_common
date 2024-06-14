@@ -163,7 +163,7 @@ public class PixelPropsUtils {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static volatile boolean sIsGms, sIsSetupWizard, sIsGoogle, sIsSamsung;
+    private static volatile boolean sIsGms, sIsSetupWizard, sIsGoogle;
 
     private static String getBuildID(String fingerprint) {
         Pattern pattern = Pattern.compile("([A-Za-z0-9]+\\.\\d+\\.\\d+\\.\\w+)");
@@ -285,7 +285,6 @@ public class PixelPropsUtils {
 
         final boolean sIsTablet = isDeviceTablet(context);
         sIsGoogle = packageName.toLowerCase().contains("google") || processName.toLowerCase().contains("google");
-        sIsSamsung = packageName.toLowerCase().contains("samsung") || processName.toLowerCase().contains("samsung");
         sIsGms = packageName.equals("com.google.android.gms");
         sIsSetupWizard = packageName.equals("com.google.android.setupwizard");
 
@@ -307,7 +306,7 @@ public class PixelPropsUtils {
         } 
 
         Map<String, Object> propsToChange = new HashMap<>();
-        if (sIsGoogle || sIsSamsung
+        if (sIsGoogle
             || extraPackagesToChange.contains(packageName)
             || extraPackagesToChange.contains(processName)) {
 
@@ -316,8 +315,6 @@ public class PixelPropsUtils {
                 propsToChange = propsToChangeRecentPixel;
             } else if (sIsTablet) {
                 propsToChange = propsToChangePixelTablet;
-            } else if (sIsSamsung) {
-                propsToChange = propsToChangePixel5a;
             }
             if (sIsGms
                 && (processName.toLowerCase().contains("ui")
