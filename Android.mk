@@ -21,8 +21,8 @@ include $(CLEAR_VARS)
 LINEAGE_SRC_API_DIR := $(TOPDIR)vendor/parasite/common/api
 INTERNAL_LINEAGE_PLATFORM_API_FILE := $(TARGET_OUT_COMMON_INTERMEDIATES)/PACKAGING/lineage_public_api.txt
 INTERNAL_LINEAGE_PLATFORM_REMOVED_API_FILE := $(TARGET_OUT_COMMON_INTERMEDIATES)/PACKAGING/lineage_removed.txt
-FRAMEWORK_LINEAGE_PLATFORM_API_FILE := $(TOPDIR)lineage-sdk/api/lineage_current.txt
-FRAMEWORK_LINEAGE_PLATFORM_REMOVED_API_FILE := $(TOPDIR)lineage-sdk/api/lineage_removed.txt
+FRAMEWORK_LINEAGE_PLATFORM_API_FILE := $(LINEAGE_SRC_API_DIR)/lineage_current.txt
+FRAMEWORK_LINEAGE_PLATFORM_REMOVED_API_FILE := $(LINEAGE_SRC_API_DIR)/lineage_removed.txt
 FRAMEWORK_LINEAGE_API_NEEDS_UPDATE_TEXT := $(TOPDIR)vendor/parasite/common/build/core/apicheck_msg_current.txt
 
 # We have a special case here where we build the library's resources
