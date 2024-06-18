@@ -59,6 +59,11 @@ public class PixelPropsUtils {
     private static final Boolean sEnablePixelProps =
             SystemProperties.getBoolean("persist.sys.pihooks.enable", true);
 
+    private static final Boolean sDeviceIsPixel =
+            SystemProperties.get("ro.product.manufacturer", "").toLowerCase().contains("google");
+    private static final Boolean sForceSpoofGmsToPixel =
+            SystemProperties.getBoolean("persist.sys.pihooks.force.spoof.gms.pixel", false);
+
     private static final Map<String, Object> propsToChangeGeneric;
 
     private static final Map<String, Object> propsToChangeRecentPixel =
@@ -316,7 +321,7 @@ public class PixelPropsUtils {
             } else if (sIsTablet) {
                 propsToChange = propsToChangePixelTablet;
             }
-            if (sIsGms
+            if (sIsGms && (!sDeviceIsPixel || sForceSpoofGmsToPixel)
                 && (processName.toLowerCase().contains("ui")
                 || processName.toLowerCase().contains("gapps")
                 || processName.toLowerCase().contains("gservice")
