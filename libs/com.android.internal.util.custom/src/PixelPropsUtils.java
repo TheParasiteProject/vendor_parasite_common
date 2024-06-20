@@ -63,6 +63,8 @@ public class PixelPropsUtils {
             SystemProperties.get("ro.product.manufacturer", "").toLowerCase().contains("google");
     private static final Boolean sForceSpoofGmsToPixel =
             SystemProperties.getBoolean("persist.sys.pihooks.force.spoof.gms.pixel", false);
+    private static final Boolean sBlockCertificateChain =
+            SystemProperties.getBoolean("persist.sys.pihooks.block.certificate.chain", true);
 
     private static final Map<String, Object> propsToChangeGeneric;
 
@@ -481,6 +483,7 @@ public class PixelPropsUtils {
     }
 
     public static void onEngineGetCertificateChain() {
+        if (!sBlockCertificateChain) return;
         // Check stack for SafetyNet or Play Integrity
         if (isCallerSafetyNet()) {
             dlog("Blocked key attestation");
