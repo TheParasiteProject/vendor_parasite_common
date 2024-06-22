@@ -478,7 +478,7 @@ public class PixelPropsUtils {
 
     private static boolean isCallerSafetyNet() {
         return Arrays.stream(Thread.currentThread().getStackTrace())
-                        .anyMatch(elem -> elem.getClassName().toLowerCase()
+                        .anyMatch(elem -> elem.getClassName().toLowerCase(java.util.Locale.US)
                             .contains("droidguard"));
     }
 
