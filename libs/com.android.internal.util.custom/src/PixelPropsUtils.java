@@ -324,8 +324,7 @@ public class PixelPropsUtils {
                 propsToChange = propsToChangePixelTablet;
             }
             if (sIsGms && (!sDeviceIsPixel || sForceSpoofGmsToPixel)
-                && (processName.toLowerCase().contains("ui")
-                || processName.toLowerCase().contains("gapps")
+                && (processName.toLowerCase().contains("gapps")
                 || processName.toLowerCase().contains("gservice")
                 || processName.toLowerCase().contains("learning")
                 || processName.toLowerCase().contains("persistent")
