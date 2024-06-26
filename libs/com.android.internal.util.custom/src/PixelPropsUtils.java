@@ -39,6 +39,8 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.WindowManager;
 
+import com.android.internal.util.custom.certification.Android;
+
 import org.lineageos.platform.internal.R;
 
 import java.lang.reflect.Field;
@@ -63,8 +65,6 @@ public class PixelPropsUtils {
             SystemProperties.get("ro.product.manufacturer", "").toLowerCase().contains("google");
     private static final Boolean sForceSpoofGmsToPixel =
             SystemProperties.getBoolean("persist.sys.pihooks.force.spoof.gms.pixel", false);
-    private static final Boolean sBlockCertificateChain =
-            SystemProperties.getBoolean("persist.sys.pihooks.block.certificate.chain", true);
 
     private static final Map<String, Object> propsToChangeGeneric;
 
@@ -207,35 +207,6 @@ public class PixelPropsUtils {
     private static boolean isGoogleCameraPackage(String packageName){
         return packageName.startsWith("com.google.android.GoogleCamera") ||
             customGoogleCameraPackages.contains(packageName);
-    }
-
-    private static final String cert_device = SystemProperties.get("persist.sys.pihooks.device", "");
-    private static final String cert_fp = SystemProperties.get("persist.sys.pihooks.fingerprint", "");
-    private static final String cert_model = SystemProperties.get("persist.sys.pihooks.model", "");
-    private static final String cert_spl = SystemProperties.get("persist.sys.pihooks.security_patch", "");
-    private static final String cert_manufacturer = SystemProperties.get("persist.sys.pihooks.manufacturer", "");
-    private static final int cert_sdk = SystemProperties.getInt("persist.sys.pihooks.api_level", 0);
-
-    private static final HashMap<String, Object> certifiedProps;
-    static {
-        Map<String, Object> tMap = new HashMap<>();
-        String[] sections = cert_fp.split("/");
-        if (!cert_manufacturer.isEmpty()) tMap.put("MANUFACTURER", cert_manufacturer);
-        if (!cert_model.isEmpty()) tMap.put("MODEL", cert_model);
-        if (!cert_fp.isEmpty()) {
-            tMap.put("FINGERPRINT", cert_fp);
-            tMap.put("BRAND", sections[0]);
-            tMap.put("PRODUCT", sections[1]);
-            tMap.put("RELEASE", sections[2].split(":")[1]);
-            tMap.put("ID", sections[3]);
-            tMap.put("INCREMENTAL", sections[4].split(":")[0]);
-            tMap.put("TYPE", sections[4].split(":")[1]);
-            tMap.put("TAGS", sections[5]);
-        }
-        if (!cert_device.isEmpty()) tMap.put("DEVICE", cert_device);
-        if (!cert_spl.isEmpty()) tMap.put("SECURITY_PATCH", cert_spl);
-        if (cert_sdk != 0) tMap.put("DEVICE_INITIAL_SDK_INT", cert_sdk);
-        certifiedProps = new HashMap<>(tMap);
     }
 
     public static boolean setPropsForGphotos(Context context) {
@@ -422,7 +393,7 @@ public class PixelPropsUtils {
 
         setPropValue("TIME", System.currentTimeMillis());
 
-        if (certifiedProps.isEmpty()) return false;
+        if (Android.isCertifiedPropsEmpty()) return false;
 
         final boolean was = isGmsAddAccountActivityOnTop();
         final TaskStackListener taskStackListener = new TaskStackListener() {
@@ -437,7 +408,7 @@ public class PixelPropsUtils {
             }
         };
         if (!was) {
-            certifiedProps.forEach(PixelPropsUtils::setPropValue);
+            Android.newApplication();
         } else {
             dlog("Skip spoofing build for GMS, because GmsAddAccountActivityOnTop!");
         }
@@ -473,21 +444,6 @@ public class PixelPropsUtils {
             return false;
         }
         return gmsUid == callingUid;
-    }
-
-    private static boolean isCallerSafetyNet() {
-        return Arrays.stream(Thread.currentThread().getStackTrace())
-                        .anyMatch(elem -> elem.getClassName().toLowerCase(java.util.Locale.US)
-                            .contains("droidguard"));
-    }
-
-    public static void onEngineGetCertificateChain() {
-        if (!sBlockCertificateChain) return;
-        // Check stack for SafetyNet or Play Integrity
-        if (isCallerSafetyNet()) {
-            dlog("Blocked key attestation");
-            throw new UnsupportedOperationException();
-        }
     }
 
     public static void dlog(String msg) {

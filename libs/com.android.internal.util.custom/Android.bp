@@ -3,5 +3,6 @@ filegroup {
     srcs: [
         "src/**/*.java",
         "src/**/*.kt",
+        ":certification-utils-srcs",
     ],
 }
