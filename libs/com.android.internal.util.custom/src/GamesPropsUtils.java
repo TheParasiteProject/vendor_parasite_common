@@ -18,6 +18,7 @@ package com.android.internal.util.custom;
 
 import android.content.Context;
 import android.os.Build;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.lang.reflect.Field;
@@ -226,7 +227,7 @@ public class GamesPropsUtils {
     public static void setProps(Context context) {
         final String packageName = context.getPackageName();
 
-        if (packageName == null || packageName.isEmpty()) {
+        if (TextUtils.isEmpty(packageName)) {
             return;
         }
 

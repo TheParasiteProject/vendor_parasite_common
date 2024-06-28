@@ -20,6 +20,7 @@ package com.android.internal.util.custom;
 import android.content.Context;
 import android.os.Build;
 import android.os.SystemProperties;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.Arrays;
@@ -63,9 +64,10 @@ public class MeizuPropsUtils {
         }
 
         final String packageName = context.getPackageName();
-        if (packageName == null){
+        if (TextUtils.isEmpty(packageName)) {
             return;
         }
+
         if (Arrays.asList(packagesToChange).contains(packageName)){
             if (DEBUG){
                 Log.d(TAG, "Defining props for: " + packageName);
