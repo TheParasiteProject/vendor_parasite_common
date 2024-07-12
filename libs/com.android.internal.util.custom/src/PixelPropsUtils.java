@@ -274,8 +274,8 @@ public class PixelPropsUtils {
         try {
             final RootTaskInfo focusedTask =
                     ActivityTaskManager.getService().getFocusedRootTaskInfo();
-            return focusedTask != null && focusedTask.topActivity != null
-                    && focusedTask.topActivity.equals(GMS_ADD_ACCOUNT_ACTIVITY);
+            return focusedTask != null &&
+                    GMS_ADD_ACCOUNT_ACTIVITY.equals(focusedTask.topActivity);
         } catch (Exception e) {
             Log.e(TAG, "Unable to get top activity!", e);
         }
