@@ -218,6 +218,7 @@ public class PixelPropsUtils {
         props.put("ID", getBuildID(fingerprint));
         props.put("DEVICE", getDeviceName(fingerprint));
         props.put("PRODUCT", getDeviceName(fingerprint));
+        props.put("HARDWARE", getDeviceName(fingerprint));
         props.put("MODEL", model);
         props.put("FINGERPRINT", fingerprint);
         props.put("TYPE", "user");
