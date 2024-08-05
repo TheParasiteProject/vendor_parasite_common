@@ -28,7 +28,10 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MeizuPropsUtils {
+/**
+ * @hide
+ */
+public final class MeizuPropsUtils {
 
     private static final String TAG = MeizuPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;

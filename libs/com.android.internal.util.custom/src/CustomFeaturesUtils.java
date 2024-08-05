@@ -5,7 +5,10 @@ import android.os.SystemProperties;
 
 import java.util.Arrays;
 
-public class CustomFeaturesUtils {
+/**
+ * @hide
+ */
+public final class CustomFeaturesUtils {
     private static final int REPORT_FALSE = 0;
     private static final int REPORT_TRUE = 1;
     private static final int REPORT_SKIP = 255;
