@@ -65,7 +65,7 @@ public final class PixelPropsUtils {
     private static final String TAG = PixelPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final Boolean sEnablePixelProps =
+    private static Boolean sEnablePixelProps =
             SystemProperties.getBoolean("persist.sys.pihooks.enable", true);
 
     private static final String sDeviceModel =
