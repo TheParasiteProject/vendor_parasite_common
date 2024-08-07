@@ -109,19 +109,19 @@ public final class PixelPropsUtils {
     private static final Map<String, Object> propsToChangePixel5a =
             createGoogleSpoofProps(
                 "Pixel 5a",
-                "google/barbet/barbet:14/AP2A.240705.004/11875680:user/release-keys"
+                "google/barbet/barbet:14/AP2A.240805.005/12025142:user/release-keys"
             );
 
     private static final Map<String, Object> propsToChangePixelTablet =
             createGoogleSpoofProps(
                 "Pixel Tablet",
-                "google/tangorpro/tangorpro:14/AP2A.240705.004/11875680:user/release-keys"
+                "google/tangorpro/tangorpro:14/AP2A.240805.005/12025142:user/release-keys"
             );
 
     private static final Map<String, Object> propsToChangeRecentPixel =
             createGoogleSpoofProps(
                 "Pixel 8 Pro",
-                "google/husky/husky:14/AP2A.240705.005.A1/11944170:user/release-keys"
+                "google/husky/husky:14/AP2A.240805.005.D1/12026590:user/release-keys"
             );
 
     private static final ArrayList<String> packagesToChangeRecentPixel = 
