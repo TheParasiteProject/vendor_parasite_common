@@ -13,6 +13,9 @@ public final class CustomFeaturesUtils {
     private static final int REPORT_TRUE = 1;
     private static final int REPORT_SKIP = 255;
 
+    private static Boolean sEnableCustomFeaturesUtils =
+            SystemProperties.getBoolean("persist.sys.cfhooks.enable", true);
+
     private static final Boolean sHasTensorSoC =
             SystemProperties.get("ro.soc.manufacturer", "").toLowerCase().contains("google");
 
@@ -61,6 +64,8 @@ public final class CustomFeaturesUtils {
     };
 
     public static int hasSystemFeatureCustom(String name) {
+        if (!sEnableCustomFeaturesUtils) return REPORT_SKIP;
+
         String packageName = ActivityThread.currentPackageName();
         if (packageName != null
                 && packageName.equals("com.google.android.apps.photos")
