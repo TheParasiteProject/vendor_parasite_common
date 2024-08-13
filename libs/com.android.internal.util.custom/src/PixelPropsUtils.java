@@ -159,9 +159,7 @@ public final class PixelPropsUtils {
                 "com.google.android.gms.gapps",
                 "com.google.android.gms.gservice",
                 "com.google.android.gms.learning",
-                "com.google.android.gms.persistent",
-                "com.google.android.gms.search",
-                "com.google.android.gms.update"
+                "com.google.android.gms.persistent"
         ));
 
     private static final ArrayList<String> processToKeep = 
