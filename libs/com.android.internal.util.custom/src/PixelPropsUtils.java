@@ -120,8 +120,8 @@ public final class PixelPropsUtils {
 
     private static final Map<String, Object> propsToChangeRecentPixel =
             createGoogleSpoofProps(
-                "Pixel 8 Pro",
-                "google/husky/husky:14/AP2A.240805.005.D1/12026590:user/release-keys"
+                "Pixel 9 Pro",
+                "google/caiman/caiman:14/AD1A.240530.047.U1/12150698:user/release-keys"
             );
 
     private static final ArrayList<String> packagesToChangeRecentPixel = 
