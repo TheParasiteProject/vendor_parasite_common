@@ -80,8 +80,6 @@ public final class PixelPropsUtils {
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
             "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
-    private static volatile boolean sIsGmsUnstable;
-
     private static final Map<String, Object> propsToChangeGeneric;
     private static final Map<String, ArrayList<String>> propsToKeep;
     static {
@@ -285,8 +283,13 @@ public final class PixelPropsUtils {
         return false;
     }
 
-    private static boolean shouldTryToCertifyDevice() {
-        if (!sIsGmsUnstable) return false;
+    private static boolean shouldTryToCertifyDevice(Context context) {
+        if (!Android.isCertHookEnabled()) return false;
+
+        final String processName = getProcessName(context);
+        if (TextUtils.isEmpty(processName)) return false;
+
+        if (!"com.google.android.gms.unstable".equals(processName)) return false;
 
         if (Android.isCertifiedPropsEmpty()) return false;
 
@@ -335,6 +338,7 @@ public final class PixelPropsUtils {
     public static void setProps(Context context) {
         if (!sEnablePixelProps) {
             dlog("Pixel props is disabled by config");
+            if (shouldTryToCertifyDevice(context)) return;
             setPropsForGphotos(context);
             return;
         }
@@ -352,13 +356,12 @@ public final class PixelPropsUtils {
         propsToChangeGeneric.forEach((k, v) -> setPropValue(k, v));
 
         final boolean sIsTablet = isDeviceTablet(context);
-        sIsGmsUnstable = "com.google.android.gms.unstable".equals(processName);
 
         if ("com.google.android.gms".equals(packageName)) {
             setPropValue("TIME", System.currentTimeMillis());
         }
 
-        if (shouldTryToCertifyDevice()) {
+        if (shouldTryToCertifyDevice(context)) {
             return;
         }
 
