@@ -77,119 +77,96 @@ public final class PixelPropsUtils {
     private static final String sNetflixModel =
             SystemProperties.get("persist.sys.pihooks.netflix_model", "");
 
-    private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY = ComponentName.unflattenFromString(
-            "com.google.android.gms/.auth.uiflows.minutemaid.MinuteMaidActivity");
+    private static final String PACKAGE_NETFLIX =
+            "com.netflix.mediaclient";
+    private static final String PACKAGE_SETTINGS_INTELLIGENCE =
+            "com.google.android.settings.intelligence";
+    private static final String PACKAGE_PHOTOS =
+            "com.google.android.apps.photos";
+    private static final String PACKAGE_GMS =
+            "com.google.android.gms";
+    private static final String PROCESS_GMS_UI =
+            PACKAGE_GMS + ".ui";
+    private static final String PROCESS_GMS_UNSTABLE =
+            PACKAGE_GMS + ".unstable";
+    private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY =
+            ComponentName.unflattenFromString(
+                PACKAGE_GMS + "/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
     private static final Map<String, Object> propsToChangeGeneric;
+    private static final Map<String, Object> propsToChangeDevice;
     private static final Map<String, ArrayList<String>> propsToKeep;
     static {
         propsToKeep = new HashMap<>();
         propsToKeep.put(
-                "com.google.android.settings.intelligence",
+                PACKAGE_SETTINGS_INTELLIGENCE,
                 new ArrayList<>(Collections.singletonList("FINGERPRINT")));
         propsToChangeGeneric = new HashMap<>();
         propsToChangeGeneric.put("TYPE", "user");
         propsToChangeGeneric.put("TAGS", "release-keys");
+        propsToChangeDevice = new HashMap<>();
+        propsToChangeDevice.put("BRAND", Build.BRAND);
+        propsToChangeDevice.put("MANUFACTURER", Build.MANUFACTURER);
+        propsToChangeDevice.put("ID", Build.ID);
+        propsToChangeDevice.put("DEVICE", Build.DEVICE);
+        propsToChangeDevice.put("PRODUCT", Build.PRODUCT);
+        propsToChangeDevice.put("HARDWARE", Build.HARDWARE);
+        propsToChangeDevice.put("MODEL", Build.MODEL);
+        propsToChangeDevice.put("FINGERPRINT", Build.FINGERPRINT);
     }
 
-    private static final Map<String, Object> propsToChangeDevice =
-            createGoogleSpoofProps(
-                Build.MODEL,
-                Build.FINGERPRINT
+    private static String[] getStringArrayResSafely(int resId) {
+        String[] strArr = Resources.getSystem().getStringArray(resId);
+        if (strArr == null) strArr = new String[0];
+        return strArr;
+    }
+
+    private static Map<String, Object> getPropsToChangePixelXL() {
+        return createGoogleSpoofProps(
+                getStringArrayResSafely(R.array.config_piHookPropsPixelXL)
             );
+    }
 
-    private static final Map<String, Object> propsToChangePixelXL =
-            createGoogleSpoofProps(
-                "Pixel XL",
-                "google/marlin/marlin:10/QP1A.191005.007.A3/5972272:user/release-keys"
+    private static Map<String, Object> getPropsToChangePixelLegacy() {
+        return createGoogleSpoofProps(
+                getStringArrayResSafely(R.array.config_piHookPropsPixelLegacy)
             );
+    }   
 
-    private static final Map<String, Object> propsToChangePixel5a =
-            createGoogleSpoofProps(
-                "Pixel 5a",
-                "google/barbet/barbet:14/AP2A.240805.005/12025142:user/release-keys"
+    private static Map<String, Object> getPropsToChangePixelTablet() {
+        return createGoogleSpoofProps(
+                getStringArrayResSafely(R.array.config_piHookPropsPixelTablet)
             );
+    }
 
-    private static final Map<String, Object> propsToChangePixelTablet =
-            createGoogleSpoofProps(
-                "Pixel Tablet",
-                "google/tangorpro/tangorpro:14/AP2A.240805.005/12025142:user/release-keys"
+    private static Map<String, Object> getPropsToChangePixelRecent() {
+        return createGoogleSpoofProps(
+                getStringArrayResSafely(R.array.config_piHookPropsPixelRecent)
             );
+    }
 
-    private static final Map<String, Object> propsToChangeRecentPixel =
-            createGoogleSpoofProps(
-                "Pixel 9 Pro",
-                "google/caiman/caiman:14/AD1A.240530.047.U1/12150698:user/release-keys"
-            );
+    private static ArrayList<String> getPackagesToChangePixelRecent() {
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_piHookProcessPixelRecent)
+            ));
+    }
 
-    private static final ArrayList<String> packagesToChangeRecentPixel = 
-        new ArrayList<String> (
-            Arrays.asList(
-                "com.amazon.avod.thirdpartyclient",
-                "com.android.chrome",
-                "com.breel.wallpapers20",
-                "com.disney.disneyplus",
-                "com.google.android.apps.aiwallpapers",
-                "com.google.android.apps.bard",
-                "com.google.android.apps.customization.pixel",
-                "com.google.android.apps.emojiwallpaper",
-                "com.google.android.apps.nexuslauncher",
-                "com.google.android.apps.photos",
-                "com.google.android.apps.privacy.wildlife",
-                "com.google.android.apps.subscriptions.red",
-                "com.google.android.apps.wallpaper",
-                "com.google.android.apps.wallpaper.pixel",
-                "com.google.android.apps.weather",
-                "com.google.android.gms",
-                "com.google.android.googlequicksearchbox",
-                "com.google.android.wallpaper.effects",
-                "com.google.pixel.livewallpaper",
-                "com.microsoft.android.smsorganizer",
-                "com.netflix.mediaclient",
-                "com.nhs.online.nhsonline",
-                "com.nothing.smartcenter",
-                "in.startv.hotstar",
-                "jp.id_credit_sp2.android"
-        ));
+    // Although the name is getProcessToChangePixelLegacy,
+    // this list also applied to actual Pixel devices for unspoofing
+    private static ArrayList<String> getProcessToChangePixelLegacy() {
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_piHookProcessPixelLegacy)
+            ));
+    }
 
-    private static final ArrayList<String> gmsProcessToChangePixel5a = 
-        new ArrayList<String> (
-            Arrays.asList(
-                "com.google.android.gms.learning",
-                "com.google.android.gms.persistent"
-        ));
-
-    private static final ArrayList<String> processToKeep = 
-        new ArrayList<String> (
-            Arrays.asList(
-                "com.google.android.apps.cameralite",
-                "com.google.android.apps.dreamliner",
-                "com.google.android.apps.dreamlinerupdater",
-                "com.google.android.apps.miphone.aiai.AiaiApplication",
-                "com.google.android.apps.motionsense.bridge",
-                "com.google.android.apps.pixelmigrate",
-                "com.google.android.apps.restore",
-                "com.google.android.apps.subscriptions.red",
-                "com.google.android.apps.tachyon",
-                "com.google.android.apps.tips",
-                "com.google.android.apps.tycho",
-                "com.google.android.apps.wearables.maestro.companion",
-                "com.google.android.apps.youtube.kids",
-                "com.google.android.apps.youtube.music",
-                "com.google.android.as",
-                "com.google.android.backuptransport",
-                "com.google.android.backupuses",
-                "com.google.android.euicc",
-                "com.google.android.GoogleCamera",
-                "com.google.android.inputmethod.latin",
-                "com.google.android.MTCL83",
-                "com.google.android.UltraCVM",
-                "com.google.android.youtube",
-                "com.google.ar.core",
-                "com.google.intelligence.sense",
-                "com.google.oslo",
-                "it.ingdirect.app"
-        ));
+    private static ArrayList<String> getProcessToKeep() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_piHookProcessKeep)
+            ));
+    }
 
     private static String getBuildID(String fingerprint) {
         Pattern pattern = Pattern.compile("([A-Za-z0-9]+\\.\\d+\\.\\d+\\.\\w+)");
@@ -209,8 +186,24 @@ public final class PixelPropsUtils {
         return "";
     }
 
-    private static Map<String, Object> createGoogleSpoofProps(String model, String fingerprint) {
+    private static Map<String, Object> createGoogleSpoofProps(String[] config) {
         Map<String, Object> props = new HashMap<>();
+
+        if (config == null || config.length != 2) {
+            dlog("createGoogleSpoofProps: Config is empty");
+            return props;
+        }
+
+        final String model = config[0];
+        final String fingerprint = config[1];
+        if (TextUtils.isEmpty(model)
+            || TextUtils.isEmpty(fingerprint)
+            || model.contains("/")
+            || !fingerprint.contains("/")) {
+            dlog("createGoogleSpoofProps: Config is invalid");
+            return props;
+        }
+
         props.put("BRAND", "google");
         props.put("MANUFACTURER", "Google");
         props.put("ID", getBuildID(fingerprint));
@@ -287,7 +280,7 @@ public final class PixelPropsUtils {
         final String processName = getProcessName(context);
         if (TextUtils.isEmpty(processName)) return false;
 
-        if (!"com.google.android.gms.unstable".equals(processName)) return false;
+        if (!PROCESS_GMS_UNSTABLE.equals(processName)) return false;
 
         if (Android.isCertifiedPropsEmpty()) return false;
 
@@ -324,9 +317,9 @@ public final class PixelPropsUtils {
             return false;
         }
 
-        if ("com.google.android.apps.photos".equals(packageName)) {
+        if (PACKAGE_PHOTOS.equals(packageName)) {
             if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
-                propsToChangePixelXL.forEach((k, v) -> setPropValue(k, v));
+                getPropsToChangePixelXL().forEach((k, v) -> setPropValue(k, v));
                 return true;
             }
         }
@@ -355,7 +348,7 @@ public final class PixelPropsUtils {
 
         final boolean sIsTablet = isDeviceTablet(context);
 
-        if ("com.google.android.gms".equals(packageName)) {
+        if (PACKAGE_GMS.equals(packageName)) {
             setPropValue("TIME", System.currentTimeMillis());
         }
 
@@ -363,7 +356,7 @@ public final class PixelPropsUtils {
             return;
         }
 
-        if (processToKeep.contains(processName)) {
+        if (getProcessToKeep().contains(processName)) {
             return;
         }
 
@@ -372,18 +365,18 @@ public final class PixelPropsUtils {
         }
 
         Map<String, Object> propsToChange = new HashMap<>();
-        if (gmsProcessToChangePixel5a.contains(processName)) {
+        if (getProcessToChangePixelLegacy().contains(processName)) {
             if (!sDeviceIsPixel) {
-                propsToChange = propsToChangePixel5a;
+                propsToChange = getPropsToChangePixelLegacy();
             } else if (sForceSpoofGmsProcess) {
                 propsToChange = propsToChangeDevice;
             }
-        } else if (packagesToChangeRecentPixel.contains(processName)) {
-            propsToChange = propsToChangeRecentPixel;
-        } else if (packagesToChangeRecentPixel.contains(packageName)) {
-            propsToChange = propsToChangeRecentPixel;
+        } else if (getPackagesToChangePixelRecent().contains(processName)) {
+            propsToChange = getPropsToChangePixelRecent();
+        } else if (getPackagesToChangePixelRecent().contains(packageName)) {
+            propsToChange = getPropsToChangePixelRecent();
         } else if (sIsTablet) {
-            propsToChange = propsToChangePixelTablet;
+            propsToChange = getPropsToChangePixelTablet();
         }
 
         if (propsToChange == null || propsToChange.isEmpty()) return;
@@ -400,16 +393,16 @@ public final class PixelPropsUtils {
             setPropValue(key, value);
         }
         // Show correct model name on gms services
-        if ("com.google.android.gms.ui".equals(processName)) {
+        if (PROCESS_GMS_UI.equals(processName)) {
             setPropValue("MODEL", sDeviceModel);
             return;
         }
         // Set proper indexing fingerprint
-        if ("com.google.android.settings.intelligence".equals(packageName)) {
+        if (PACKAGE_SETTINGS_INTELLIGENCE.equals(packageName)) {
             setPropValue("FINGERPRINT", Build.VERSION.INCREMENTAL);
             return;
         }
-        if (!TextUtils.isEmpty(sNetflixModel) && "com.netflix.mediaclient".equals(packageName)) {
+        if (!TextUtils.isEmpty(sNetflixModel) && PACKAGE_NETFLIX.equals(packageName)) {
             dlog("Setting model to " + sNetflixModel + " for Netflix");
             setPropValue("MODEL", sNetflixModel);
             return;
@@ -460,7 +453,7 @@ public final class PixelPropsUtils {
         final int callingUid = Binder.getCallingUid();
         final int gmsUid;
         try {
-            gmsUid = context.getPackageManager().getApplicationInfo("com.google.android.gms", 0).uid;
+            gmsUid = context.getPackageManager().getApplicationInfo(PACKAGE_GMS, 0).uid;
             dlog("shouldBypassTaskPermission: gmsUid:" + gmsUid + " callingUid:" + callingUid);
         } catch (Exception e) {
             Log.e(TAG, "shouldBypassTaskPermission: unable to get gms uid", e);
