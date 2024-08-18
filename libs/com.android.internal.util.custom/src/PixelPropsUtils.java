@@ -155,8 +155,6 @@ public final class PixelPropsUtils {
     private static final ArrayList<String> gmsProcessToChangePixel5a = 
         new ArrayList<String> (
             Arrays.asList(
-                "com.google.android.gms.gapps",
-                "com.google.android.gms.gservice",
                 "com.google.android.gms.learning",
                 "com.google.android.gms.persistent"
         ));
