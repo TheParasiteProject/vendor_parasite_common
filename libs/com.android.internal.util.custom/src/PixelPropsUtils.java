@@ -186,6 +186,39 @@ public final class PixelPropsUtils {
         return "";
     }
 
+    private static Map<String, Object> createSpoofProps(String[] config) {
+        Map<String, Object> props = new HashMap<>();
+
+        if (config == null || config.length != 4) {
+            dlog("createSpoofProps: Config is empty");
+            return props;
+        }
+
+        final String brand = config[0];
+        final String manufacturer = config[1];
+        final String model = config[2];
+        final String fingerprint = config[3];
+        if (TextUtils.isEmpty(model)
+            || TextUtils.isEmpty(fingerprint)
+            || model.contains("/")
+            || !fingerprint.contains("/")) {
+            dlog("createSpoofProps: Config is invalid");
+            return props;
+        }
+
+        props.put("BRAND", brand);
+        props.put("MANUFACTURER", manufacturer);
+        props.put("ID", getBuildID(fingerprint));
+        props.put("DEVICE", getDeviceName(fingerprint));
+        props.put("PRODUCT", getDeviceName(fingerprint));
+        props.put("HARDWARE", getDeviceName(fingerprint));
+        props.put("MODEL", model);
+        props.put("FINGERPRINT", fingerprint);
+        props.put("TYPE", "user");
+        props.put("TAGS", "release-keys");
+        return props;
+    }
+
     private static Map<String, Object> createGoogleSpoofProps(String[] config) {
         Map<String, Object> props = new HashMap<>();
 
