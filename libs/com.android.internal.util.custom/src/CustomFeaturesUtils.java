@@ -1,8 +1,12 @@
 package com.android.internal.util.custom;
 
 import android.app.ActivityThread;
+import android.content.res.Resources;
 import android.os.SystemProperties;
 
+import org.lineageos.platform.internal.R;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
@@ -19,76 +23,87 @@ public final class CustomFeaturesUtils {
     private static final Boolean sHasTensorSoC =
             SystemProperties.get("ro.soc.manufacturer", "").toLowerCase().contains("google");
 
-    private static final String[] featuresPixel = {
-        "com.google.android.apps.photos.PIXEL_2017_PRELOAD",
-        "com.google.android.apps.photos.PIXEL_2018_PRELOAD",
-        "com.google.android.apps.photos.PIXEL_2019_MIDYEAR_PRELOAD",
-        "com.google.android.apps.photos.PIXEL_2019_PRELOAD",
-        "com.google.android.feature.PIXEL_2017_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2018_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2019_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2019_MIDYEAR_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2020_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2020_MIDYEAR_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2021_MIDYEAR_EXPERIENCE",
-    };
+    private static final String PACKAGE_PHOTOS =
+            "com.google.android.apps.photos";
 
-    private static final String[] featuresPixelOthers = {
-        "com.google.android.feature.ANDROID_ONE_EXPERIENCE",
-        "com.google.android.feature.ASI",
-        "com.google.lens.feature.CAMERA_INTEGRATION",
-        "com.google.lens.feature.IMAGE_INTEGRATION",    
-        "com.google.photos.trust_debug_certs",
-    };
+    private static String[] getStringArrayResSafely(int resId) {
+        String[] strArr = Resources.getSystem().getStringArray(resId);
+        if (strArr == null) strArr = new String[0];
+        return strArr;
+    }
 
-    private static final String[] featuresTensor = {
-        "com.google.android.feature.PIXEL_2021_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2022_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2022_MIDYEAR_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2023_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2023_MIDYEAR_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2024_EXPERIENCE",
-        "com.google.android.feature.PIXEL_2024_MIDYEAR_EXPERIENCE",
-    };
+    private static ArrayList<String> getFeaturesPixel() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixel)
+            ));
+    }
 
-    private static final String[] featuresNexus = {
-        "com.google.android.apps.photos.NEXUS_PRELOAD",
-        "com.google.android.apps.photos.nexus_preload",
-        "com.google.android.feature.GOOGLE_BUILD",
-        "com.google.android.feature.GOOGLE_EXPERIENCE",
-        "com.google.android.feature.PIXEL_EXPERIENCE",
-    };
+    private static ArrayList<String> getFeaturesPixelOthers() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixelOthers)
+            ));
+    }
 
-    private static final String[] featuresAndroid = {
-        "android.software.freeform_window_management"
-    };
+    private static ArrayList<String> getFeaturesPixelTensor() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixelTensor)
+            ));
+    }
+
+    private static ArrayList<String> getPackagesToExposeFeaturesPixelTensor() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookPackagesFeaturesPixelTensor)
+            ));
+    }
+
+    private static ArrayList<String> getFeaturesNexus() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookFeaturesNexus)
+            ));
+    }
+
+    private static ArrayList<String> getFeaturesAndroid() { 
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_cfHookFeaturesAndroid)
+            ));
+    }
 
     public static int hasSystemFeatureCustom(String name) {
         if (!sEnableCustomFeaturesUtils) return REPORT_SKIP;
 
+        if (name == null) {
+            return REPORT_SKIP;
+        }
+
         String packageName = ActivityThread.currentPackageName();
+
         if (packageName != null
-                && packageName.equals("com.google.android.apps.photos")
+                && PACKAGE_PHOTOS.equals(packageName)
                 && SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
-            if (Arrays.asList(featuresPixel).contains(name)) return REPORT_FALSE;
-            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_FALSE;
-            if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
-            if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
+            if (getFeaturesPixel().contains(name)) return REPORT_FALSE;
+            if (getFeaturesPixelOthers().contains(name)) return REPORT_TRUE;
+            if (getFeaturesPixelTensor().contains(name)) return REPORT_FALSE;
+            if (getFeaturesNexus().contains(name)) return REPORT_TRUE;
         }
         if (packageName != null
-                && (packageName.equals("com.google.android.googlequicksearchbox")
-                || packageName.equals("com.google.android.apps.nexuslauncher"))) {
-            if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
-            if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
-            if (Arrays.asList(featuresTensor).contains(name)) return REPORT_TRUE;
-            if (Arrays.asList(featuresNexus).contains(name)) return REPORT_TRUE;
+                && getPackagesToExposeFeaturesPixelTensor().contains(packageName)) {
+            if (getFeaturesPixel().contains(name)) return REPORT_TRUE;
+            if (getFeaturesPixelOthers().contains(name)) return REPORT_TRUE;
+            if (getFeaturesPixelTensor().contains(name)) return REPORT_TRUE;
+            if (getFeaturesNexus().contains(name)) return REPORT_TRUE;
         }
-        if (name != null && Arrays.asList(featuresTensor).contains(name) && !sHasTensorSoC) {
+        if (getFeaturesPixelTensor().contains(name) && !sHasTensorSoC) {
             return REPORT_FALSE;
         }
-        if (Arrays.asList(featuresAndroid).contains(name)) return REPORT_TRUE;
-        if (Arrays.asList(featuresPixel).contains(name)) return REPORT_TRUE;
-        if (Arrays.asList(featuresPixelOthers).contains(name)) return REPORT_TRUE;
+        if (getFeaturesAndroid().contains(name)) return REPORT_TRUE;
+        if (getFeaturesPixel().contains(name)) return REPORT_TRUE;
+        if (getFeaturesPixelOthers().contains(name)) return REPORT_TRUE;
         return REPORT_SKIP;
     }
 }
