@@ -72,7 +72,7 @@ public final class PixelPropsUtils {
             SystemProperties.get("ro.product.model", Build.MODEL);
     private static final Boolean sDeviceIsPixel =
             SystemProperties.get("ro.product.manufacturer", "").toLowerCase().contains("google");
-    private static final Boolean sForceSpoofGmsProcess =
+    private static final Boolean sForceSpoofGmsProcessToDevice =
             SystemProperties.getBoolean("persist.sys.pihooks.force.spoof.gms.process", false);
     private static final String sNetflixModel =
             SystemProperties.get("persist.sys.pihooks.netflix_model", "");
@@ -366,9 +366,9 @@ public final class PixelPropsUtils {
 
         Map<String, Object> propsToChange = new HashMap<>();
         if (getProcessToChangePixelLegacy().contains(processName)) {
-            if (!sDeviceIsPixel) {
+            if (!sForceSpoofGmsProcessToDevice) {
                 propsToChange = getPropsToChangePixelLegacy();
-            } else if (sForceSpoofGmsProcess) {
+            } else {
                 propsToChange = propsToChangeDevice;
             }
         } else if (getPackagesToChangePixelRecent().contains(processName)) {
