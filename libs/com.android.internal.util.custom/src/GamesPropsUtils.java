@@ -66,6 +66,7 @@ public final class GamesPropsUtils {
         packagesToChange.put("MI11T", new String[]{
                 "com.ea.gp.apexlegendsmobilefps",
                 "com.levelinfinite.hotta.gp",
+                "com.supercell.brawlstars",
                 "com.supercell.clashofclans",
                 "com.vng.mlbbvn"
         });
