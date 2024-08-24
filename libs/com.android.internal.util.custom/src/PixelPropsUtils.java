@@ -139,6 +139,19 @@ public final class PixelPropsUtils {
             );
     }
 
+    private static Map<String, Object> getPropsToChangePixelExtra() {
+        return createGoogleSpoofProps(
+                getStringArrayResSafely(R.array.config_piHookPropsPixelExtra)
+            );
+    }
+
+    private static ArrayList<String> getPackagesToChangePixelExtra() {
+        return new ArrayList<String> (
+                Arrays.asList(
+                    getStringArrayResSafely(R.array.config_piHookProcessPixelExtra)
+            ));
+    }
+
     private static Map<String, Object> getPropsToChangePixelRecent() {
         return createGoogleSpoofProps(
                 getStringArrayResSafely(R.array.config_piHookPropsPixelRecent)
@@ -404,9 +417,11 @@ public final class PixelPropsUtils {
             } else {
                 propsToChange = propsToChangeDevice;
             }
-        } else if (getPackagesToChangePixelRecent().contains(processName)) {
-            propsToChange = getPropsToChangePixelRecent();
-        } else if (getPackagesToChangePixelRecent().contains(packageName)) {
+        } else if (getPackagesToChangePixelExtra().contains(processName)
+            || getPackagesToChangePixelExtra().contains(packageName)) {
+            propsToChange = getPropsToChangePixelExtra();
+        } else if (getPackagesToChangePixelRecent().contains(processName)
+            || getPackagesToChangePixelRecent().contains(packageName)) {
             propsToChange = getPropsToChangePixelRecent();
         } else if (sIsTablet) {
             propsToChange = getPropsToChangePixelTablet();
