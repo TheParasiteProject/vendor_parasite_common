@@ -38,4 +38,7 @@
         <item>org.pixelexperience.faceunlock</item>
     </string-array>
 
+    <!-- PowerOffAlarmService -->
+    <bool name="config_powerOffAlarmEnabled">false</bool>
+
 </resources>
