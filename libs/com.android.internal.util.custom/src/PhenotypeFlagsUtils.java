@@ -30,13 +30,13 @@ import android.util.ArrayMap;
 import android.util.Base64;
 import android.util.Log;
 
-import java.util.Arrays;
+import org.lineageos.platform.internal.R;
+
 import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-
-import org.lineageos.platform.internal.R;
+import java.util.function.Consumer;
 
 /**
  * @hide
@@ -54,20 +54,18 @@ public class PhenotypeFlagsUtils {
     public static final String PACKAGE_GMS = "com.google.android.gms";
     public static final String PACKAGE_GSF = "com.google.android.gsf";
 
-    public static final String PHENOTYPE_URI_PREFIX = "content://"
-            + PACKAGE_GMS + ".phenotype/";
+    public static final String PHENOTYPE_URI_PREFIX = "content://" + PACKAGE_GMS + ".phenotype/";
 
-    public static final String GSERVICES_URI = "content://"
-            + PACKAGE_GSF + '.' + NAMESPACE_GSERVICES + "/prefix";
+    public static final String GSERVICES_URI =
+            "content://" + PACKAGE_GSF + '.' + NAMESPACE_GSERVICES + "/prefix";
 
-    private static ArrayList<String> getNamespacesList(
-            String namespaceArg, boolean isSharedPref) {
+    private static ArrayList<String> getNamespacesList(String namespaceArg, boolean isSharedPref) {
         if (namespaceArg == null) return null;
 
         String[] global =
-            Resources.getSystem().getStringArray(R.array.global_phenotype_package_namespaces);
+                Resources.getSystem().getStringArray(R.array.global_phenotype_package_namespaces);
         String[] device =
-            Resources.getSystem().getStringArray(R.array.device_phenotype_package_namespaces);
+                Resources.getSystem().getStringArray(R.array.device_phenotype_package_namespaces);
         String[] all = Arrays.copyOf(global, global.length + device.length);
         System.arraycopy(device, 0, all, global.length, device.length);
 
@@ -102,9 +100,9 @@ public class PhenotypeFlagsUtils {
 
     private static String[] getFlagsOverride() {
         String[] globalFlags =
-            Resources.getSystem().getStringArray(R.array.global_phenotype_flags_override);
+                Resources.getSystem().getStringArray(R.array.global_phenotype_flags_override);
         String[] deviceFlags =
-            Resources.getSystem().getStringArray(R.array.device_phenotype_flags_override);
+                Resources.getSystem().getStringArray(R.array.device_phenotype_flags_override);
         String[] allFlags = Arrays.copyOf(globalFlags, globalFlags.length + deviceFlags.length);
         System.arraycopy(deviceFlags, 0, allFlags, globalFlags.length, deviceFlags.length);
         return allFlags;
@@ -113,11 +111,8 @@ public class PhenotypeFlagsUtils {
     private static final int PHENOTYPE_BASE64_FLAGS = Base64.NO_PADDING | Base64.NO_WRAP;
 
     private static boolean maybeUpdateMap(
-            String namespaceArg,
-            @Nullable String[] selectionArgs,
-            Map map, boolean isSharedPref) {
-        if (namespaceArg == null
-            || map == null) {
+            String namespaceArg, @Nullable String[] selectionArgs, Map map, boolean isSharedPref) {
+        if (namespaceArg == null || map == null) {
             return false;
         }
 
@@ -175,8 +170,7 @@ public class PhenotypeFlagsUtils {
         }
 
         // Add extra check for gservices flag
-        if (selectionArgs != null
-            && namespaceArg.equals(NAMESPACE_GSERVICES)) {
+        if (selectionArgs != null && namespaceArg.equals(NAMESPACE_GSERVICES)) {
             final ArrayMap<String, Object> gflags = flagMap.get(NAMESPACE_GSERVICES);
             if (gflags == null) return false;
 
@@ -196,7 +190,7 @@ public class PhenotypeFlagsUtils {
             ArrayList<String> namespaces = getNamespacesList(namespaceArg, isSharedPref);
             if (isSharedPref) {
                 if (namespaces == null) return false;
-    
+
                 String fileName = namespaceArg.split("/")[1]; // file name
                 if (!namespaces.contains(fileName)) {
                     return false;
@@ -227,8 +221,10 @@ public class PhenotypeFlagsUtils {
 
     // ContentResolver#query(Uri, String[], Bundle, CancellationSignal)
     public static Cursor maybeModifyQueryResult(
-            Uri uri, @Nullable String[] projection,
-            @Nullable Bundle queryArgs, @Nullable Cursor origCursor) {
+            Uri uri,
+            @Nullable String[] projection,
+            @Nullable Bundle queryArgs,
+            @Nullable Cursor origCursor) {
         if (!sEnablePhenotypeFlagsUtils) return null;
 
         String uriString = uri.toString();
@@ -239,7 +235,8 @@ public class PhenotypeFlagsUtils {
             if (queryArgs == null) {
                 return null;
             }
-            String[] selectionArgs = queryArgs.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS);
+            String[] selectionArgs =
+                    queryArgs.getStringArray(ContentResolver.QUERY_ARG_SQL_SELECTION_ARGS);
             if (selectionArgs == null) {
                 return null;
             }
@@ -264,8 +261,10 @@ public class PhenotypeFlagsUtils {
         return null;
     }
 
-    private static Cursor modifyKvCursor(@Nullable Cursor origCursor, @Nullable String[] projection,
-                                         Consumer<ArrayMap<String, Object>> mutator) {
+    private static Cursor modifyKvCursor(
+            @Nullable Cursor origCursor,
+            @Nullable String[] projection,
+            Consumer<ArrayMap<String, Object>> mutator) {
         final int keyIndex = 0;
         final int valueIndex = 1;
         final int projectionLength = 2;
@@ -274,8 +273,11 @@ public class PhenotypeFlagsUtils {
             projection = origCursor.getColumnNames();
         }
 
-        boolean expectedProjection = projection != null && projection.length == projectionLength
-                && "key".equals(projection[keyIndex]) && "value".equals(projection[valueIndex]);
+        boolean expectedProjection =
+                projection != null
+                        && projection.length == projectionLength
+                        && "key".equals(projection[keyIndex])
+                        && "value".equals(projection[valueIndex]);
 
         if (!expectedProjection) {
             Log.e(TAG, "unexpected projection " + Arrays.toString(projection), new Throwable());

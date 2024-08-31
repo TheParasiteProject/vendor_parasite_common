@@ -23,8 +23,7 @@ public final class CustomFeaturesUtils {
     private static final Boolean sHasTensorSoC =
             SystemProperties.get("ro.soc.manufacturer", "").toLowerCase().contains("google");
 
-    private static final String PACKAGE_PHOTOS =
-            "com.google.android.apps.photos";
+    private static final String PACKAGE_PHOTOS = "com.google.android.apps.photos";
 
     private static String[] getStringArrayResSafely(int resId) {
         String[] strArr = Resources.getSystem().getStringArray(resId);
@@ -32,46 +31,35 @@ public final class CustomFeaturesUtils {
         return strArr;
     }
 
-    private static ArrayList<String> getFeaturesPixel() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixel)
-            ));
+    private static ArrayList<String> getFeaturesPixel() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_cfHookFeaturesPixel)));
     }
 
-    private static ArrayList<String> getFeaturesPixelOthers() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixelOthers)
-            ));
+    private static ArrayList<String> getFeaturesPixelOthers() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_cfHookFeaturesPixelOthers)));
     }
 
-    private static ArrayList<String> getFeaturesPixelTensor() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookFeaturesPixelTensor)
-            ));
+    private static ArrayList<String> getFeaturesPixelTensor() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_cfHookFeaturesPixelTensor)));
     }
 
-    private static ArrayList<String> getPackagesToExposeFeaturesPixelTensor() { 
-        return new ArrayList<String> (
+    private static ArrayList<String> getPackagesToExposeFeaturesPixelTensor() {
+        return new ArrayList<String>(
                 Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookPackagesFeaturesPixelTensor)
-            ));
+                        getStringArrayResSafely(R.array.config_cfHookPackagesFeaturesPixelTensor)));
     }
 
-    private static ArrayList<String> getFeaturesNexus() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookFeaturesNexus)
-            ));
+    private static ArrayList<String> getFeaturesNexus() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_cfHookFeaturesNexus)));
     }
 
-    private static ArrayList<String> getFeaturesAndroid() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_cfHookFeaturesAndroid)
-            ));
+    private static ArrayList<String> getFeaturesAndroid() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_cfHookFeaturesAndroid)));
     }
 
     public static int hasSystemFeatureCustom(String name) {
@@ -91,8 +79,7 @@ public final class CustomFeaturesUtils {
             if (getFeaturesPixelTensor().contains(name)) return REPORT_FALSE;
             if (getFeaturesNexus().contains(name)) return REPORT_TRUE;
         }
-        if (packageName != null
-                && getPackagesToExposeFeaturesPixelTensor().contains(packageName)) {
+        if (packageName != null && getPackagesToExposeFeaturesPixelTensor().contains(packageName)) {
             if (getFeaturesPixel().contains(name)) return REPORT_TRUE;
             if (getFeaturesPixelOthers().contains(name)) return REPORT_TRUE;
             if (getFeaturesPixelTensor().contains(name)) return REPORT_TRUE;

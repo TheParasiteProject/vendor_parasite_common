@@ -24,11 +24,10 @@
 
 package com.android.internal.util.custom;
 
-import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityManager;
-import android.app.ActivityTaskManager.RootTaskInfo;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityTaskManager;
-import android.app.Application;
+import android.app.ActivityTaskManager.RootTaskInfo;
 import android.app.TaskStackListener;
 import android.content.ComponentName;
 import android.content.Context;
@@ -77,25 +76,21 @@ public final class PixelPropsUtils {
     private static final String sNetflixModel =
             SystemProperties.get("persist.sys.pihooks.netflix_model", "");
 
-    private static final String PACKAGE_NETFLIX =
-            "com.netflix.mediaclient";
+    private static final String PACKAGE_NETFLIX = "com.netflix.mediaclient";
     private static final String PACKAGE_SETTINGS_INTELLIGENCE =
             "com.google.android.settings.intelligence";
-    private static final String PACKAGE_PHOTOS =
-            "com.google.android.apps.photos";
-    private static final String PACKAGE_GMS =
-            "com.google.android.gms";
-    private static final String PROCESS_GMS_UI =
-            PACKAGE_GMS + ".ui";
-    private static final String PROCESS_GMS_UNSTABLE =
-            PACKAGE_GMS + ".unstable";
+    private static final String PACKAGE_PHOTOS = "com.google.android.apps.photos";
+    private static final String PACKAGE_GMS = "com.google.android.gms";
+    private static final String PROCESS_GMS_UI = PACKAGE_GMS + ".ui";
+    private static final String PROCESS_GMS_UNSTABLE = PACKAGE_GMS + ".unstable";
     private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY =
             ComponentName.unflattenFromString(
-                PACKAGE_GMS + "/.auth.uiflows.minutemaid.MinuteMaidActivity");
+                    PACKAGE_GMS + "/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
     private static final Map<String, Object> propsToChangeGeneric;
     private static final Map<String, Object> propsToChangeDevice;
     private static final Map<String, ArrayList<String>> propsToKeep;
+
     static {
         propsToKeep = new HashMap<>();
         propsToKeep.put(
@@ -122,63 +117,49 @@ public final class PixelPropsUtils {
     }
 
     private static Map<String, Object> getPropsToChangePixelXL() {
-        return createGoogleSpoofProps(
-                getStringArrayResSafely(R.array.config_piHookPropsPixelXL)
-            );
+        return createGoogleSpoofProps(getStringArrayResSafely(R.array.config_piHookPropsPixelXL));
     }
 
     private static Map<String, Object> getPropsToChangePixelLegacy() {
         return createGoogleSpoofProps(
-                getStringArrayResSafely(R.array.config_piHookPropsPixelLegacy)
-            );
-    }   
+                getStringArrayResSafely(R.array.config_piHookPropsPixelLegacy));
+    }
 
     private static Map<String, Object> getPropsToChangePixelTablet() {
         return createGoogleSpoofProps(
-                getStringArrayResSafely(R.array.config_piHookPropsPixelTablet)
-            );
+                getStringArrayResSafely(R.array.config_piHookPropsPixelTablet));
     }
 
     private static Map<String, Object> getPropsToChangePixelExtra() {
         return createGoogleSpoofProps(
-                getStringArrayResSafely(R.array.config_piHookPropsPixelExtra)
-            );
+                getStringArrayResSafely(R.array.config_piHookPropsPixelExtra));
     }
 
     private static ArrayList<String> getPackagesToChangePixelExtra() {
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_piHookProcessPixelExtra)
-            ));
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessPixelExtra)));
     }
 
     private static Map<String, Object> getPropsToChangePixelRecent() {
         return createGoogleSpoofProps(
-                getStringArrayResSafely(R.array.config_piHookPropsPixelRecent)
-            );
+                getStringArrayResSafely(R.array.config_piHookPropsPixelRecent));
     }
 
     private static ArrayList<String> getPackagesToChangePixelRecent() {
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_piHookProcessPixelRecent)
-            ));
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessPixelRecent)));
     }
 
     // Although the name is getProcessToChangePixelLegacy,
     // this list also applied to actual Pixel devices for unspoofing
     private static ArrayList<String> getProcessToChangePixelLegacy() {
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_piHookProcessPixelLegacy)
-            ));
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessPixelLegacy)));
     }
 
-    private static ArrayList<String> getProcessToKeep() { 
-        return new ArrayList<String> (
-                Arrays.asList(
-                    getStringArrayResSafely(R.array.config_piHookProcessKeep)
-            ));
+    private static ArrayList<String> getProcessToKeep() {
+        return new ArrayList<String>(
+                Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessKeep)));
     }
 
     private static String getBuildID(String fingerprint) {
@@ -212,9 +193,9 @@ public final class PixelPropsUtils {
         final String model = config[2];
         final String fingerprint = config[3];
         if (TextUtils.isEmpty(model)
-            || TextUtils.isEmpty(fingerprint)
-            || model.contains("/")
-            || !fingerprint.contains("/")) {
+                || TextUtils.isEmpty(fingerprint)
+                || model.contains("/")
+                || !fingerprint.contains("/")) {
             dlog("createSpoofProps: Config is invalid");
             return props;
         }
@@ -243,9 +224,9 @@ public final class PixelPropsUtils {
         final String model = config[0];
         final String fingerprint = config[1];
         if (TextUtils.isEmpty(model)
-            || TextUtils.isEmpty(fingerprint)
-            || model.contains("/")
-            || !fingerprint.contains("/")) {
+                || TextUtils.isEmpty(fingerprint)
+                || model.contains("/")
+                || !fingerprint.contains("/")) {
             dlog("createGoogleSpoofProps: Config is invalid");
             return props;
         }
@@ -269,20 +250,21 @@ public final class PixelPropsUtils {
         }
         Configuration configuration = context.getResources().getConfiguration();
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager =
+                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         if (windowManager != null) {
             windowManager.getDefaultDisplay().getMetrics(displayMetrics);
         }
         return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE
+                        >= Configuration.SCREENLAYOUT_SIZE_LARGE
                 || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XHIGH
                 || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH
                 || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXXHIGH;
     }
 
     private static String getProcessName(Context context) {
-        ActivityManager manager = 
-            (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         if (manager == null) {
             return null;
         }
@@ -312,8 +294,7 @@ public final class PixelPropsUtils {
         try {
             final RootTaskInfo focusedTask =
                     ActivityTaskManager.getService().getFocusedRootTaskInfo();
-            return focusedTask != null &&
-                    GMS_ADD_ACCOUNT_ACTIVITY.equals(focusedTask.topActivity);
+            return focusedTask != null && GMS_ADD_ACCOUNT_ACTIVITY.equals(focusedTask.topActivity);
         } catch (Exception e) {
             Log.e(TAG, "Unable to get top activity!", e);
         }
@@ -331,17 +312,23 @@ public final class PixelPropsUtils {
         if (Android.isCertifiedPropsEmpty()) return false;
 
         final boolean was = isGmsAddAccountActivityOnTop();
-        final TaskStackListener taskStackListener = new TaskStackListener() {
-            @Override
-            public void onTaskStackChanged() {
-                final boolean is = isGmsAddAccountActivityOnTop();
-                if (is ^ was) {
-                    dlog("GmsAddAccountActivityOnTop is:" + is + " was:" + was +
-                            ", killing myself!"); // process will restart automatically later
-                    Process.killProcess(Process.myPid());
-                }
-            }
-        };
+        final TaskStackListener taskStackListener =
+                new TaskStackListener() {
+                    @Override
+                    public void onTaskStackChanged() {
+                        final boolean is = isGmsAddAccountActivityOnTop();
+                        if (is ^ was) {
+                            dlog(
+                                    "GmsAddAccountActivityOnTop is:"
+                                            + is
+                                            + " was:"
+                                            + was
+                                            + ", killing myself!"); // process will restart
+                                                                    // automatically later
+                            Process.killProcess(Process.myPid());
+                        }
+                    }
+                };
         if (!was) {
             Android.newApplication();
         } else {
@@ -418,10 +405,10 @@ public final class PixelPropsUtils {
                 propsToChange = propsToChangeDevice;
             }
         } else if (getPackagesToChangePixelExtra().contains(processName)
-            || getPackagesToChangePixelExtra().contains(packageName)) {
+                || getPackagesToChangePixelExtra().contains(packageName)) {
             propsToChange = getPropsToChangePixelExtra();
         } else if (getPackagesToChangePixelRecent().contains(processName)
-            || getPackagesToChangePixelRecent().contains(packageName)) {
+                || getPackagesToChangePixelRecent().contains(packageName)) {
             propsToChange = getPropsToChangePixelRecent();
         } else if (sIsTablet) {
             propsToChange = getPropsToChangePixelTablet();
@@ -433,7 +420,8 @@ public final class PixelPropsUtils {
         for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
             String key = prop.getKey();
             Object value = prop.getValue();
-            if (propsToKeep.containsKey(packageName) && propsToKeep.get(packageName).contains(key)) {
+            if (propsToKeep.containsKey(packageName)
+                    && propsToKeep.get(packageName).contains(key)) {
                 dlog("Not defining " + key + " prop for: " + packageName);
                 continue;
             }

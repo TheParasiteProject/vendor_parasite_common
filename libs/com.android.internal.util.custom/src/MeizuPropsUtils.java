@@ -23,8 +23,8 @@ import android.os.SystemProperties;
 import android.text.TextUtils;
 import android.util.Log;
 
-import java.util.Arrays;
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +36,8 @@ public final class MeizuPropsUtils {
     private static final String TAG = MeizuPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    private static final String DISGUISE_PROPS_FOR_MUSIC_APP = "persist.sys.disguise_props_for_music_app";
+    private static final String DISGUISE_PROPS_FOR_MUSIC_APP =
+            "persist.sys.disguise_props_for_music_app";
 
     private static final Map<String, Object> propsToChange;
 
@@ -56,8 +57,8 @@ public final class MeizuPropsUtils {
         propsToChange.put("BRAND", "meizu");
         propsToChange.put("MANUFACTURER", "Meizu");
         propsToChange.put("DEVICE", "m1892");
-        propsToChange.put("DISPLAY","Flyme");
-        propsToChange.put("PRODUCT","meizu_16thPlus_CN");
+        propsToChange.put("DISPLAY", "Flyme");
+        propsToChange.put("PRODUCT", "meizu_16thPlus_CN");
         propsToChange.put("MODEL", "meizu 16th Plus");
     }
 
@@ -71,8 +72,8 @@ public final class MeizuPropsUtils {
             return;
         }
 
-        if (Arrays.asList(packagesToChange).contains(packageName)){
-            if (DEBUG){
+        if (Arrays.asList(packagesToChange).contains(packageName)) {
+            if (DEBUG) {
                 Log.d(TAG, "Defining props for: " + packageName);
             }
             for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
@@ -83,9 +84,9 @@ public final class MeizuPropsUtils {
         }
     }
 
-    private static void setPropValue(String key, Object value){
+    private static void setPropValue(String key, Object value) {
         try {
-            if (DEBUG){
+            if (DEBUG) {
                 Log.d(TAG, "Defining prop " + key + " to " + value.toString());
             }
             Field field = Build.class.getDeclaredField(key);

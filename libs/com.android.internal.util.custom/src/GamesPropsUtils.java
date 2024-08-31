@@ -43,94 +43,102 @@ public final class GamesPropsUtils {
 
     static {
         propsToChange.put("BS4", createBS4Props());
-        packagesToChange.put("BS4", new String[]{
-                "com.proximabeta.mf.uamo"
-        });
+        packagesToChange.put("BS4", new String[] {"com.proximabeta.mf.uamo"});
 
         propsToChange.put("F5", createF5Props());
-        packagesToChange.put("F5", new String[]{
-                "com.dts.freefiremax",
-                "com.dts.freefireth",
-                "com.mobile.legends"
-        });
+        packagesToChange.put(
+                "F5",
+                new String[] {"com.dts.freefiremax", "com.dts.freefireth", "com.mobile.legends"});
 
         propsToChange.put("iQ11", createiQ11Props());
-        packagesToChange.put("iQ11", new String[]{
-                "com.tencent.KiHan",
-                "com.tencent.tmgp.cf",
-                "com.tencent.tmgp.cod",
-                "com.tencent.tmgp.gnyx"
-        });
+        packagesToChange.put(
+                "iQ11",
+                new String[] {
+                    "com.tencent.KiHan",
+                    "com.tencent.tmgp.cf",
+                    "com.tencent.tmgp.cod",
+                    "com.tencent.tmgp.gnyx"
+                });
 
         propsToChange.put("MI11T", createMI11TProps());
-        packagesToChange.put("MI11T", new String[]{
-                "com.ea.gp.apexlegendsmobilefps",
-                "com.levelinfinite.hotta.gp",
-                "com.supercell.brawlstars",
-                "com.supercell.clashofclans",
-                "com.vng.mlbbvn"
-        });
+        packagesToChange.put(
+                "MI11T",
+                new String[] {
+                    "com.ea.gp.apexlegendsmobilefps",
+                    "com.levelinfinite.hotta.gp",
+                    "com.supercell.brawlstars",
+                    "com.supercell.clashofclans",
+                    "com.vng.mlbbvn"
+                });
 
         propsToChange.put("MI13P", createMI13PProps());
-        packagesToChange.put("MI13P", new String[]{
-                "com.levelinfinite.sgameGlobal",
-                "com.tencent.tmgp.sgame"
-        });
+        packagesToChange.put(
+                "MI13P", new String[] {"com.levelinfinite.sgameGlobal", "com.tencent.tmgp.sgame"});
 
         propsToChange.put("NX729J", createNX729JProps());
-        packagesToChange.put("NX729J", new String[]{
-                "com.YoStar.AetherGazer"
-        });
+        packagesToChange.put("NX729J", new String[] {"com.YoStar.AetherGazer"});
 
         propsToChange.put("OP8P", createOP8PProps());
-        packagesToChange.put("OP8P", new String[]{
-                "com.netease.lztgglobal",
-                "com.riotgames.league.wildrift",
-                "com.riotgames.league.wildrifttw",
-                "com.riotgames.league.wildriftvn"
-        });
+        packagesToChange.put(
+                "OP8P",
+                new String[] {
+                    "com.netease.lztgglobal",
+                    "com.riotgames.league.wildrift",
+                    "com.riotgames.league.wildrifttw",
+                    "com.riotgames.league.wildriftvn"
+                });
 
         propsToChange.put("OP9P", createOP9PProps());
-        packagesToChange.put("OP9P", new String[]{
-                "com.epicgames.fortnite",
-                "com.epicgames.portal",
-                "com.tencent.lolm",
-                "jp.konami.pesam"
-        });
+        packagesToChange.put(
+                "OP9P",
+                new String[] {
+                    "com.epicgames.fortnite",
+                    "com.epicgames.portal",
+                    "com.tencent.lolm",
+                    "jp.konami.pesam"
+                });
 
         propsToChange.put("ROG3", createROG3Props());
-        packagesToChange.put("ROG3", new String[]{
-                "com.ea.gp.fifamobile",
-                "com.pearlabyss.blackdesertm.gl",
-                "com.pearlabyss.blackdesertm"
-        });
+        packagesToChange.put(
+                "ROG3",
+                new String[] {
+                    "com.ea.gp.fifamobile",
+                    "com.pearlabyss.blackdesertm.gl",
+                    "com.pearlabyss.blackdesertm"
+                });
 
         propsToChange.put("ROG6", createROG6Props());
-        packagesToChange.put("ROG6", new String[]{
-                "com.gameloft.android.ANMP.GloftA9HM",
-                "com.madfingergames.legends",
-                "com.riotgames.league.teamfighttactics",
-                "com.riotgames.league.teamfighttacticstw",
-                "com.riotgames.league.teamfighttacticsvn"
-        });
+        packagesToChange.put(
+                "ROG6",
+                new String[] {
+                    "com.gameloft.android.ANMP.GloftA9HM",
+                    "com.madfingergames.legends",
+                    "com.riotgames.league.teamfighttactics",
+                    "com.riotgames.league.teamfighttacticstw",
+                    "com.riotgames.league.teamfighttacticsvn"
+                });
 
         propsToChange.put("ROG8", createROG8Props());
-        packagesToChange.put("ROG8", new String[]{
-                "com.pubg.imobile",
-                "com.pubg.krmobile",
-                "com.rekoo.pubgm",
-                "com.tencent.ig",
-                "com.tencent.tmgp.pubgmhd",
-                "com.vng.pubgmobile"
-        });
+        packagesToChange.put(
+                "ROG8",
+                new String[] {
+                    "com.pubg.imobile",
+                    "com.pubg.krmobile",
+                    "com.rekoo.pubgm",
+                    "com.tencent.ig",
+                    "com.tencent.tmgp.pubgmhd",
+                    "com.vng.pubgmobile"
+                });
 
         propsToChange.put("LenovoY700", createLenovoY700Props());
-        packagesToChange.put("LenovoY700", new String[]{
-                "com.activision.callofduty.shooter",
-                "com.garena.game.codm",
-                "com.tencent.tmgp.kr.codm",
-                "com.vng.codmvn"
-        });
+        packagesToChange.put(
+                "LenovoY700",
+                new String[] {
+                    "com.activision.callofduty.shooter",
+                    "com.garena.game.codm",
+                    "com.tencent.tmgp.kr.codm",
+                    "com.vng.codmvn"
+                });
     }
 
     private static Map<String, Object> createBS4Props() {
@@ -236,7 +244,7 @@ public final class GamesPropsUtils {
         if (!sEnableGameProps) {
             return;
         }
-    
+
         final String packageName = context.getPackageName();
 
         if (TextUtils.isEmpty(packageName)) {
