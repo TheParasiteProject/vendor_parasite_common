@@ -69,6 +69,8 @@ public final class PixelPropsUtils {
 
     private static final String sDeviceModel =
             SystemProperties.get("ro.product.model", Build.MODEL);
+    private static final String sDeviceFingerprint =
+            SystemProperties.get("ro.product.fingerprint", Build.FINGERPRINT);
     private static final Boolean sDeviceIsPixel =
             SystemProperties.get("ro.product.manufacturer", "").toLowerCase().contains("google");
     private static final Boolean sForceSpoofGmsProcessToDevice =
@@ -79,6 +81,7 @@ public final class PixelPropsUtils {
     private static final String PACKAGE_NETFLIX = "com.netflix.mediaclient";
     private static final String PACKAGE_SETTINGS_INTELLIGENCE =
             "com.google.android.settings.intelligence";
+    private static final String PACKAGE_ARCORE = "com.google.ar.core";
     private static final String PACKAGE_PHOTOS = "com.google.android.apps.photos";
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PROCESS_GMS_UI = PACKAGE_GMS + ".ui";
@@ -93,9 +96,6 @@ public final class PixelPropsUtils {
 
     static {
         propsToKeep = new HashMap<>();
-        propsToKeep.put(
-                PACKAGE_SETTINGS_INTELLIGENCE,
-                new ArrayList<>(Collections.singletonList("FINGERPRINT")));
         propsToChangeGeneric = new HashMap<>();
         propsToChangeGeneric.put("TYPE", "user");
         propsToChangeGeneric.put("TAGS", "release-keys");
@@ -323,8 +323,8 @@ public final class PixelPropsUtils {
                                             + is
                                             + " was:"
                                             + was
-                                            + ", killing myself!"); // process will restart
-                                                                    // automatically later
+                                            + ", killing myself!");
+                            // process will restart automatically later
                             Process.killProcess(Process.myPid());
                         }
                     }
@@ -436,6 +436,10 @@ public final class PixelPropsUtils {
         // Set proper indexing fingerprint
         if (PACKAGE_SETTINGS_INTELLIGENCE.equals(packageName)) {
             setPropValue("FINGERPRINT", Build.VERSION.INCREMENTAL);
+            return;
+        }
+        if (PACKAGE_ARCORE.equals(packageName)) {
+            setPropValue("FINGERPRINT", sDeviceFingerprint);
             return;
         }
         if (!TextUtils.isEmpty(sNetflixModel) && PACKAGE_NETFLIX.equals(packageName)) {
