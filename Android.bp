@@ -6,7 +6,7 @@ java_library {
     installable: true,
     sdk_version: "core_platform",
     static_libs: [
-        "org.lineageos.platform.internal"
+        "org.lineageos.platform.internal",
     ],
 
     srcs: [

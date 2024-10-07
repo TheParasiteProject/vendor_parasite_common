@@ -29,7 +29,7 @@ java_library {
         lineage_sdk_lib_src + "/phone/*.java",
         ":spn-info",
     ],
-    
+
     required: [
         "sensitive_pn.xml",
         "org.lineageos.lib.phone.xml",
