@@ -325,6 +325,10 @@ public class PhenotypeFlagsUtils {
 
         Map<String, Object> mapTmp = map;
         String[] pathStr = path.split("/");
+        if (pathStr.length < 5) {
+            return;
+        }
+
         String pkg = pathStr[4];
         String fileName = pathStr[pathStr.length - 1];
         // some PhenotypeFlags are stored in SharedPreferences instead of phenotype.db database
