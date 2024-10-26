@@ -484,6 +484,14 @@ public final class PixelPropsUtils {
                         field.set(null, convertedValue);
                         dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
                     }
+                } else if (fieldType == boolean.class || fieldType == Boolean.class) {
+                    if (value instanceof Boolean) {
+                        field.set(null, value);
+                    } else if (value instanceof String) {
+                        boolean convertedValue = Boolean.parseBoolean((String) value);
+                        field.set(null, convertedValue);
+                        dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
+                    }
                 } else if (fieldType == String.class) {
                     field.set(null, String.valueOf(value));
                 }
