@@ -476,6 +476,14 @@ public final class PixelPropsUtils {
                         field.set(null, convertedValue);
                         dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
                     }
+                } else if (fieldType == long.class || fieldType == Long.class) {
+                    if (value instanceof Long) {
+                        field.set(null, value);
+                    } else if (value instanceof String) {
+                        long convertedValue = Long.parseLong((String) value);
+                        field.set(null, convertedValue);
+                        dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
+                    }
                 } else if (fieldType == String.class) {
                     field.set(null, String.valueOf(value));
                 }
