@@ -28,6 +28,9 @@ ifndef LINEAGE_PLATFORM_REV
   LINEAGE_PLATFORM_REV := 0
 endif
 
+# Parasite Certification
+$(call inherit-product-if-exists, vendor/parasite/certification/config.mk)
+
 # Parasite Signatures
 $(call inherit-product-if-exists, vendor/parasite/signatures/config.mk)
 
