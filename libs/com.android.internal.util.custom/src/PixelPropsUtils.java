@@ -504,62 +504,6 @@ public final class PixelPropsUtils {
         }
     }
 
-    public static boolean shouldBypassTaskPermission(Context context) {
-        // GMS doesn't have MANAGE_ACTIVITY_TASKS permission
-        final int callingUid = Binder.getCallingUid();
-        final int gmsUid;
-        try {
-            gmsUid = context.getPackageManager().getApplicationInfo(PACKAGE_GMS, 0).uid;
-            dlog("shouldBypassTaskPermission: gmsUid:" + gmsUid + " callingUid:" + callingUid);
-        } catch (Exception e) {
-            Log.e(TAG, "shouldBypassTaskPermission: unable to get gms uid", e);
-            return false;
-        }
-        return gmsUid == callingUid;
-    }
-
-    // Whitelist of package names to bypass FGS type validation
-    public static boolean shouldBypassFGSValidation(String packageName) {
-        // Check if the app is whitelisted
-        if (Arrays.asList(getStringArrayResSafely(R.array.config_fgsTypeValidationBypassPackages))
-                .contains(packageName)) {
-            dlog(
-                    "shouldBypassFGSValidation: "
-                            + "Bypassing FGS type validation for whitelisted app: "
-                            + packageName);
-            return true;
-        }
-        return false;
-    }
-
-    // Whitelist of package names to bypass alarm manager validation
-    public static boolean shouldBypassAlarmManagerValidation(String packageName) {
-        // Check if the app is whitelisted
-        if (Arrays.asList(getStringArrayResSafely(R.array.config_alarmManagerValidationBypassPackages))
-                .contains(packageName)) {
-            dlog(
-                    "shouldBypassAlarmManagerValidation: "
-                            + "Bypassing alarm manager validation for whitelisted app: "
-                            + packageName);
-            return true;
-        }
-        return false;
-    }
-
-    // Whitelist of package names to bypass broadcast reciever validation
-    public static boolean shouldBypassBroadcastReceiverValidation(String packageName) {
-        // Check if the app is whitelisted
-        if (Arrays.asList(getStringArrayResSafely(R.array.config_broadcaseReceiverValidationBypassPackages))
-                .contains(packageName)) {
-            dlog(
-                    "shouldBypassBroadcastReceiverValidation: "
-                            + "Bypassing broadcast receiver validation for whitelisted app: "
-                            + packageName);
-            return true;
-        }
-        return false;
-    }
-
     public static void dlog(String msg) {
         if (DEBUG) Log.d(TAG, msg);
     }
