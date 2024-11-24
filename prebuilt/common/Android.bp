@@ -1,16 +1,3 @@
-java_import {
-    name: "vendor.aac.hardware.richtap.vibrator",
-    jars: ["lib/vendorAacHardwareRichtapVibrator.jar"],
-    sdk_version: "current",
-}
-
-prebuilt_etc {
-    name: "init.openssh.rc",
-    src: "etc/init/init.openssh.rc",
-    sub_dir: "init",
-    product_specific: true,
-}
-
 sh_binary {
     name: "init.cache_cleaner.sh",
     src: "bin/init.cache_cleaner.sh",
