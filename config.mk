@@ -28,6 +28,10 @@ ifndef LINEAGE_PLATFORM_REV
   LINEAGE_PLATFORM_REV := 0
 endif
 
+# Parasite Configuration
+VENDOR_PARASITE_COMMON_DIR := vendor/parasite/common
+$(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/common.mk)
+
 # Parasite Certification
 $(call inherit-product-if-exists, vendor/parasite/certification/config.mk)
 

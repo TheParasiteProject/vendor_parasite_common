@@ -1,5 +1,3 @@
-VENDOR_PARASITE_COMMON_DIR := vendor/parasite/common
-
 # Branding
 $(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/branding.mk)
 
