@@ -33,7 +33,11 @@ function cleaning_cache() {
     # Compare build date before clean-up
     if [ $build_date_curr != $build_date_prev ]; then
         # Remove caches to avoid derps after dirty flash
-        rm -rf /data/cache /data/resource-cache /data/system/package_cache
+        cd /data
+        rm -rf cache resource-cache
+        cd /data/system
+        rm -rf package_cache
+        cd /
         # Update previous build date prop
         setprop $build_prev_prop $build_date_curr
     fi
