@@ -21,7 +21,8 @@ PRODUCT_PACKAGES += \
 
 # SystemUI Customisation
 PRODUCT_PACKAGES += \
-    SystemUICustomOverlay
+    SystemUICustomOverlay \
+    SystemUIFlagFlipperOverlay
 
 # Settings Customisation
 PRODUCT_PACKAGES += \
