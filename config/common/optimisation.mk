@@ -30,6 +30,8 @@ MALLOC_SVELTE_FOR_LIBC32 ?= true
 # HWUI
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     debug.hwui.skia_atrace_enabled=false \
+    debug.hwui.skia_tracing_enabled=false \
+    debug.hwui.skia_use_perfetto_track_events=false \
     debug.hwui.enable_adpf_cpu_hint?=true \
     debug.hwui.use_hint_manager?=true \
     debug.hwui.target_cpu_time_percent?=30 \
