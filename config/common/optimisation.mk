@@ -15,9 +15,14 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.input.video_enabled=false
 
-# Disable MTE Async for system server
+# Disable MTE Async on some processes
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    persist.arm64.memtag.system_server?=off
+    persist.arm64.memtag.system_server?=off \
+    persist.arm64.memtag.process.system_server?=off \
+    persist.arm64.memtag.app.com.android.se?=off \
+    persist.arm64.memtag.app.com.android.nfc?=off \
+    persist.arm64.memtag.app.com.android.bluetooth?=off \
+    persist.arm64.memtag.app.com.google.android.bluetooth?=off
 
 # Disable Scudo to save RAM and use 32-bit libc variant by default
 PRODUCT_DISABLE_SCUDO ?= true
