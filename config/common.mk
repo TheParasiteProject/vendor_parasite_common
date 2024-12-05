@@ -23,6 +23,14 @@ PRODUCT_SYSTEM_PROPERTIES += \
 PRODUCT_PACKAGES += \
     android.frameworks.sensorservice@1.0.vendor
 
+# TFLite service
+PRODUCT_PACKAGES += \
+    libtensorflowlite_jni
+
+PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+    system/lib/libtensorflowlite_jni.so \
+    system/lib64/libtensorflowlite_jni.so
+
 # Apps
 $(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/common/apps.mk)
 
