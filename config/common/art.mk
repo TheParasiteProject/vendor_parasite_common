@@ -91,7 +91,8 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     pm.dexopt.cmdline=verify \
     pm.dexopt.inactive=verify \
     pm.dexopt.shared=speed \
-    pm.dexopt.downgrade_after_inactive_days=10
+    pm.dexopt.downgrade_after_inactive_days=10 \
+    ro.dalvik.vm.enable_uffd_gc=true
 
 # dex2oat threads and CPU sets (default)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
