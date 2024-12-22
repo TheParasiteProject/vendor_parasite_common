@@ -1,5 +1,5 @@
 # Branding
-$(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/branding.mk)
+$(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/version.mk)
 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.com.android.dataroaming=false \
