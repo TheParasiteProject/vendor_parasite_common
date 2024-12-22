@@ -518,6 +518,20 @@ public final class PixelPropsUtils {
         return gmsUid == callingUid;
     }
 
+    // Whitelist of package names to bypass FGS type validation
+    public static boolean shouldBypassFGSValidation(String packageName) {
+        // Check if the app is whitelisted
+        if (Arrays.asList(getStringArrayResSafely(R.array.config_fgsTypeValidationBypassPackages))
+                .contains(packageName)) {
+            dlog(
+                    "shouldBypassFGSValidation: "
+                            + "Bypassing FGS type validation for whitelisted app: "
+                            + packageName);
+            return true;
+        }
+        return false;
+    }
+
     public static void dlog(String msg) {
         if (DEBUG) Log.d(TAG, msg);
     }

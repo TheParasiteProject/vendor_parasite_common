@@ -48,4 +48,6 @@
     <string-array name="config_cfHookFeaturesNexus" translatable="false"/>
     <string-array name="config_cfHookFeaturesAndroid" translatable="false"/>
 
+    <!-- Whitelist of package names to bypass foreground service type validation -->
+    <string-array name="config_fgsTypeValidationBypassPackages" translatable="false"/>
 </resources>

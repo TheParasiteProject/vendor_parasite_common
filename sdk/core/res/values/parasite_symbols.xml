@@ -52,4 +52,6 @@
     <!-- Whether device has a big physical display cutout -->
     <java-symbol type="bool" name="config_physicalDisplayCutoutCentered" />
 
+    <!-- Whitelist of package names to bypass foreground service type validation -->
+    <java-symbol type="array" name="config_fgsTypeValidationBypassPackages"/>
 </resources>
