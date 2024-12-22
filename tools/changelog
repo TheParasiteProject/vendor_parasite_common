@@ -2,7 +2,7 @@
 
 GREEN="\033[0;32m"
 
-Changelog="changelog.md"
+CHANGELOG="changelog.md"
 
 DEVICE=$1
 if [ -z $DEVICE ]; then
@@ -19,28 +19,28 @@ else
 	fi
 fi
 
-if [ -f $Changelog ];
+if [ -f $CHANGELOG ];
 then
-	rm -f $Changelog
+	rm -f $CHANGELOG
 fi
 
-touch $Changelog
+touch $CHANGELOG
 
-echo -e "# $DEVICE\n" >> $Changelog;
+echo -e "# $DEVICE\n" >> $CHANGELOG;
 
 for i in $(seq $CHANGELOG_DAYS);
 do
 	export After_Date=`/bin/date --date="$i days ago" +%m-%d-%Y`
 	k=$(expr $i - 1)
 	export Until_Date=`/bin/date --date="$k days ago" +%m-%d-%Y`
-	echo -e "### $Until_Date\n" >> $Changelog;
+	echo -e "### $Until_Date\n" >> $CHANGELOG;
 	# Cycle through every repo to find commits between 2 dates
 	CURRENT_PATH="$(realpath `pwd`)"
-    repo forall -c "GIT_LOG=\`git log --oneline --after=$After_Date --until=$Until_Date --pretty=tformat:"%x2A %h  %s  [%an]" --abbrev-commit --abbrev=7\` ; if [ -n \"\$GIT_LOG\" ]; then echo -e \"#### ${path}\\n\\n\$GIT_LOG\\n\" ; fi >> $Changelog"
+    repo forall -c "GIT_LOG=\`git log --oneline --after=$After_Date --until=$Until_Date --pretty=tformat:"%x2A %h  %s  [%an]" --abbrev-commit --abbrev=7\` ; if [ -n \"\$GIT_LOG\" ]; then echo -e \"#### ${path}\\n\\n\$GIT_LOG\\n\" ; fi >> $CHANGELOG"
 done
 
-cp $Changelog ${OUT_DIR:-./out}/target/product/$DEVICE/
-rm $Changelog
+cp $CHANGELOG ${OUT_DIR:-./out}/target/product/$DEVICE/
+rm $CHANGELOG
 echo -e "${GREEN}Done generating changelog for $DEVICE"
 
-unset GREEN Changelog DEVICE
+unset GREEN CHANGELOG DEVICE
