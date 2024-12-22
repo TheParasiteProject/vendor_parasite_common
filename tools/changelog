@@ -2,7 +2,7 @@
 
 GREEN="\033[0;32m"
 
-export Changelog=changelog.md
+Changelog="changelog.md"
 
 DEVICE=$(echo $TARGET_PRODUCT | sed -e 's/aosp_//g')
 
@@ -34,3 +34,5 @@ done
 cp $Changelog ${OUT_DIR:-./out}/target/product/$DEVICE/
 rm $Changelog
 echo -e "${GREEN}Done generating changelog for $DEVICE"
+
+unset GREEN Changelog DEVICE
