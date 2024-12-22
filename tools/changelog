@@ -9,6 +9,16 @@ if [ -z $DEVICE ]; then
 	DEVICE=$(echo $TARGET_PRODUCT | sed -e 's/lineage_//g')
 fi
 
+CHANGELOG_DAYS=$2
+if [ -z $CHANGELOG_DAYS ];then
+	CHANGELOG_DAYS=5
+else
+	if (($CHANGELOG_DAYS > 30 )); then
+        echo "Changelog cannot be generated for periods exceeding 30 days. Please specify a shorter time frame. (Timeout: 15 seconds - defaulting to 5 days)"
+        read -r -t 15 CHANGELOG_DAYS || CHANGELOG_DAYS=5
+	fi
+fi
+
 if [ -f $Changelog ];
 then
 	rm -f $Changelog
@@ -18,7 +28,7 @@ touch $Changelog
 
 echo -e "# $DEVICE\n" >> $Changelog;
 
-for i in $(seq 5);
+for i in $(seq $CHANGELOG_DAYS);
 do
 	export After_Date=`/bin/date --date="$i days ago" +%m-%d-%Y`
 	k=$(expr $i - 1)
