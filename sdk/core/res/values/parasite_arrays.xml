@@ -22,4 +22,11 @@
     <string-array name="global_device_configs_override" translatable="false" />
     <string-array name="device_configs_override" translatable="false" />
 
+    <!-- Define phenotype/gservices flags -->
+    <string-array name="global_phenotype_flags_override" translatable="false"/>
+    <string-array name="device_phenotype_flags_override" translatable="false"/>
+    <!-- Additional namespaces for packages' phenotype/gservices flags -->
+    <string-array name="global_phenotype_package_namespaces" translatable="false"/>
+    <string-array name="device_phenotype_package_namespaces" translatable="false"/>
+
 </resources>
