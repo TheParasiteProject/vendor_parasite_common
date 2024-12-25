@@ -122,6 +122,7 @@ public final class GamesPropsUtils {
         packagesToChange.put(
                 "SM-S928B",
                 new String[] {
+                    "com.blizzard.diablo.immortal",
                     "com.pubg.imobile",
                     "com.pubg.krmobile",
                     "com.rekoo.pubgm",
