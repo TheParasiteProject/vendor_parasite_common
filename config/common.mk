@@ -14,6 +14,10 @@ else
 PRODUCT_SYSTEM_PROPERTIES += log.tag=I
 endif
 
+# Sensitive Phone Nmber framework
+PRODUCT_PACKAGES += \
+    org.lineageos.lib.phone
+
 # To prevent rebooting due to crashing services
 PRODUCT_SYSTEM_PROPERTIES += \
     init.svc_debug.no_fatal.zygote=true \
