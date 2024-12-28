@@ -52,6 +52,87 @@
     <string-array name="config_gameHook" translatable="false">
         <!-- MapName:BRAND,DEVICE,MANUFACTURER,MODEL
              packageName -->
+        <!-- Red Magic 9 Pro -->
+        <item>NX769J:nubia,NX769J,nubia,NX769J</item>
+        <item>com.activision.callofduty.warzone</item>
+        <item>com.blitzteam.battleprime</item>
+        <item>com.CarXTech.highWay</item>
+        <item>com.ea.game.nfs14_row</item>
+        <item>com.ea.games.r3_row</item>
+        <item>com.gamedevltd.destinywarfare</item>
+        <item>com.gameloft.android.ANMP.GloftA8HM</item>
+        <item>com.mobilelegends.mi</item>
+        <item>com.nekki.shadowfight3</item>
+        <item>com.nekki.shadowfight</item>
+        <item>com.nekki.shadowfightarena</item>
+        <item>com.netease.newspike</item>
+        <item>com.pikpok.dr2.play</item>
+        <item>com.pubg.newstate</item>
+        <item>com.supercell.brawlstars</item>
+        <item>com.supercell.squad</item>
+
+        <!-- Black Shark 4 -->
+        <item>SHARK PRS-A0:blackshark,penrose,blackshark,SHARK PRS-A0</item>
+        <item>com.proximabeta.mf.uamo</item>
+
+        <!-- Xiaomi 11T Pro -->
+        <item>2107113SI:Xiaomi,vili,Xiaomi,2107113SI</item>
+        <item>com.ea.gp.apexlegendsmobilefps</item>
+        <item>com.levelinfinite.hotta.gp</item>
+        <item>com.supercell.clashofclans</item>
+        <item>com.vng.mlbbvn</item>
+
+        <!-- Xiaomi 13 Pro -->
+        <item>2210132C:Xiaomi,nuwa,Xiaomi,2210132C</item>
+        <item>com.levelinfinite.sgameGlobal</item>
+        <item>com.tencent.tmgp.sgame</item>
+
+        <!-- OnePlus 8 PRO -->
+        <item>IN2020:OnePlus,OnePlus8Pro,OnePlus,IN2020</item>
+        <item>com.netease.lztgglobal</item>
+        <item>com.riotgames.league.wildrift</item>
+        <item>com.riotgames.league.wildrifttw</item>
+        <item>com.riotgames.league.wildriftvn</item>
+
+        <!-- OnePlus 9R -->
+        <item>LE2101:OnePlus,OnePlus9R,OnePlus,LE2101</item>
+        <item>com.epicgames.fortnite</item>
+        <item>com.epicgames.portal</item>
+        <item>com.tencent.lolm</item>
+
+        <!-- POCO F5 -->
+        <item>23049PCD8G:POCO,marble,Xiaomi,23049PCD8G</item>
+        <item>com.mobile.legends</item>
+
+        <!-- ROG Phone -->
+        <item>ASUS_Z01QD:asus,ASUS_Z01QD_1,asus,ASUS_Z01QD</item>
+        <item>com.dts.freefireth</item>
+        <item>com.dts.freefirethmax</item>
+
+        <!-- ROG Phone 6 -->
+        <item>ASUS_AI2201:asus,ASUS_AI2201,asus,ASUS_AI2201</item>
+        <item>com.activision.callofduty.shooter</item>
+        <item>com.ea.gp.fifamobile</item>
+        <item>com.gameloft.android.ANMP.GloftA9HM</item>
+        <item>com.madfingergames.legends</item>
+        <item>com.pearlabyss.blackdesertm.gl</item>
+        <item>com.pearlabyss.blackdesertm</item>
+
+        <!-- Galaxy S24 ULTRA -->
+        <item>SM-S928B:samsung,e3q,samsung,SM-S928B</item>
+        <item>com.blizzard.diablo.immortal</item>
+        <item>com.pubg.imobile</item>
+        <item>com.pubg.krmobile</item>
+        <item>com.rekoo.pubgm</item>
+        <item>com.tencent.ig</item>
+        <item>com.tencent.tmgp.pubgmhd</item>
+        <item>com.vng.pubgmobile</item>
+
+        <!-- Xperia 5 II -->
+        <item>SO-52A:Xperia,Sony Xperia 5,Xperia,SO-52A</item>
+        <item>com.garena.game.codm</item>
+        <item>com.tencent.tmgp.kr.codm</item>
+        <item>com.vng.codmvn</item>
     </string-array>
 
     <!-- Whitelist of package names to bypass foreground service type validation -->
