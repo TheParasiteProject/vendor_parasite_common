@@ -15,9 +15,9 @@ LINEAGE_DISPLAY_VERSION := $(CUSTOM_BUILD_VERSION)
 
 # Versioning props
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.lineage.brand=$(PRODUCT_BRAND) \
-    ro.lineage.build.version=$(PLATFORM_DISPLAY_VERSION).$(CUSTOM_BUILD_VERSION) \
-    ro.lineage.display.version=$(LINEAGE_DISPLAY_VERSION) \
-    ro.lineage.releasetype=$(LINEAGE_BUILDTYPE) \
-    ro.lineage.version=$(LINEAGE_VERSION) \
+    ro.custom.brand=$(PRODUCT_BRAND) \
+    ro.custom.build.version=$(PLATFORM_DISPLAY_VERSION).$(CUSTOM_BUILD_VERSION) \
+    ro.custom.display.version=$(LINEAGE_DISPLAY_VERSION) \
+    ro.custom.releasetype=$(LINEAGE_BUILDTYPE) \
+    ro.custom.version=$(LINEAGE_VERSION) \
     ro.modversion=$(LINEAGE_VERSION)
