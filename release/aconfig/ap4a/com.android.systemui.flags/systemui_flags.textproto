@@ -11,3 +11,10 @@ flag_value {
   state: ENABLED
   permission: READ_ONLY
 }
+
+flag_value {
+  package: "com.android.systemui"
+  name: "status_bar_screen_sharing_chips"
+  state: ENABLED
+  permission: READ_ONLY
+}
