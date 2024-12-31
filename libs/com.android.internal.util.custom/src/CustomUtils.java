@@ -18,18 +18,21 @@
 package com.android.internal.util.custom;
 
 import android.app.ActivityManager;
+import android.app.ActivityOptions;
 import android.app.IActivityManager;
 import android.content.Context;
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
+import android.media.AudioManager;
 import android.os.AsyncTask;
-import android.os.PowerManager;
-import android.os.SystemClock;
-import android.os.SystemProperties;
+import android.os.RemoteException;
+import android.view.IWindowManager;
+import android.view.WindowManagerGlobal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomUtils {
@@ -105,6 +108,87 @@ public class CustomUtils {
         } catch (PackageManager.NameNotFoundException notFound) {
             return false;
         }
+    }
+
+    public static void performKeyActionFromIntSafe(Context context, int actionCode) {
+        switch (actionCode) {
+            case 4: // VOICE_SEARCH
+                launchVoiceAssist(context);
+                return;
+            case 8: // LAST_APP
+                switchToLastApp(context);
+                return;
+            case 13: // VOLUME_PANEL
+                toggleVolumePanel(context);
+                return;
+        }
+
+        IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
+        try {
+            wm.performKeyActionFromIntSafe(actionCode);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Launch voice search
+    public static void launchVoiceAssist(Context context) {
+        Intent intent = new Intent(Intent.ACTION_SEARCH_LONG_PRESS);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
+
+    // Volume panel
+    public static void toggleVolumePanel(Context context) {
+        AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        am.adjustVolume(AudioManager.ADJUST_SAME, AudioManager.FLAG_SHOW_UI);
+    }
+
+    // Switch to last app
+    public static void switchToLastApp(Context context) {
+        final ActivityManager am =
+                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager.RunningTaskInfo lastTask = getLastTask(context, am);
+
+        if (lastTask != null) {
+            am.moveTaskToFront(lastTask.id, ActivityManager.MOVE_TASK_NO_USER_ACTION,
+                    getAnimation(context).toBundle());
+        }
+    }
+
+    private static ActivityOptions getAnimation(Context context) {
+        return ActivityOptions.makeCustomAnimation(context,
+                com.android.internal.R.anim.task_open_enter,
+                com.android.internal.R.anim.task_open_exit);
+    }
+
+    private static ActivityManager.RunningTaskInfo getLastTask(Context context,
+            final ActivityManager am) {
+        final List<String> packageNames = getCurrentLauncherPackages(context);
+        final List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(5);
+        for (int i = 1; i < tasks.size(); i++) {
+            String packageName = tasks.get(i).topActivity.getPackageName();
+            if (!packageName.equals(context.getPackageName())
+                    && !packageName.equals("com.android.systemui")
+                    && !packageNames.contains(packageName)) {
+                return tasks.get(i);
+            }
+        }
+        return null;
+    }
+
+    private static List<String> getCurrentLauncherPackages(Context context) {
+        final PackageManager pm = context.getPackageManager();
+        final List<ResolveInfo> homeActivities = new ArrayList<>();
+        pm.getHomeActivities(homeActivities);
+        final List<String> packageNames = new ArrayList<>();
+        for (ResolveInfo info : homeActivities) {
+            final String name = info.activityInfo.packageName;
+            if (!name.equals("com.android.settings")) {
+                packageNames.add(name);
+            }
+        }
+        return packageNames;
     }
 
 }
