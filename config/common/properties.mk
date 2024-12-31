@@ -18,6 +18,10 @@ PRODUCT_SYSTEM_PROPERTIES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.fflag.override.settings_enable_monitor_phantom_procs?=false
 
+# Disable default frame rate limit for games
+PRODUCT_PRODUCT_PROPERTIES += \
+    debug.graphics.game_default_frame_rate.disabled=true
+
 # Disable display refresh rate override 
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.surface_flinger.enable_frame_rate_override?=false
