@@ -12,7 +12,9 @@ $(call inherit-product-if-exists, vendor/parasite/signatures/config.mk)
 $(call inherit-product-if-exists, vendor/parasite/prebuilts/config.mk)
 
 # GMS
+TARGET_INCLUDE_PIXEL_FRAMEWORKS := false
 $(call inherit-product, vendor/google/gms/products/gms.mk)
 
 # Microsoft
+TARGET_PHONE_LINK_SUPPORTED := false
 $(call inherit-product-if-exists, vendor/microsoft/mms/products/mms.mk)
