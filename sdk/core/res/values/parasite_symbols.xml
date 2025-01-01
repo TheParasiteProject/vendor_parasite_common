@@ -57,4 +57,8 @@
 
     <!-- Whitelist of package names to bypass alarm manager validation -->
     <java-symbol type="array" name="config_alarmManagerValidationBypassPackages"/>
+
+    <!-- Lock gesture -->
+    <java-symbol type="string" name="gesture_locked_warning" />
+
 </resources>
