@@ -19,5 +19,6 @@ aconfig_value_set {
         "aconfig-values-ap4a-com.android.systemui.flags-all",
         "aconfig-values-ap4a-com.android.deviceaswebcam.flags-all",
         "aconfig-values-ap4a-com.android.hardware.input.flags-all",
+        "aconfig-values-ap4a-com.android.media.audioserver.flags-all",
     ],
 }
