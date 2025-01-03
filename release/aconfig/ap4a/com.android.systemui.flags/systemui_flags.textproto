@@ -18,3 +18,10 @@ flag_value {
   state: ENABLED
   permission: READ_ONLY
 }
+
+flag_value {
+  package: "com.android.systemui"
+  name: "app_clips_backlinks"
+  state: ENABLED
+  permission: READ_ONLY
+}
