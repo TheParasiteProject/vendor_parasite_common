@@ -26,28 +26,31 @@ fi
 
 touch $CHANGELOG
 
-echo -e "# $DEVICE\n" >> $CHANGELOG;
-
 REPO_LIST="$(repo list --path)"
 for i in $(seq $CHANGELOG_DAYS); do
-	export After_Date=`/bin/date --date="$i days ago" +%m-%d-%Y`
+	export After_Date=`/bin/date --date="$i days ago" +%d-%b-%Y`
 	k=$(expr $i - 1)
-	export Until_Date=`/bin/date --date="$k days ago" +%m-%d-%Y`
-	echo -e "### $Until_Date\n" >> $CHANGELOG;
+	export Until_Date=`/bin/date --date="$k days ago" +%d-%b-%Y`
+	echo -e "# $Until_Date\n" >> $CHANGELOG;
 
     # Cycle through all available repos
     for repo_path in $REPO_LIST; do
-        # Find commits between 2 dates
+        if [ ! -d $repo_path ];then
+            continue
+        fi
+        # Find commits between $CHANGELOG_DAYS dates
         GIT_LOG="$(git -C "$repo_path" \
             log --oneline \
+            -n 1 \
             --after="$After_Date" --until="$Until_Date" \
-            --pretty=tformat:"%x2A %h  %s  [%an]" \
+            --pretty=tformat:"%x2A %s" \
             --abbrev-commit --abbrev=7 \
         )"
         [ -n "$GIT_LOG" ] && {
-            echo -e "#### ${repo_path}\n\n$GIT_LOG\n"
+            echo -e "$GIT_LOG"
         } >> $CHANGELOG
     done
+	echo -e "" >> $CHANGELOG;
 done
 
 cp $CHANGELOG ${OUT_DIR:-./out}/target/product/$DEVICE/
