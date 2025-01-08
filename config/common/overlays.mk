@@ -9,14 +9,10 @@ PRODUCT_PACKAGE_OVERLAYS += \
 PRODUCT_PACKAGES += \
     DummyCutoutOverlay
 
-# Hide navigation bar hint
-PRODUCT_PACKAGES += \
-    NavigationBarNoHintOverlay
-
 # Navigation bar IME space overlay
 PRODUCT_PACKAGES += \
-    NavigationBarModeGesturalOverlayNarrowSpace \
-    NavigationBarModeGesturalOverlayNoSpace
+    LineageNavigationBarNarrowSpace \
+    LineageNavigationBarNoSpace
 
 # SystemUI Customisation
 PRODUCT_PACKAGES += \
@@ -30,7 +26,3 @@ PRODUCT_PACKAGES += \
 # SettingsProvider Customisation
 PRODUCT_PACKAGES += \
     SettingsProviderOverlay
-
-# Themes
-PRODUCT_PACKAGES += \
-    AndroidBlackThemeOverlay
