@@ -47,6 +47,10 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
 PRODUCT_PACKAGES += \
     init.custom.rc
 
+# Support Credential Manager
+PRODUCT_PACKAGES += \
+    android.software.credentials.prebuilt.xml
+
 # Apps
 $(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/common/apps.mk)
 
