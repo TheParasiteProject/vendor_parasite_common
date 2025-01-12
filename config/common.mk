@@ -9,9 +9,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
 ifeq ($(TARGET_BUILD_VARIANT),eng)
 # Disable ADB authentication
 PRODUCT_SYSTEM_PROPERTIES += ro.adb.secure.recovery=0
-else
-# Disable debug and verbose logging by default
-PRODUCT_SYSTEM_PROPERTIES += log.tag=I
 endif
 
 # Allow downgrade on Updater if not disabled
