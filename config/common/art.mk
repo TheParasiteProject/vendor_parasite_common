@@ -54,10 +54,12 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.dex2oat-filter=speed \
     dalvik.vm.image-dex2oat-filter=speed \
     dalvik.vm.systemuicompilerfilter=speed \
+    dalvik.vm.madvise-random=true \
     pm.dexopt.bg-dexopt=speed-profile \
     pm.dexopt.cmdline=verify \
     pm.dexopt.inactive=verify \
-    pm.dexopt.shared=speed
+    pm.dexopt.shared=speed \
+    pm.dexopt.downgrade_after_inactive_days=10
 
 # dex2oat threads and CPU sets (default)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
