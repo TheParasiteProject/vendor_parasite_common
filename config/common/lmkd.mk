@@ -11,4 +11,5 @@ PRODUCT_PRODUCT_PROPERTIES += \
 	ro.lmk.thrashing_limit?=30 \
 	ro.lmk.thrashing_limit_decay?=50 \
 	ro.lmk.log_stats?=false \
-	ro.lmk.stall_limit_critical?=40
+	ro.lmk.stall_limit_critical?=40 \
+	ro.lmk.medium?=700
