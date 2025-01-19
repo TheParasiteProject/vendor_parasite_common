@@ -43,8 +43,8 @@ public class CustomUtils {
         try {
             pm.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES);
             int enabled = pm.getApplicationEnabledSetting(packageName);
-            return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED &&
-                enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
+            return enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+                    && enabled != PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER;
         } catch (NameNotFoundException e) {
             return false;
         }
@@ -70,7 +70,7 @@ public class CustomUtils {
                 ActivityManager am =
                         (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
                 IActivityManager ams = ActivityManager.getService();
-                for (ActivityManager.RunningAppProcessInfo app: am.getRunningAppProcesses()) {
+                for (ActivityManager.RunningAppProcessInfo app : am.getRunningAppProcesses()) {
                     if (mApp.equals(app.processName)) {
                         ams.killApplicationProcess(app.processName, app.uid);
                         break;
@@ -83,11 +83,13 @@ public class CustomUtils {
         }
     }
 
-    public static boolean isPackageInstalled(Context context, String packageName, boolean ignoreState) {
+    public static boolean isPackageInstalled(
+            Context context, String packageName, boolean ignoreState) {
         if (packageName != null) {
             try {
                 PackageInfo pi = context.getPackageManager().getPackageInfo(packageName, 0);
-                if ((!pi.applicationInfo.enabled || !pi.applicationInfo.isProduct()) && !ignoreState) {
+                if ((!pi.applicationInfo.enabled || !pi.applicationInfo.isProduct())
+                        && !ignoreState) {
                     return false;
                 }
             } catch (PackageManager.NameNotFoundException e) {
@@ -151,19 +153,22 @@ public class CustomUtils {
         ActivityManager.RunningTaskInfo lastTask = getLastTask(context, am);
 
         if (lastTask != null) {
-            am.moveTaskToFront(lastTask.id, ActivityManager.MOVE_TASK_NO_USER_ACTION,
+            am.moveTaskToFront(
+                    lastTask.id,
+                    ActivityManager.MOVE_TASK_NO_USER_ACTION,
                     getAnimation(context).toBundle());
         }
     }
 
     private static ActivityOptions getAnimation(Context context) {
-        return ActivityOptions.makeCustomAnimation(context,
+        return ActivityOptions.makeCustomAnimation(
+                context,
                 com.android.internal.R.anim.task_open_enter,
                 com.android.internal.R.anim.task_open_exit);
     }
 
-    private static ActivityManager.RunningTaskInfo getLastTask(Context context,
-            final ActivityManager am) {
+    private static ActivityManager.RunningTaskInfo getLastTask(
+            Context context, final ActivityManager am) {
         final List<String> packageNames = getCurrentLauncherPackages(context);
         final List<ActivityManager.RunningTaskInfo> tasks = am.getRunningTasks(5);
         for (int i = 1; i < tasks.size(); i++) {
@@ -190,5 +195,4 @@ public class CustomUtils {
         }
         return packageNames;
     }
-
 }
