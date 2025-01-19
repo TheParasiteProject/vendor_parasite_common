@@ -38,6 +38,10 @@ PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/lib/libtensorflowlite_jni.so \
     system/lib64/libtensorflowlite_jni.so
 
+# Custom init script
+PRODUCT_PACKAGES += \
+    init.custom.rc
+
 # Apps
 $(call inherit-product, $(VENDOR_PARASITE_COMMON_DIR)/config/common/apps.mk)
 

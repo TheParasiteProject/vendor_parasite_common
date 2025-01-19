@@ -8,3 +8,9 @@ prebuilt_etc {
     src: "etc/init/init.cache_cleaner.rc",
     relative_install_path: "init",
 }
+
+prebuilt_etc {
+    name: "init.custom.rc",
+    src: "etc/init/init.custom.rc",
+    relative_install_path: "init",
+}
