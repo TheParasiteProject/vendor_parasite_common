@@ -6,5 +6,5 @@ sh_binary {
 prebuilt_etc {
     name: "init.cache_cleaner.rc",
     src: "etc/init/init.cache_cleaner.rc",
-    sub_dir: "init",
+    relative_install_path: "init",
 }

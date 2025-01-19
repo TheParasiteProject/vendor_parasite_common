@@ -118,7 +118,6 @@ target_camera_package_name {
     },
 }
 
-
 soong_config_module_type {
     name: "target_uses_prebuilt_dynamic_partitions",
     module_type: "cc_defaults",
@@ -228,6 +227,7 @@ soong_config_module_type {
     bool_variables: ["needs_oplus_tag"],
     properties: ["cppflags"],
 }
+
 needs_oplus_tag {
     name: "needs_oplus_vendor_tag",
     soong_config_variables: {
@@ -242,7 +242,7 @@ soong_config_module_type {
     module_type: "cc_defaults",
     config_namespace: "lineageGlobalVars",
     bool_variables: ["uses_miui_camera"],
-    properties: ["cppflags"]
+    properties: ["cppflags"],
 }
 
 uses_miui_camera {
