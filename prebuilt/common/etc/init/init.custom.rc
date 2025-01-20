@@ -1,0 +1,2 @@
+on property:persist.sys.log.tag=*
+    setprop log.tag ${persist.sys.log.tag}
