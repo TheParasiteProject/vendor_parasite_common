@@ -32,6 +32,7 @@ PRODUCT_PACKAGES += \
 
 # TFLite service
 PRODUCT_PACKAGES += \
+    libtflite \
     libtensorflowlite_jni
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
