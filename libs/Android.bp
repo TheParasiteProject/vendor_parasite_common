@@ -1,0 +1,9 @@
+filegroup {
+    name: "custom-sdk-srcs",
+    srcs: [
+        "sdk/**/*.java",
+        "sdk/**/*.kt",
+        ":certification-utils-srcs",
+        ":custom-utils-srcs",
+    ],
+}
