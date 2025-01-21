@@ -4,6 +4,5 @@ import android.compat.annotation.UnsupportedAppUsage;
 
 public class OplusThemeUtil {
     /** @hide */
-    @UnsupportedAppUsage
-    public static String CUSTOM_THEME_PATH = "/data/theme/com.oplus.camera";
+    @UnsupportedAppUsage public static String CUSTOM_THEME_PATH = "/data/theme/com.oplus.camera";
 }
