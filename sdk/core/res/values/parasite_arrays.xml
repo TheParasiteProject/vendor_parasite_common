@@ -55,7 +55,10 @@
     <string-array name="config_alarmManagerValidationBypassPackages" translatable="false"/>
 
     <!-- Whitelist of package names to bypass broadcast reciever validation -->
-    <string-array name="config_broadcaseReceiverValidationBypassPackages" translatable="false"/>
+    <string-array name="config_broadcaseReceiverValidationBypassPackages" translatable="false">
+        <item>org.codeaurora.ims</item>
+        <item>com.qti.phone</item>
+    </string-array>
 
     <!-- Do not translate. Defines the slots for the right-hand side icons.  That is to say, the
          icons in the status bar that are not notifications. -->
