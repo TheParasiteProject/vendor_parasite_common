@@ -99,6 +99,7 @@ public final class PixelPropsUtils {
         propsToChangeGeneric.put("TAGS", "release-keys");
         propsToChangeDevice = new HashMap<>();
         propsToChangeDevice.put("BRAND", Build.BRAND);
+        propsToChangeDevice.put("BRAND", Build.BOARD);
         propsToChangeDevice.put("MANUFACTURER", Build.MANUFACTURER);
         propsToChangeDevice.put("ID", Build.ID);
         propsToChangeDevice.put("DEVICE", Build.DEVICE);
@@ -199,6 +200,7 @@ public final class PixelPropsUtils {
         }
 
         props.put("BRAND", brand);
+        props.put("BOARD", getDeviceName(fingerprint));
         props.put("MANUFACTURER", manufacturer);
         props.put("ID", getBuildID(fingerprint));
         props.put("DEVICE", getDeviceName(fingerprint));
