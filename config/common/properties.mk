@@ -59,3 +59,9 @@ persist.vendor.ims.disableDebugLogs=1 \
 persist.vendor.ims.disableIMSLogs=1 \
 persist.vendor.ims.disableQXDMLogs=1
 endif
+
+# Appcompat overrides
+ifeq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.appcompat_override.ro.boot.verifiedbootstate=green
+endif
