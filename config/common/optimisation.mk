@@ -32,7 +32,8 @@ MALLOC_SVELTE_FOR_LIBC32 ?= true
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     debug.hwui.enable_adpf_cpu_hint?=true \
     debug.hwui.use_hint_manager?=true \
-    debug.hwui.target_cpu_time_percent?=30
+    debug.hwui.target_cpu_time_percent?=30 \
+    debug.hwui.skip_eglmanager_telemetry=true
 
 # Suspend properties
 PRODUCT_PRODUCT_PROPERTIES += \
