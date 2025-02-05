@@ -111,7 +111,6 @@
 
         <!-- ROG Phone 6 -->
         <item>ASUS_AI2201:asus,ASUS_AI2201,asus,ASUS_AI2201</item>
-        <item>com.activision.callofduty.shooter</item>
         <item>com.ea.gp.fifamobile</item>
         <item>com.gameloft.android.ANMP.GloftA9HM</item>
         <item>com.madfingergames.legends</item>
@@ -128,8 +127,9 @@
         <item>com.tencent.tmgp.pubgmhd</item>
         <item>com.vng.pubgmobile</item>
 
-        <!-- Xperia 5 II -->
-        <item>SO-52A:Xperia,Sony Xperia 5,Xperia,SO-52A</item>
+        <!-- Legion Y700 -->
+        <item>TB-9707F:Lenovo,TB-9707F,Lenovo,Lenovo TB-9707F</item>
+        <item>com.activision.callofduty.shooter</item>
         <item>com.garena.game.codm</item>
         <item>com.tencent.tmgp.kr.codm</item>
         <item>com.vng.codmvn</item>
