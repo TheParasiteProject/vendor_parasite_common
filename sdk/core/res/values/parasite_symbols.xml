@@ -43,6 +43,9 @@
     <java-symbol type="array" name="config_cfHookFeaturesNexus" />
     <java-symbol type="array" name="config_cfHookFeaturesAndroid" />
 
+    <!-- Game hook -->
+    <java-symbol type="array" name="config_gameHook" />
+
     <!-- Whether to cancel fingerprint operation if not idle -->
     <java-symbol type="bool" name="config_fpCancelIfNotIdle" />
 
