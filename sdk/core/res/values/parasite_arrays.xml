@@ -48,6 +48,12 @@
     <string-array name="config_cfHookFeaturesNexus" translatable="false"/>
     <string-array name="config_cfHookFeaturesAndroid" translatable="false"/>
 
+    <!-- Game hook -->
+    <string-array name="config_gameHook" translatable="false">
+        <!-- MapName:BRAND,DEVICE,MANUFACTURER,MODEL
+             packageName -->
+    </string-array>
+
     <!-- Whitelist of package names to bypass foreground service type validation -->
     <string-array name="config_fgsTypeValidationBypassPackages" translatable="false"/>
 
