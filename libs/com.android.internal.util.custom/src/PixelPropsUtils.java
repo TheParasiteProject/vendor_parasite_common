@@ -99,7 +99,7 @@ public final class PixelPropsUtils {
         propsToChangeGeneric.put("TAGS", "release-keys");
         propsToChangeDevice = new HashMap<>();
         propsToChangeDevice.put("BRAND", Build.BRAND);
-        propsToChangeDevice.put("BRAND", Build.BOARD);
+        propsToChangeDevice.put("BOARD", Build.BOARD);
         propsToChangeDevice.put("MANUFACTURER", Build.MANUFACTURER);
         propsToChangeDevice.put("ID", Build.ID);
         propsToChangeDevice.put("DEVICE", Build.DEVICE);
