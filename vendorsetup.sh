@@ -30,9 +30,8 @@ fi
 # Update KernelSU repo
 if [ -d "kernel/modules/misc/KernelSU" ]; then
     cd kernel/modules/misc/KernelSU
-    git reset --hard
     git fetch origin
-    git pull origin main
+    git reset --hard origin/main
     cd ../../../../
 fi
 
@@ -44,9 +43,8 @@ fi
 # Update Kprofiles repo
 if [ -d "kernel/modules/misc/Kprofiles" ]; then
     cd kernel/modules/misc/Kprofiles
-    git reset --hard
     git fetch origin
-    git pull origin main
+    git reset --hard origin/main
     cd ../../../../
 fi
 
