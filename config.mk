@@ -17,3 +17,6 @@ $(call inherit-product, vendor/google/gms/products/gms.mk)
 # Microsoft
 TARGET_PHONE_LINK_SUPPORTED := false
 $(call inherit-product-if-exists, vendor/microsoft/mms/products/mms.mk)
+
+# Parasite Test Suite
+$(call inherit-product-if-exists, vendor/parasite/testsuite/config.mk)
