@@ -39,9 +39,10 @@ PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 
 # Boot image profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
+PRODUCT_COPY_FILES += \
+    $(VENDOR_PARASITE_COMMON_DIR)/config/common/lowram_boot_profiles/preloaded-classes:system/etc/preloaded-classes
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := \
-    frameworks/base/boot/boot-image-profile.txt \
-    frameworks/base/boot/boot-image-profile-extra.txt
+    $(VENDOR_PARASITE_COMMON_DIR)/config/common/lowram_boot_profiles/boot-image-profile.txt
 
 # System server compiler
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
