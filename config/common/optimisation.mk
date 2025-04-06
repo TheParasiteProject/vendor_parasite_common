@@ -25,7 +25,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.arm64.memtag.app.com.google.android.bluetooth?=off
 
 # Disable Scudo to save RAM and use 32-bit libc variant by default
-PRODUCT_DISABLE_SCUDO ?= true
+PRODUCT_DISABLE_SCUDO ?= false
 MALLOC_SVELTE_FOR_LIBC32 ?= true
 
 # HWUI
