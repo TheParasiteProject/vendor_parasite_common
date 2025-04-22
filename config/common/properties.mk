@@ -27,6 +27,7 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.surface_flinger.enable_frame_rate_override?=false
 
 # Enable blur
+TARGET_ENABLE_BLUR ?= true
 ifeq ($(TARGET_ENABLE_BLUR),true)
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.custom.blur.enable=true
