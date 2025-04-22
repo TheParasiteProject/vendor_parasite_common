@@ -19,15 +19,14 @@ package com.android.internal.util.custom;
 import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
-import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.WindowManager;
 
 import java.lang.reflect.Field;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,9 +38,7 @@ class CommonPropsUtils {
     private static final String TAG = CommonPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
 
-    protected static String getTag() {
-        return TAG;
-    }
+    private static final Map<String, Field> fieldCache = new HashMap<>();
 
     protected static String[] getStringArrayResSafely(int resId) {
         String[] strArr = Resources.getSystem().getStringArray(resId);
@@ -71,18 +68,7 @@ class CommonPropsUtils {
         if (context == null) {
             return false;
         }
-        Configuration configuration = context.getResources().getConfiguration();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager =
-                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null) {
-            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        }
-        return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                        >= Configuration.SCREENLAYOUT_SIZE_LARGE
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XHIGH
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXXHIGH;
+        return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
     }
 
     protected static String getProcessName(Context context) {
@@ -113,62 +99,70 @@ class CommonPropsUtils {
         return processName;
     }
 
-    protected static void setPropValue(String key, Object value) {
+    protected static void setPropValue(String key, Object newValue) {
         try {
-            if (value == null || (value instanceof String && ((String) value).isEmpty())) {
-                dlog("Skipping setting empty value for key: " + key);
+            Field field = getBuildClassField(key);
+            if (field == null) {
+                dlog("Field " + key + " not found in Build or Build.VERSION classes");
                 return;
             }
-            dlog("Setting property for key: " + key + ", value: " + value.toString());
-            Field field;
-            Class<?> targetClass;
-            try {
-                targetClass = Build.class;
-                field = targetClass.getDeclaredField(key);
-            } catch (NoSuchFieldException e) {
-                targetClass = Build.VERSION.class;
-                field = targetClass.getDeclaredField(key);
+
+            Object currentValue = field.get(null);
+            if (areObjectsEqual(currentValue, newValue)) {
+                return;
             }
-            if (field != null) {
-                field.setAccessible(true);
-                Class<?> fieldType = field.getType();
-                if (fieldType == int.class || fieldType == Integer.class) {
-                    if (value instanceof Integer) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        int convertedValue = Integer.parseInt((String) value);
-                        field.set(null, convertedValue);
-                        dlog("Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == long.class || fieldType == Long.class) {
-                    if (value instanceof Long) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        long convertedValue = Long.parseLong((String) value);
-                        field.set(null, convertedValue);
-                        dlog("Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == boolean.class || fieldType == Boolean.class) {
-                    if (value instanceof Boolean) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        boolean convertedValue = Boolean.parseBoolean((String) value);
-                        field.set(null, convertedValue);
-                        dlog("Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == String.class) {
-                    field.set(null, String.valueOf(value));
-                }
-                field.setAccessible(false);
+
+            if (field.getType() == int.class) {
+                field.setInt(
+                        null,
+                        newValue instanceof Integer
+                                ? (Integer) newValue
+                                : Integer.parseInt(newValue.toString()));
+            } else if (field.getType() == long.class) {
+                field.setLong(
+                        null,
+                        newValue instanceof Long
+                                ? (Long) newValue
+                                : Long.parseLong(newValue.toString()));
+            } else {
+                field.set(null, newValue.toString());
             }
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            dlog("Failed to set prop " + key);
-        } catch (NumberFormatException e) {
-            dlog("Failed to parse value for field " + key);
+            dlog("Set prop " + key + " to " + newValue);
+        } catch (IllegalAccessException | IllegalArgumentException e) {
+            dlog("Failed to set prop " + key + " " + e);
         }
     }
 
+    protected static boolean areObjectsEqual(Object oldValue, Object newValue) {
+        if (oldValue == null) return newValue == null;
+        return oldValue.toString().equals(newValue != null ? newValue.toString() : null);
+    }
+
+    protected static Field getBuildClassField(String key) {
+        Field field = fieldCache.get(key);
+        if (field != null) {
+            return field;
+        }
+
+        try {
+            field = Build.class.getDeclaredField(key);
+            dlog("Field " + key + " found in Build.class");
+        } catch (NoSuchFieldException e) {
+            try {
+                field = Build.VERSION.class.getDeclaredField(key);
+                dlog("Field " + key + " found in Build.VERSION.class");
+            } catch (NoSuchFieldException ex) {
+                dlog("Field " + key + " not found " + ex);
+                return null;
+            }
+        }
+
+        field.setAccessible(true);
+        fieldCache.put(key, field);
+        return field;
+    }
+
     protected static void dlog(String msg) {
-        if (DEBUG) Log.d(getTag(), msg);
+        if (DEBUG) Log.d(TAG, msg);
     }
 }
