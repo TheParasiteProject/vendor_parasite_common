@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @hide
+ */
 public class HideDeveloperStatusUtils {
     private static final Set<String> settingsToHide =
             new HashSet<>(
