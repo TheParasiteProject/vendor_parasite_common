@@ -33,6 +33,9 @@ import android.view.WindowManagerGlobal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @hide
+ */
 public class CustomUtils {
 
     public static boolean isAvailableApp(String packageName, Context context) {
