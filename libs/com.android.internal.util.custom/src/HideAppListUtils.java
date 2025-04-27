@@ -9,6 +9,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @hide
+ */
 public class HideAppListUtils {
     enum Action {
         ADD,
