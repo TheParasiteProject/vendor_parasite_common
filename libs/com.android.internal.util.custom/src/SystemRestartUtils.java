@@ -32,6 +32,9 @@ import org.lineageos.platform.internal.R;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+/**
+ * @hide
+ */
 public class SystemRestartUtils {
 
     private static final int RESTART_TIMEOUT = 1000;
