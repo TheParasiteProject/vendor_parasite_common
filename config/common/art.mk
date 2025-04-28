@@ -71,6 +71,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.image-dex2oat-filter=speed \
     dalvik.vm.systemuicompilerfilter=speed \
     dalvik.vm.madvise-random=true \
+    dalvik.vm.dex2oat-swap?=true \
     pm.dexopt.bg-dexopt=speed-profile \
     pm.dexopt.ab-ota=speed-profile \
     pm.dexopt.cmdline=verify \
