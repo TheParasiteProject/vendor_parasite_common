@@ -28,7 +28,8 @@ SYSTEMUI_OPTIMIZE_JAVA ?= true
 ifeq ($(TARGET_BUILD_VARIANT), user)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.minidebuginfo=false \
-    dalvik.vm.dex2oat-minidebuginfo=false
+    dalvik.vm.dex2oat-minidebuginfo=false \
+    dalvik.vm.dex2oat-flags?=--no-watch-dog
 endif
 
 # Dex pre-opt
