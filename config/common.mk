@@ -11,12 +11,6 @@ ifeq ($(TARGET_BUILD_VARIANT),eng)
 PRODUCT_SYSTEM_PROPERTIES += ro.adb.secure.recovery=0
 endif
 
-# Allow downgrade on Updater if not disabled
-ifneq ($(TARGET_ALLOW_OTA_DOWNGRADE),false)
-PRODUCT_SYSTEM_PROPERTIES += \
-    lineage.updater.allow_downgrading
-endif
-
 # Sensitive Phone Nmber framework
 PRODUCT_PACKAGES += \
     org.lineageos.lib.phone
