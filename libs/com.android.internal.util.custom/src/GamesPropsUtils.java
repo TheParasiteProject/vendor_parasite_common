@@ -17,15 +17,11 @@
 package com.android.internal.util.custom;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.SystemProperties;
 import android.text.TextUtils;
-import android.util.Log;
 
 import org.lineageos.platform.internal.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -35,7 +31,7 @@ import java.util.Map;
 /**
  * @hide
  */
-public final class GamesPropsUtils {
+public final class GamesPropsUtils extends CommonPropsUtils {
 
     private static final String TAG = GamesPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -45,12 +41,6 @@ public final class GamesPropsUtils {
 
     private static final Map<String, Map<String, Object>> propsToChange = new HashMap<>();
     private static final Map<String, String[]> packagesToChange = new HashMap<>();
-
-    private static String[] getStringArrayResSafely(int resId) {
-        String[] strArr = Resources.getSystem().getStringArray(resId);
-        if (strArr == null) strArr = new String[0];
-        return strArr;
-    }
 
     public static void init() {
         String[] input = getStringArrayResSafely(R.array.config_gameHook);
@@ -133,21 +123,5 @@ public final class GamesPropsUtils {
                 break;
             }
         }
-    }
-
-    private static void setPropValue(String key, Object value) {
-        try {
-            dlog("Defining prop " + key + " to " + value.toString());
-            Field field = Build.class.getDeclaredField(key);
-            field.setAccessible(true);
-            field.set(null, value);
-            field.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            Log.e(TAG, "Failed to set prop " + key, e);
-        }
-    }
-
-    public static void dlog(String msg) {
-        if (DEBUG) Log.d(TAG, msg);
     }
 }
