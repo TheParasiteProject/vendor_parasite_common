@@ -24,40 +24,29 @@
 
 package com.android.internal.util.custom;
 
-import android.app.ActivityManager;
-import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityTaskManager;
 import android.app.ActivityTaskManager.RootTaskInfo;
 import android.app.TaskStackListener;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Process;
 import android.os.SystemProperties;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.WindowManager;
 
 import com.android.internal.util.custom.certification.Android;
 
 import org.lineageos.platform.internal.R;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @hide
  */
-public final class PixelPropsUtils {
+public final class PixelPropsUtils extends CommonPropsUtils {
 
     private static final String TAG = PixelPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -109,12 +98,6 @@ public final class PixelPropsUtils {
         propsToChangeDevice.put("FINGERPRINT", Build.FINGERPRINT);
     }
 
-    private static String[] getStringArrayResSafely(int resId) {
-        String[] strArr = Resources.getSystem().getStringArray(resId);
-        if (strArr == null) strArr = new String[0];
-        return strArr;
-    }
-
     private static Map<String, Object> getPropsToChangePixelXL() {
         return createGoogleSpoofProps(getStringArrayResSafely(R.array.config_piHookPropsPixelXL));
     }
@@ -159,24 +142,6 @@ public final class PixelPropsUtils {
     private static ArrayList<String> getProcessToKeep() {
         return new ArrayList<String>(
                 Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessKeep)));
-    }
-
-    private static String getBuildID(String fingerprint) {
-        Pattern pattern = Pattern.compile("([A-Za-z0-9]+\\.\\d+\\.\\d+\\.\\w+)");
-        Matcher matcher = pattern.matcher(fingerprint);
-
-        if (matcher.find()) {
-            return matcher.group(1);
-        }
-        return "";
-    }
-
-    private static String getDeviceName(String fingerprint) {
-        String[] parts = fingerprint.split("/");
-        if (parts.length >= 2) {
-            return parts[1];
-        }
-        return "";
     }
 
     private static Map<String, Object> createSpoofProps(String[] config) {
@@ -244,59 +209,13 @@ public final class PixelPropsUtils {
         return props;
     }
 
-    private static boolean isDeviceTablet(Context context) {
-        if (context == null) {
-            return false;
-        }
-        Configuration configuration = context.getResources().getConfiguration();
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        WindowManager windowManager =
-                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-        if (windowManager != null) {
-            windowManager.getDefaultDisplay().getMetrics(displayMetrics);
-        }
-        return (configuration.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
-                        >= Configuration.SCREENLAYOUT_SIZE_LARGE
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XHIGH
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXHIGH
-                || displayMetrics.densityDpi == DisplayMetrics.DENSITY_XXXHIGH;
-    }
-
-    private static String getProcessName(Context context) {
-        ActivityManager manager =
-                (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
-        if (manager == null) {
-            return null;
-        }
-
-        List<RunningAppProcessInfo> runningProcesses = null;
-        try {
-            runningProcesses = manager.getRunningAppProcesses();
-        } catch (Exception e) {
-            return null;
-        }
-
-        if (runningProcesses == null) {
-            return null;
-        }
-
-        String processName = null;
-        for (RunningAppProcessInfo processInfo : runningProcesses) {
-            if (processInfo.pid == android.os.Process.myPid()) {
-                processName = processInfo.processName;
-                break;
-            }
-        }
-        return processName;
-    }
-
     private static boolean isGmsAddAccountActivityOnTop() {
         try {
             final RootTaskInfo focusedTask =
                     ActivityTaskManager.getService().getFocusedRootTaskInfo();
             return focusedTask != null && GMS_ADD_ACCOUNT_ACTIVITY.equals(focusedTask.topActivity);
         } catch (Exception e) {
-            Log.e(TAG, "Unable to get top activity!", e);
+            dlog("Unable to get top activity! " + e);
         }
         return false;
     }
@@ -337,7 +256,7 @@ public final class PixelPropsUtils {
         try {
             ActivityTaskManager.getService().registerTaskStackListener(taskStackListener);
         } catch (Exception e) {
-            Log.e(TAG, "Failed to register task stack listener!", e);
+            dlog("Failed to register task stack listener! " + e);
         }
         return true;
     }
@@ -447,64 +366,5 @@ public final class PixelPropsUtils {
             setPropValue("MODEL", sNetflixModel);
             return;
         }
-    }
-
-    private static void setPropValue(String key, Object value) {
-        try {
-            if (value == null || (value instanceof String && ((String) value).isEmpty())) {
-                dlog(TAG + " Skipping setting empty value for key: " + key);
-                return;
-            }
-            dlog(TAG + " Setting property for key: " + key + ", value: " + value.toString());
-            Field field;
-            Class<?> targetClass;
-            try {
-                targetClass = Build.class;
-                field = targetClass.getDeclaredField(key);
-            } catch (NoSuchFieldException e) {
-                targetClass = Build.VERSION.class;
-                field = targetClass.getDeclaredField(key);
-            }
-            if (field != null) {
-                field.setAccessible(true);
-                Class<?> fieldType = field.getType();
-                if (fieldType == int.class || fieldType == Integer.class) {
-                    if (value instanceof Integer) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        int convertedValue = Integer.parseInt((String) value);
-                        field.set(null, convertedValue);
-                        dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == long.class || fieldType == Long.class) {
-                    if (value instanceof Long) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        long convertedValue = Long.parseLong((String) value);
-                        field.set(null, convertedValue);
-                        dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == boolean.class || fieldType == Boolean.class) {
-                    if (value instanceof Boolean) {
-                        field.set(null, value);
-                    } else if (value instanceof String) {
-                        boolean convertedValue = Boolean.parseBoolean((String) value);
-                        field.set(null, convertedValue);
-                        dlog(TAG + " Converted value for key " + key + ": " + convertedValue);
-                    }
-                } else if (fieldType == String.class) {
-                    field.set(null, String.valueOf(value));
-                }
-                field.setAccessible(false);
-            }
-        } catch (IllegalAccessException | NoSuchFieldException e) {
-            dlog(TAG + " Failed to set prop " + key);
-        } catch (NumberFormatException e) {
-            dlog(TAG + " Failed to parse value for field " + key);
-        }
-    }
-
-    public static void dlog(String msg) {
-        if (DEBUG) Log.d(TAG, msg);
     }
 }
