@@ -18,12 +18,9 @@
 package com.android.internal.util.custom;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.SystemProperties;
 import android.text.TextUtils;
-import android.util.Log;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -31,7 +28,7 @@ import java.util.Map;
 /**
  * @hide
  */
-public final class MeizuPropsUtils {
+public final class MeizuPropsUtils extends CommonPropsUtils {
 
     private static final String TAG = MeizuPropsUtils.class.getSimpleName();
     private static final boolean DEBUG = false;
@@ -73,28 +70,12 @@ public final class MeizuPropsUtils {
         }
 
         if (Arrays.asList(packagesToChange).contains(packageName)) {
-            if (DEBUG) {
-                Log.d(TAG, "Defining props for: " + packageName);
-            }
+            dlog("Defining props for: " + packageName);
             for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
                 String key = prop.getKey();
                 Object value = prop.getValue();
                 setPropValue(key, value);
             }
-        }
-    }
-
-    private static void setPropValue(String key, Object value) {
-        try {
-            if (DEBUG) {
-                Log.d(TAG, "Defining prop " + key + " to " + value.toString());
-            }
-            Field field = Build.class.getDeclaredField(key);
-            field.setAccessible(true);
-            field.set(null, value);
-            field.setAccessible(false);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            Log.e(TAG, "Failed to set prop " + key, e);
         }
     }
 }
