@@ -18,5 +18,8 @@ $(call inherit-product, vendor/google/gms/products/gms.mk)
 TARGET_PHONE_LINK_SUPPORTED := false
 $(call inherit-product-if-exists, vendor/microsoft/mms/products/mms.mk)
 
+# Sony
+$(call inherit-product, vendor/sony/somc/products/somc.mk)
+
 # Parasite Test Suite
 $(call inherit-product-if-exists, vendor/parasite/testsuite/config.mk)
