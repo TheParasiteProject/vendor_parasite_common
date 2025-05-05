@@ -44,9 +44,11 @@ public class BypassUtils {
     private static Set<String> mExemptedUidPkgs;
 
     private static String[] getStringArrayResSafely(int resId) {
-        String[] strArr = Resources.getSystem().getStringArray(resId);
-        if (strArr == null) strArr = new String[0];
-        return strArr;
+        try {
+            return Resources.getSystem().getStringArray(resId);
+        } catch (Resources.NotFoundException e) {
+            return new String[0];
+        }
     }
 
     public static boolean isPackageGoogle(String pkg) {
