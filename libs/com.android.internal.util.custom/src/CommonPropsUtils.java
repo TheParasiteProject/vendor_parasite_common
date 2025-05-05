@@ -41,9 +41,11 @@ class CommonPropsUtils {
     private static final Map<String, Field> fieldCache = new HashMap<>();
 
     protected static String[] getStringArrayResSafely(int resId) {
-        String[] strArr = Resources.getSystem().getStringArray(resId);
-        if (strArr == null) strArr = new String[0];
-        return strArr;
+        try {
+            return Resources.getSystem().getStringArray(resId);
+        } catch (Resources.NotFoundException e) {
+            return new String[0];
+        }
     }
 
     protected static String getBuildID(String fingerprint) {
