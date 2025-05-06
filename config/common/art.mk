@@ -86,7 +86,9 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.dex2oat-cpu-set=0,1,6,7 \
     dalvik.vm.dex2oat-threads=4 \
     dalvik.vm.image-dex2oat-cpu-set=0,1,6,7 \
-    dalvik.vm.image-dex2oat-threads=4
+    dalvik.vm.image-dex2oat-threads=4 \
+    dalvik.vm.restore-dex2oat-cpu-set=0,1,6,7 \
+    dalvik.vm.restore-dex2oat-threads=4
 
 # Enable 64Bit dex2oat
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
