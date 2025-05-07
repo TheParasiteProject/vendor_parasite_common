@@ -1,3 +1,7 @@
+# Audio service timeout
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    audio.service.client_wait_ms=8500
+
 # Enable App Locale Settings to all apps
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.fflag.override.settings_app_locale_opt_in_enabled=false
