@@ -40,6 +40,9 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.custom.blur.enable=false
 endif
 
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.surface_flinger.supports_background_blur=1
+
 # Disable QCom Radio (IMS) logging
 ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
