@@ -167,7 +167,7 @@ public class BypassUtils {
         // Check if the app is whitelisted
         if (Arrays.asList(
                         getStringArrayResSafely(
-                                R.array.config_broadcaseReceiverValidationBypassPackages))
+                                R.array.config_broadcastReceiverValidationBypassPackages))
                 .contains(packageName)) {
             dlog(
                     "shouldBypassBroadcastReceiverValidation: "

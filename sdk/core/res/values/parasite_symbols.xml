@@ -66,7 +66,7 @@
     <java-symbol type="array" name="config_alarmManagerValidationBypassPackages"/>
 
     <!-- Whitelist of package names to bypass broadcast reciever validation -->
-    <java-symbol type="array" name="config_broadcaseReceiverValidationBypassPackages"/>
+    <java-symbol type="array" name="config_broadcastReceiverValidationBypassPackages"/>
 
     <!-- Lock gesture -->
     <java-symbol type="string" name="gesture_locked_warning" />
