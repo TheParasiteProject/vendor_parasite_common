@@ -24,17 +24,10 @@
 
 package com.android.internal.util.custom;
 
-import android.app.ActivityTaskManager;
-import android.app.ActivityTaskManager.RootTaskInfo;
-import android.app.TaskStackListener;
-import android.content.ComponentName;
 import android.content.Context;
 import android.os.Build;
-import android.os.Process;
 import android.os.SystemProperties;
 import android.text.TextUtils;
-
-import com.android.internal.util.custom.certification.Android;
 
 import org.lineageos.platform.internal.R;
 
@@ -72,10 +65,6 @@ public final class PixelPropsUtils extends CommonPropsUtils {
     private static final String PACKAGE_PHOTOS = "com.google.android.apps.photos";
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PROCESS_GMS_UI = PACKAGE_GMS + ".ui";
-    private static final String PROCESS_GMS_UNSTABLE = PACKAGE_GMS + ".unstable";
-    private static final ComponentName GMS_ADD_ACCOUNT_ACTIVITY =
-            ComponentName.unflattenFromString(
-                    PACKAGE_GMS + "/.auth.uiflows.minutemaid.MinuteMaidActivity");
 
     private static final Map<String, Object> propsToChangeGeneric;
     private static final Map<String, Object> propsToChangeDevice;
@@ -209,58 +198,6 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         return props;
     }
 
-    private static boolean isGmsAddAccountActivityOnTop() {
-        try {
-            final RootTaskInfo focusedTask =
-                    ActivityTaskManager.getService().getFocusedRootTaskInfo();
-            return focusedTask != null && GMS_ADD_ACCOUNT_ACTIVITY.equals(focusedTask.topActivity);
-        } catch (Exception e) {
-            dlog("Unable to get top activity! " + e);
-        }
-        return false;
-    }
-
-    private static boolean shouldTryToCertifyDevice(Context context) {
-        if (!Android.isCertHookEnabled()) return false;
-
-        final String processName = getProcessName(context);
-        if (TextUtils.isEmpty(processName)) return false;
-
-        if (!PROCESS_GMS_UNSTABLE.equals(processName)) return false;
-
-        if (Android.isCertifiedPropsEmpty()) return false;
-
-        final boolean was = isGmsAddAccountActivityOnTop();
-        final TaskStackListener taskStackListener =
-                new TaskStackListener() {
-                    @Override
-                    public void onTaskStackChanged() {
-                        final boolean is = isGmsAddAccountActivityOnTop();
-                        if (is ^ was) {
-                            dlog(
-                                    "GmsAddAccountActivityOnTop is:"
-                                            + is
-                                            + " was:"
-                                            + was
-                                            + ", killing myself!");
-                            // process will restart automatically later
-                            Process.killProcess(Process.myPid());
-                        }
-                    }
-                };
-        if (!was) {
-            Android.newApplication();
-        } else {
-            dlog("Skip spoofing build for GMS, because GmsAddAccountActivityOnTop!");
-        }
-        try {
-            ActivityTaskManager.getService().registerTaskStackListener(taskStackListener);
-        } catch (Exception e) {
-            dlog("Failed to register task stack listener! " + e);
-        }
-        return true;
-    }
-
     public static boolean setPropsForGphotos(Context context) {
         if (context == null) return false;
 
@@ -281,7 +218,6 @@ public final class PixelPropsUtils extends CommonPropsUtils {
     public static void setProps(Context context) {
         if (!sEnablePixelProps) {
             dlog("Pixel props is disabled by config");
-            if (shouldTryToCertifyDevice(context)) return;
             setPropsForGphotos(context);
             return;
         }
@@ -302,10 +238,6 @@ public final class PixelPropsUtils extends CommonPropsUtils {
 
         if (PACKAGE_GMS.equals(packageName)) {
             setPropValue("TIME", System.currentTimeMillis());
-        }
-
-        if (shouldTryToCertifyDevice(context)) {
-            return;
         }
 
         if (getProcessToKeep().contains(processName)) {
