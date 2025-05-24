@@ -186,6 +186,7 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         }
 
         props.put("BRAND", "google");
+        props.put("BOARD", getDeviceName(fingerprint));
         props.put("MANUFACTURER", "Google");
         props.put("ID", getBuildID(fingerprint));
         props.put("DEVICE", getDeviceName(fingerprint));
