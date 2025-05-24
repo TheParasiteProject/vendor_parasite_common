@@ -22,17 +22,29 @@ if [ ! -d "kernel/modules" ]; then
     touch kernel/modules/Android.mk
 fi
 
-# Clone KernelSU repo
+# Clone KernelSU repos
 if [ ! -d "kernel/modules/misc/KernelSU" ]; then
-    git clone https://github.com/tiann/KernelSU kernel/modules/misc/KernelSU
+    mkdir -p kernel/modules/misc/KernelSU
+fi
+if [ ! -d "kernel/modules/misc/KernelSU/next" ]; then
+    git clone https://github.com/KernelSU-Next/KernelSU-Next -b next kernel/modules/misc/KernelSU/next
+fi
+if [ ! -d "kernel/modules/misc/KernelSU/susfs" ]; then
+    git clone https://github.com/KernelSU-Next/KernelSU-Next -b next-susfs kernel/modules/misc/KernelSU/susfs
 fi
 
-# Update KernelSU repo
-if [ -d "kernel/modules/misc/KernelSU" ]; then
-    cd kernel/modules/misc/KernelSU
+# Update KernelSU repos
+if [ -d "kernel/modules/misc/KernelSU/next" ]; then
+    cd kernel/modules/misc/KernelSU/next
     git fetch origin
-    git reset --hard origin/main
-    cd ../../../../
+    git reset --hard origin/next
+    cd ../../../../../
+fi
+if [ -d "kernel/modules/misc/KernelSU/susfs" ]; then
+    cd kernel/modules/misc/KernelSU/susfs
+    git fetch origin
+    git reset --hard origin/next-susfs
+    cd ../../../../../
 fi
 
 # Clone Kprofiles repo
