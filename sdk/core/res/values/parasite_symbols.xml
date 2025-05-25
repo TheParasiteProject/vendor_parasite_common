@@ -117,4 +117,12 @@
     <!-- Whether to show ongoing progress bar chip in statusbar -->
     <java-symbol type="bool" name="config_enableOngoingProgressBarChip" />
 
+    <!-- The list of packages to automatically opt out of FM Tuner input because
+         of known compatibility issues. -->
+    <java-symbol type="array" name="config_fmTunerInputBlacklist" />
+
+    <!-- The list of packages to automatically opt out of FM output because
+         of known compatibility issues. -->
+    <java-symbol type="array" name="config_fmOutputBlacklist" />
+
 </resources>

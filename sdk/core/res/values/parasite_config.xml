@@ -50,4 +50,12 @@
     <!-- Whether to show ongoing progress bar chip in statusbar -->
     <bool name="config_enableOngoingProgressBarChip">true</bool>
 
+    <!-- The list of packages to automatically opt out of FM Tuner input because
+         of known compatibility issues. -->
+    <string-array name="config_fmTunerInputBlacklist" translatable="false" />
+
+    <!-- The list of packages to automatically opt out of FM output because
+         of known compatibility issues. -->
+    <string-array name="config_fmOutputBlacklist" translatable="false" />
+
 </resources>
