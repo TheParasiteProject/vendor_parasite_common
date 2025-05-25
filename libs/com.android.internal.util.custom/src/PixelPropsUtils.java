@@ -208,7 +208,7 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         }
 
         if (PACKAGE_PHOTOS.equals(packageName)) {
-            if (SystemProperties.getBoolean("persist.sys.pixelprops.gphotos", false)) {
+            if (SystemProperties.getBoolean("persist.sys.pihooks.gphotos", false)) {
                 getPropsToChangePixelXL().forEach((k, v) -> setPropValue(k, v));
                 return true;
             }
