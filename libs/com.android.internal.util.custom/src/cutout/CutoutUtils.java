@@ -17,6 +17,9 @@ package com.android.internal.util.custom.cutout;
 
 import android.content.Context;
 
+/**
+ * @hide
+ */
 public class CutoutUtils {
     public static boolean hasCutout(Context context) {
         return hasCutout(context, false);
