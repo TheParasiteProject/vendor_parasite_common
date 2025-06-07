@@ -22,5 +22,6 @@ aconfig_value_set {
         "aconfig-values-bp1a-android.app.flags-all",
         "aconfig-values-bp1a-android.security.flags-all",
         "aconfig-values-bp1a-android.media.audiopolicy-all",
+        "aconfig-values-bp1a-android.media.audio-all",
     ],
 }
