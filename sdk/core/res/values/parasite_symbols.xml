@@ -68,6 +68,9 @@
     <!-- Whitelist of package names to bypass broadcast reciever validation -->
     <java-symbol type="array" name="config_broadcastReceiverValidationBypassPackages"/>
 
+    <!-- Whitelist of package names to bypass idle whitelist validation -->
+    <java-symbol type="array" name="config_idleWhitelistValidationBypassPackages"/>
+
     <!-- Lock gesture -->
     <java-symbol type="string" name="gesture_locked_warning" />
 

@@ -71,6 +71,9 @@
         <item>com.qti.phone</item>
     </string-array>
 
+    <!-- Whitelist of package names to bypass idle whitelist validation -->
+    <string-array name="config_idleWhitelistValidationBypassPackages" translatable="false"/>
+
     <!-- Do not translate. Defines the slots for the right-hand side icons.  That is to say, the
          icons in the status bar that are not notifications. -->
     <string-array name="config_statusBarIconsCustom">

@@ -178,6 +178,22 @@ public class BypassUtils {
         return false;
     }
 
+    // Whitelist of package names to bypass idle whitelist validation
+    public static boolean shouldBypasIdleWhitelistValidation(String packageName) {
+        // Check if the app is whitelisted
+        if (Arrays.asList(
+                        getStringArrayResSafely(
+                                R.array.config_idleWhitelistValidationBypassPackages))
+                .contains(packageName)) {
+            dlog(
+                    "shouldBypasIdleWhitelistValidation: Bypassing idle whitelist"
+                            + " validation for whitelisted app: "
+                            + packageName);
+            return true;
+        }
+        return false;
+    }
+
     public static void dlog(String msg) {
         if (DEBUG) Log.d(TAG, msg);
     }
