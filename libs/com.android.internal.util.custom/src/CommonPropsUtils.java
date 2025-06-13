@@ -20,8 +20,11 @@ import android.app.ActivityManager;
 import android.app.ActivityManager.RunningAppProcessInfo;
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Rect;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.WindowManager;
 
 import java.lang.reflect.Field;
 import java.util.HashMap;
@@ -39,6 +42,7 @@ class CommonPropsUtils {
     private static final boolean DEBUG = false;
 
     private static final Map<String, Field> fieldCache = new HashMap<>();
+    private static Boolean isLargeScreen = null;
 
     protected static String[] getStringArrayResSafely(int resId) {
         try {
@@ -70,7 +74,25 @@ class CommonPropsUtils {
         if (context == null) {
             return false;
         }
-        return context.getResources().getConfiguration().smallestScreenWidthDp >= 600;
+        return isLargeScreen(context);
+    }
+
+    private static boolean isLargeScreen(Context context) {
+        if (isLargeScreen == null) {
+            WindowManager windowManager = context.getSystemService(WindowManager.class);
+            final Rect bounds = windowManager.getMaximumWindowMetrics().getBounds();
+            float smallestWidth =
+                    dpiFromPx(
+                            Math.min(bounds.width(), bounds.height()),
+                            context.getResources().getConfiguration().densityDpi);
+            isLargeScreen = smallestWidth >= 600;
+        }
+        return isLargeScreen;
+    }
+
+    private static float dpiFromPx(float size, int densityDpi) {
+        float densityRatio = (float) densityDpi / DisplayMetrics.DENSITY_DEFAULT;
+        return (size / densityRatio);
     }
 
     protected static String getProcessName(Context context) {
