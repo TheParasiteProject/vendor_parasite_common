@@ -13,7 +13,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 # Disable touch video heatmap to reduce latency, motion jitter, and CPU usage
 # on supported devices with Deep Press input classifier HALs and models
 PRODUCT_PRODUCT_PROPERTIES += \
-    ro.input.video_enabled=false
+    ro.input.video_enabled?=false
 
 # Disable MTE Async on some processes
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
