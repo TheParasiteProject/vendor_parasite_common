@@ -7,8 +7,8 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 
 # EGL - Blobcache configuration
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
-    ro.egl.blobcache.multifile=true \
-    ro.egl.blobcache.multifile_limit=33554432
+    ro.egl.blobcache.multifile?=true \
+    ro.egl.blobcache.multifile_limit?=33554432
 
 # Disable touch video heatmap to reduce latency, motion jitter, and CPU usage
 # on supported devices with Deep Press input classifier HALs and models
