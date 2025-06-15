@@ -88,7 +88,7 @@ public class CustomUtils {
             case 8: // LAST_APP
                 switchToLastApp(context);
                 return;
-            case 13: // VOLUME_PANEL
+            case 14: // VOLUME_PANEL
                 toggleVolumePanel(context);
                 return;
         }
