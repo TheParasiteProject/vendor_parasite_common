@@ -1,7 +1,0 @@
-aconfig_values {
-    name: "aconfig-values-bp2a-android.media.audiopolicy-all",
-    package: "android.media.audiopolicy",
-    srcs: [
-        "*.textproto",
-    ],
-}
