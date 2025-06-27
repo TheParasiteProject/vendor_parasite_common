@@ -13,7 +13,7 @@
 // limitations under the License.
 
 aconfig_values {
-  name: "aconfig-values-bp1a-android.security.flags-all",
+  name: "aconfig-values-bp2a-android.security.flags-all",
   package: "android.security",
   srcs: [
     "*.textproto",

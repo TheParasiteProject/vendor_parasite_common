@@ -13,15 +13,15 @@
 // limitations under the License.
 
 aconfig_value_set {
-    name: "aconfig_value_set-custom-bp1a",
+    name: "aconfig_value_set-custom-bp2a",
     values: [
-        "aconfig-values-bp1a-android.provider.flags-all",
-        "aconfig-values-bp1a-com.android.systemui.flags-all",
-        "aconfig-values-bp1a-com.android.deviceaswebcam.flags-all",
-        "aconfig-values-bp1a-com.android.media.audioserver.flags-all",
-        "aconfig-values-bp1a-android.app.flags-all",
-        "aconfig-values-bp1a-android.security.flags-all",
-        "aconfig-values-bp1a-android.media.audiopolicy-all",
-        "aconfig-values-bp1a-android.media.audio-all",
+        "aconfig-values-bp2a-android.provider.flags-all",
+        "aconfig-values-bp2a-com.android.systemui.flags-all",
+        "aconfig-values-bp2a-com.android.deviceaswebcam.flags-all",
+        "aconfig-values-bp2a-com.android.media.audioserver.flags-all",
+        "aconfig-values-bp2a-android.app.flags-all",
+        "aconfig-values-bp2a-android.security.flags-all",
+        "aconfig-values-bp2a-android.media.audiopolicy-all",
+        "aconfig-values-bp2a-android.media.audio-all",
     ],
 }
