@@ -46,9 +46,12 @@ PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 # Boot image profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 PRODUCT_COPY_FILES += \
-    $(VENDOR_PARASITE_COMMON_DIR)/config/common/lowram_boot_profiles/preloaded-classes:system/etc/preloaded-classes
+    $(VENDOR_PARASITE_COMMON_DIR)/config/common/lowram_boot_profiles/preloaded-classes:$(TARGET_COPY_OUT_SYSTEM)/etc/preloaded-classes
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := \
     $(VENDOR_PARASITE_COMMON_DIR)/config/common/lowram_boot_profiles/boot-image-profile.txt
+
+PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
+    system/etc/preloaded-classes
 
 # System server compiler
 PRODUCT_SYSTEM_SERVER_COMPILER_FILTER := speed-profile
@@ -76,6 +79,9 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.image-dex2oat-filter=speed \
     dalvik.vm.systemuicompilerfilter=speed \
     dalvik.vm.madvise-random=true \
+    dalvik.vm.madvise.vdexfile.size=31457280 \
+    dalvik.vm.madvise.odexfile.size=31457280 \
+    dalvik.vm.madvise.artfile.size=0 \
     dalvik.vm.dex2oat-swap?=true \
     pm.dexopt.bg-dexopt=speed-profile \
     pm.dexopt.ab-ota=speed-profile \
