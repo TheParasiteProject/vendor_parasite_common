@@ -91,8 +91,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     pm.dexopt.cmdline=verify \
     pm.dexopt.inactive=verify \
     pm.dexopt.shared=speed \
-    pm.dexopt.downgrade_after_inactive_days=10 \
-    ro.dalvik.vm.enable_uffd_gc=true
+    pm.dexopt.downgrade_after_inactive_days=10
 
 # dex2oat threads and CPU sets (default)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
@@ -108,3 +107,6 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 # Enable 64Bit dex2oat
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.dex2oat64.enabled?=$(TARGET_SUPPORTS_64_BIT_APPS)
+
+# Enable userfaultfd GC
+PRODUCT_ENABLE_UFFD_GC := true
