@@ -59,6 +59,15 @@
     <string name="db_wal_sync_mode" translatable="false">OFF</string>
 
     <dimen name="config_viewConfigurationTouchSlop">6dp</dimen>
+    
+    <integer name="device_idle_idle_after_inactive_to_ms">15000</integer>
+    <integer name="device_idle_idle_to_ms">3600000</integer>
+    <integer name="device_idle_inactive_to_ms">15000</integer>
+    <integer name="device_idle_light_max_idle_to_ms">900000</integer>
+    <integer name="device_idle_locating_to_ms">15000</integer>
+    <integer name="device_idle_motion_inactive_to_ms">30000</integer>
+    <integer name="device_idle_sensing_to_ms">15000</integer>
+    <bool name="device_idle_light_idle_increase_linearly">false</bool>
 
     <!-- The amount to scale fullscreen snapshots for Overview and snapshot starting windows. -->
     <item name="config_highResTaskSnapshotScale" format="float" type="dimen">0.8</item>
