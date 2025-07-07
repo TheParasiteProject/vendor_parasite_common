@@ -70,6 +70,8 @@
     <bool name="device_idle_light_idle_increase_linearly">false</bool>
     
     <bool name="config_enableBurnInProtection">true</bool>
+    
+    <bool name="config_dreamsEnabledByDefault">false</bool>
 
     <!-- The amount to scale fullscreen snapshots for Overview and snapshot starting windows. -->
     <item name="config_highResTaskSnapshotScale" format="float" type="dimen">0.8</item>
