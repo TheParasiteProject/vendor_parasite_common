@@ -6,6 +6,10 @@ PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     persist.sys.fflag.override.settings_app_locale_opt_in_enabled=false
 
+# Bluetooth auto-on
+PRODUCT_PRODUCT_PROPERTIES += \
+    bluetooth.server.automatic_turn_on?=true
+
 # One Handed mode
 PRODUCT_PRODUCT_PROPERTIES += \
     ro.support_one_handed_mode=true
