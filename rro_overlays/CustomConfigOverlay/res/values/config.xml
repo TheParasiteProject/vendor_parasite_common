@@ -77,4 +77,7 @@
     {@link InputDevice#SOURCE_TOUCHSCREEN}s. -->
     <bool name="config_viewTouchScreenHapticScrollFeedbackEnabled">true</bool>
 
+    <!-- If AOD can show an ambient version of the wallpaper -->
+    <bool name="config_dozeSupportsAodWallpaper">true</bool>
+
 </resources>
