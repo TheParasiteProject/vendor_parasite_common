@@ -34,6 +34,10 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_SYSTEM_PROPERTIES += \
     ro.surface_flinger.enable_frame_rate_override?=false
 
+# Boost surfaceflinger min uclamp utilization
+PRODUCT_SYSTEM_PROPERTIES += \
+    ro.surface_flinger.uclamp.min?=165
+
 # Enable blur
 TARGET_ENABLE_BLUR ?= true
 ifeq ($(TARGET_ENABLE_BLUR),true)
