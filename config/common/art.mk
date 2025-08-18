@@ -81,6 +81,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.madvise-random=true \
     dalvik.vm.enable_pr_dexopt=false \
     dalvik.vm.finalizer-timeout-ms=40000 \
+    dalvik.vm.ps-min-first-save-ms=150000 \
     dalvik.vm.madvise.vdexfile.size=31457280 \
     dalvik.vm.madvise.odexfile.size=31457280 \
     dalvik.vm.madvise.artfile.size=0 \
