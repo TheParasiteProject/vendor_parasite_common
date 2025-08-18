@@ -79,6 +79,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     dalvik.vm.image-dex2oat-filter=speed \
     dalvik.vm.systemuicompilerfilter=speed \
     dalvik.vm.madvise-random=true \
+    dalvik.vm.enable_pr_dexopt=false \
     dalvik.vm.madvise.vdexfile.size=31457280 \
     dalvik.vm.madvise.odexfile.size=31457280 \
     dalvik.vm.madvise.artfile.size=0 \
