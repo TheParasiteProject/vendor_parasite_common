@@ -68,6 +68,12 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     ro.virtual_ab.verify_threshold_size=1073741824 \
     ro.virtual_ab.worker_thread_priority=0
 
+# Activity animation override
+PERF_ANIM_OVERRIDE ?= false
+
+PRODUCT_PRODUCT_PROPERTIES += \
+    persist.sys.activity_anim_perf_override=$(PERF_ANIM_OVERRIDE)
+
 # Inherit art options
 include $(VENDOR_PARASITE_COMMON_DIR)/config/common/art.mk
 
