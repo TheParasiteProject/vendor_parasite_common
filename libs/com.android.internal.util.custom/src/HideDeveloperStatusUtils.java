@@ -26,10 +26,10 @@ public class HideDeveloperStatusUtils {
     }
 
     public static boolean shouldHideDevStatus(ContentResolver cr, String packageName, String name) {
-        if (cr == null
+        if (!isBootCompleted()
+                || cr == null
                 || packageName == null
                 || name == null
-                || !isBootCompleted()
                 || !SETTINGS_TO_HIDE.contains(name)) {
             return false;
         }
