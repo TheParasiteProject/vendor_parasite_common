@@ -1,2 +1,5 @@
 on property:persist.sys.log.tag=*
     setprop log.tag ${persist.sys.log.tag}
+
+on property:persist.sys.debug.hwui.force_dark=*
+    setprop debug.hwui.force_dark ${persist.sys.debug.hwui.force_dark}
