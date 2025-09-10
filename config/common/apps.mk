@@ -6,12 +6,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     BtHelper
 
-ifneq ($(MAINLINE_INCLUDE_BTSERVICES_MODULE),false)
-# Ship custom libbluetooth_jni to system partition
-PRODUCT_PACKAGES += \
-    libbluetooth_jni
-endif
-
 # Game Space
 PRODUCT_PACKAGES += \
     GameSpace
