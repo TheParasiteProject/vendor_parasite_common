@@ -9,6 +9,8 @@ $(call inherit-product-if-exists, vendor/parasite/signatures/config.mk)
 $(call inherit-product-if-exists, vendor/parasite/prebuilts/config.mk)
 
 # GMS
+TARGET_CUSTOM_APEX_CERTIFICATE_DIR := \
+    $(abspath $(TOP)/vendor/parasite/signatures/common/data)
 $(call inherit-product, vendor/google/gms/products/gms.mk)
 
 # Sony
