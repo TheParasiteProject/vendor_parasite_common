@@ -110,3 +110,11 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
 
 # Enable userfaultfd GC
 PRODUCT_ENABLE_UFFD_GC := true
+
+# Enable Unspecialized App Process Pool
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    dalvik.vm.usap_pool_enabled=true \
+    dalvik.vm.usap_pool_refill_delay_ms=3000 \
+    dalvik.vm.usap_pool_size_max=10 \
+    dalvik.vm.usap_pool_size_min=1 \
+    dalvik.vm.usap_refill_threshold=1
