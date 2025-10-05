@@ -49,6 +49,25 @@ PRODUCT_PRODUCT_PROPERTIES += \
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     zygote.critical_window.minute?=10
 
+# Virtual ab
+PRODUCT_SYSTEM_EXT_PROPERTIES += \
+    ro.virtual_ab.batch_writes=true \
+    ro.virtual_ab.compression.enabled=true \
+    ro.virtual_ab.compression.threads=true \
+    ro.virtual_ab.compression.xor.enabled=false \
+    ro.virtual_ab.cow_op_merge_size=16 \
+    ro.virtual_ab.io_uring.enabled=false \
+    ro.virtual_ab.merge_thread_priority=19 \
+    ro.virtual_ab.num_merge_threads=1 \
+    ro.virtual_ab.num_verify_threads=1 \
+    ro.virtual_ab.num_worker_threads=3 \
+    ro.virtual_ab.o_direct.enabled=true \
+    ro.virtual_ab.read_ahead_size=16 \
+    ro.virtual_ab.userspace.snapshots.enabled=true \
+    ro.virtual_ab.verify_block_size=1048576 \
+    ro.virtual_ab.verify_threshold_size=1073741824 \
+    ro.virtual_ab.worker_thread_priority=0
+
 # Inherit art options
 include $(VENDOR_PARASITE_COMMON_DIR)/config/common/art.mk
 
