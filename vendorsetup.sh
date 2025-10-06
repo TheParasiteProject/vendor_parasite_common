@@ -32,10 +32,10 @@ fi
 
 # Update KernelSU repos
 if [ -d "kernel/modules/misc/KernelSU/next" ]; then
-    cd kernel/modules/misc/KernelSU/next
+    pushd "kernel/modules/misc/KernelSU/next" > /dev/null
     git fetch origin
     git reset --hard origin/next
-    cd ../../../../../
+    popd > /dev/null
 fi
 
 # Clone Kprofiles repo
@@ -45,18 +45,18 @@ fi
 
 # Update Kprofiles repo
 if [ -d "kernel/modules/misc/Kprofiles" ]; then
-    cd kernel/modules/misc/Kprofiles
+    pushd "kernel/modules/misc/Kprofiles" > /dev/null
     git fetch origin
     git reset --hard origin/main
-    cd ../../../../
+    popd > /dev/null
 fi
 
 # Enable auto kprofiles for QGKI kernels
 # Ref: https://github.com/dakkshesh07/Kprofiles/pull/16/commits/f8de35bcc51fb29988ccab31cdfad7923b475b6e
 if [ -d "kernel/modules/misc/Kprofiles" ]; then
-    cd kernel/modules/misc/Kprofiles
+    pushd "kernel/modules/misc/Kprofiles" > /dev/null
     sed -i 's/depends on DRM_MSM/depends on DRM_MSM || QGKI/g' Kconfig
-    cd ../../../../
+    popd > /dev/null
 fi
 
 export VENDOR_PARASITE_SETUP_DONE=true
