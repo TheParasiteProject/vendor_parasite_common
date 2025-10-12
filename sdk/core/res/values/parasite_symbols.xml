@@ -12,6 +12,7 @@
     <!-- The list of Sony platform package signatures
          that should also be considered platform signatures. -->
     <java-symbol type="array" name="config_sonyPlatformSignatures" />
+    <java-symbol type="array" name="config_sonyPlatformSignaturesExtra" />
 
     <!-- Package Manager -->
     <java-symbol type="array" name="config_deviceDisabledComponents" />

@@ -12,6 +12,7 @@
     <!-- The list of Sony platform package signatures
          that should also be considered platform signatures. -->
     <string-array name="config_sonyPlatformSignatures" />
+    <string-array name="config_sonyPlatformSignaturesExtra" />
 
     <!-- The list of components which should be automatically disabled for a specific device.
          Note: this MUST not be used to randomly disable components, ask for approval first! -->
