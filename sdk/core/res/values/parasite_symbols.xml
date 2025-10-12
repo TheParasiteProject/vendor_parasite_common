@@ -7,6 +7,7 @@
     <!-- The list of Google platform package signatures
          that should also be considered platform signatures. -->
     <java-symbol type="array" name="config_googlePlatformSignatures" />
+    <java-symbol type="array" name="config_googlePlatformSignaturesExtra" />
 
     <!-- The list of Sony platform package signatures
          that should also be considered platform signatures. -->
