@@ -5,6 +5,10 @@ PRODUCT_ENFORCE_RRO_EXCLUDED_OVERLAYS += \
 PRODUCT_PACKAGE_OVERLAYS += \
     $(VENDOR_PARASITE_COMMON_DIR)/overlay/common
 
+# Custom config overlay
+PRODUCT_PACKAGES += \
+    CustomConfigOverlay
+
 # Cutout control overlay
 PRODUCT_PACKAGES += \
     DummyCutoutOverlay \
