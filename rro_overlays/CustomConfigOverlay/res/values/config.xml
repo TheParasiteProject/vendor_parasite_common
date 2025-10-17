@@ -67,9 +67,6 @@
     <!-- Maximum velocity to initiate a fling, as measured in dips per second. -->
     <dimen name="config_viewMaxFlingVelocity">12000dp</dimen>
 
-    <!-- If this is true, long press on power button will be available from the non-interactive state -->
-    <bool name="config_supportLongPressPowerWhenNonInteractive">true</bool>
-
     <!-- Whether desktop mode is supported on the current device  -->
     <bool name="config_isDesktopModeSupported">true</bool>
 
