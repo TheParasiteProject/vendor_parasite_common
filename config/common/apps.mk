@@ -39,3 +39,9 @@ ifeq ($(TARGET_SUPPORTS_QUICK_TAP),true)
 PRODUCT_PACKAGES += \
     ColumbusService
 endif
+
+# ViPER4Android FX
+ifeq ($(TARGET_INCLUDE_VIPERFX),true)
+PRODUCT_PACKAGES += \
+    ViPER4AndroidFX
+endif
