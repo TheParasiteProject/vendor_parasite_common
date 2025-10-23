@@ -21,8 +21,7 @@ PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.arm64.memtag.process.system_server?=off \
     persist.arm64.memtag.app.com.android.se?=off \
     persist.arm64.memtag.app.com.android.nfc?=off \
-    persist.arm64.memtag.app.com.android.bluetooth?=off \
-    persist.arm64.memtag.app.com.google.android.bluetooth?=off
+    persist.arm64.memtag.app.com.android.bluetooth?=off
 
 # Disable Scudo to save RAM and use 32-bit libc variant by default
 PRODUCT_DISABLE_SCUDO ?= false
