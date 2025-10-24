@@ -67,5 +67,6 @@ PRODUCT_SYSTEM_PROPERTIES += \
     ro.appcompat_override.ro.boot.realmebootstate=green \
     ro.appcompat_override.vendor.boot.verifiedbootstate=green \
     ro.appcompat_override.oplusboot.verifiedbootstate=green \
-    ro.appcompat_override.ro.is_ever_orange=green
+    ro.appcompat_override.ro.is_ever_orange=green \
+    ro.appcompat_override.init.svc.adbd=stopped
 endif
