@@ -36,6 +36,7 @@
         <item>com.android.systemui</item>
         <item>com.android.systemui.plugin.globalactions.wallet</item>
         <item>org.lineageos.settings.device</item>
+        <item>com.libremobileos.clock</item>
     </string-array>
 
 </resources>
