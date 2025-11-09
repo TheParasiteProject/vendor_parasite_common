@@ -30,4 +30,12 @@
 
     <!-- Biometric Dialog values -->
     <integer name="biometric_dialog_text_gravity">1</integer> <!-- CENTER_HORIZONTAL -->
+
+    <!-- SystemUI Plugins that can be loaded on user builds. -->
+    <string-array name="config_pluginAllowlist" translatable="false">
+        <item>com.android.systemui</item>
+        <item>com.android.systemui.plugin.globalactions.wallet</item>
+        <item>org.lineageos.settings.device</item>
+    </string-array>
+
 </resources>
