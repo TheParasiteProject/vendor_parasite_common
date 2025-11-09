@@ -20,7 +20,7 @@ PRODUCT_PACKAGES += \
 
 # System UI Clock
 PRODUCT_PACKAGES += \
-    LMOSystemUIClock
+    SystemUIClocks-LMO
 
 # Face Unlock
 ifeq ($(TARGET_SUPPORTS_64_BIT_APPS),true)
