@@ -63,5 +63,9 @@ endif
 # Appcompat overrides
 ifeq ($(TARGET_BUILD_VARIANT),user)
 PRODUCT_SYSTEM_PROPERTIES += \
-    ro.appcompat_override.ro.boot.verifiedbootstate=green
+    ro.appcompat_override.ro.boot.verifiedbootstate=green \
+    ro.appcompat_override.ro.boot.realmebootstate=green \
+    ro.appcompat_override.vendor.boot.verifiedbootstate=green \
+    ro.appcompat_override.oplusboot.verifiedbootstate=green \
+    ro.appcompat_override.ro.is_ever_orange=green
 endif
