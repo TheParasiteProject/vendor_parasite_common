@@ -66,8 +66,8 @@ public final class PixelPropsUtils extends CommonPropsUtils {
     private static final String PACKAGE_GMS = "com.google.android.gms";
     private static final String PROCESS_GMS_UI = PACKAGE_GMS + ".ui";
 
-    private static final Map<String, Object> propsToChangeGeneric;
-    private static final Map<String, Object> propsToChangeDevice;
+    private static final Map<String, String> propsToChangeGeneric;
+    private static final Map<String, String> propsToChangeDevice;
     private static final Map<String, ArrayList<String>> propsToKeep;
 
     static {
@@ -87,21 +87,21 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         propsToChangeDevice.put("FINGERPRINT", Build.FINGERPRINT);
     }
 
-    private static Map<String, Object> getPropsToChangePixelXL() {
+    private static Map<String, String> getPropsToChangePixelXL() {
         return createGoogleSpoofProps(getStringArrayResSafely(R.array.config_piHookPropsPixelXL));
     }
 
-    private static Map<String, Object> getPropsToChangePixelLegacy() {
+    private static Map<String, String> getPropsToChangePixelLegacy() {
         return createGoogleSpoofProps(
                 getStringArrayResSafely(R.array.config_piHookPropsPixelLegacy));
     }
 
-    private static Map<String, Object> getPropsToChangePixelTablet() {
+    private static Map<String, String> getPropsToChangePixelTablet() {
         return createGoogleSpoofProps(
                 getStringArrayResSafely(R.array.config_piHookPropsPixelTablet));
     }
 
-    private static Map<String, Object> getPropsToChangePixelExtra() {
+    private static Map<String, String> getPropsToChangePixelExtra() {
         return createGoogleSpoofProps(
                 getStringArrayResSafely(R.array.config_piHookPropsPixelExtra));
     }
@@ -111,7 +111,7 @@ public final class PixelPropsUtils extends CommonPropsUtils {
                 Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessPixelExtra)));
     }
 
-    private static Map<String, Object> getPropsToChangePixelRecent() {
+    private static Map<String, String> getPropsToChangePixelRecent() {
         return createGoogleSpoofProps(
                 getStringArrayResSafely(R.array.config_piHookPropsPixelRecent));
     }
@@ -133,8 +133,8 @@ public final class PixelPropsUtils extends CommonPropsUtils {
                 Arrays.asList(getStringArrayResSafely(R.array.config_piHookProcessKeep)));
     }
 
-    private static Map<String, Object> createSpoofProps(String[] config) {
-        Map<String, Object> props = new HashMap<>();
+    private static Map<String, String> createSpoofProps(String[] config) {
+        Map<String, String> props = new HashMap<>();
 
         if (config == null || config.length != 4) {
             dlog("createSpoofProps: Config is empty");
@@ -167,8 +167,8 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         return props;
     }
 
-    private static Map<String, Object> createGoogleSpoofProps(String[] config) {
-        Map<String, Object> props = new HashMap<>();
+    private static Map<String, String> createGoogleSpoofProps(String[] config) {
+        Map<String, String> props = new HashMap<>();
 
         if (config == null || config.length != 2) {
             dlog("createGoogleSpoofProps: Config is empty");
@@ -238,7 +238,7 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         final boolean sIsTablet = isDeviceTablet(context);
 
         if (PACKAGE_GMS.equals(packageName)) {
-            setPropValue("TIME", System.currentTimeMillis());
+            setPropValue("TIME", "" + System.currentTimeMillis());
         }
 
         if (getProcessToKeep().contains(processName)) {
@@ -249,7 +249,7 @@ public final class PixelPropsUtils extends CommonPropsUtils {
             return;
         }
 
-        Map<String, Object> propsToChange = new HashMap<>();
+        Map<String, String> propsToChange = new HashMap<>();
         if (getProcessToChangePixelLegacy().contains(processName)) {
             if (!sForceSpoofGmsProcessToDevice) {
                 propsToChange = getPropsToChangePixelLegacy();
@@ -269,9 +269,9 @@ public final class PixelPropsUtils extends CommonPropsUtils {
         if (propsToChange == null || propsToChange.isEmpty()) return;
 
         dlog("Defining props for: " + packageName);
-        for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
+        for (Map.Entry<String, String> prop : propsToChange.entrySet()) {
             String key = prop.getKey();
-            Object value = prop.getValue();
+            String value = prop.getValue();
             if (propsToKeep.containsKey(packageName)
                     && propsToKeep.get(packageName).contains(key)) {
                 dlog("Not defining " + key + " prop for: " + packageName);

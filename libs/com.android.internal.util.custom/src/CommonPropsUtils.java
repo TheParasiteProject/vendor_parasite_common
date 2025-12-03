@@ -123,67 +123,26 @@ class CommonPropsUtils {
         return processName;
     }
 
-    protected static void setPropValue(String key, Object newValue) {
+    protected static void setPropValue(String key, String value) {
         try {
-            Field field = getBuildClassField(key);
-            if (field == null) {
-                dlog("Field " + key + " not found in Build or Build.VERSION classes");
-                return;
+            dlog("Setting prop " + key + " to " + value.toString());
+            Class clazz = Build.class;
+            if (key.startsWith("VERSION.")) {
+                clazz = Build.VERSION.class;
+                key = key.substring(8);
             }
-
-            Object currentValue = field.get(null);
-            if (areObjectsEqual(currentValue, newValue)) {
-                return;
-            }
-
-            if (field.getType() == int.class) {
-                field.setInt(
-                        null,
-                        newValue instanceof Integer
-                                ? (Integer) newValue
-                                : Integer.parseInt(newValue.toString()));
-            } else if (field.getType() == long.class) {
-                field.setLong(
-                        null,
-                        newValue instanceof Long
-                                ? (Long) newValue
-                                : Long.parseLong(newValue.toString()));
-            } else {
-                field.set(null, newValue.toString());
-            }
-            dlog("Set prop " + key + " to " + newValue);
-        } catch (IllegalAccessException | IllegalArgumentException e) {
+            Field field = clazz.getDeclaredField(key);
+            field.setAccessible(true);
+            // Cast the value to int/long if it's an integer/long field, otherwise string.
+            field.set(
+                    null,
+                    field.getType().equals(Integer.TYPE)
+                            ? Integer.parseInt(value)
+                            : field.getType().equals(Long.TYPE) ? Long.parseLong(value) : value);
+            field.setAccessible(false);
+        } catch (Exception e) {
             dlog("Failed to set prop " + key + " " + e);
         }
-    }
-
-    protected static boolean areObjectsEqual(Object oldValue, Object newValue) {
-        if (oldValue == null) return newValue == null;
-        return oldValue.toString().equals(newValue != null ? newValue.toString() : null);
-    }
-
-    protected static Field getBuildClassField(String key) {
-        Field field = fieldCache.get(key);
-        if (field != null) {
-            return field;
-        }
-
-        try {
-            field = Build.class.getDeclaredField(key);
-            dlog("Field " + key + " found in Build.class");
-        } catch (NoSuchFieldException e) {
-            try {
-                field = Build.VERSION.class.getDeclaredField(key);
-                dlog("Field " + key + " found in Build.VERSION.class");
-            } catch (NoSuchFieldException ex) {
-                dlog("Field " + key + " not found " + ex);
-                return null;
-            }
-        }
-
-        field.setAccessible(true);
-        fieldCache.put(key, field);
-        return field;
     }
 
     protected static void dlog(String msg) {

@@ -36,7 +36,7 @@ public final class MeizuPropsUtils extends CommonPropsUtils {
     private static final String DISGUISE_PROPS_FOR_MUSIC_APP =
             "persist.sys.disguise_props_for_music_app";
 
-    private static final Map<String, Object> propsToChange;
+    private static final Map<String, String> propsToChange;
 
     private static final String[] packagesToChange = {
         "cmccwm.mobilemusic",
@@ -71,9 +71,9 @@ public final class MeizuPropsUtils extends CommonPropsUtils {
 
         if (Arrays.asList(packagesToChange).contains(packageName)) {
             dlog("Defining props for: " + packageName);
-            for (Map.Entry<String, Object> prop : propsToChange.entrySet()) {
+            for (Map.Entry<String, String> prop : propsToChange.entrySet()) {
                 String key = prop.getKey();
-                Object value = prop.getValue();
+                String value = prop.getValue();
                 setPropValue(key, value);
             }
         }

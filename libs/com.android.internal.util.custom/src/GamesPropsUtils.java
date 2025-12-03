@@ -39,7 +39,7 @@ public final class GamesPropsUtils extends CommonPropsUtils {
     private static Boolean sEnableGameProps =
             SystemProperties.getBoolean("persist.sys.gamehooks.enable", false);
 
-    private static final Map<String, Map<String, Object>> propsToChange = new HashMap<>();
+    private static final Map<String, Map<String, String>> propsToChange = new HashMap<>();
     private static final Map<String, String[]> packagesToChange = new HashMap<>();
 
     public static void init() {
@@ -78,14 +78,14 @@ public final class GamesPropsUtils extends CommonPropsUtils {
                 continue;
             }
 
-            Object[] propsRaw = itemsRaw[1].split(",");
+            String[] propsRaw = itemsRaw[1].split(",");
             if (propsRaw == null || propsRaw.length < 4) {
                 currentKey = null;
                 continue;
             }
 
             if (currentKey != null) {
-                Map<String, Object> props = new HashMap<>();
+                Map<String, String> props = new HashMap<>();
                 props.put("BRAND", propsRaw[0]);
                 props.put("DEVICE", propsRaw[1]);
                 props.put("MANUFACTURER", propsRaw[2]);
@@ -114,10 +114,10 @@ public final class GamesPropsUtils extends CommonPropsUtils {
             String[] packages = packagesToChange.get(device);
             if (Arrays.asList(packages).contains(packageName)) {
                 dlog("Defining props for: " + packageName);
-                Map<String, Object> props = propsToChange.get(device);
-                for (Map.Entry<String, Object> prop : props.entrySet()) {
+                Map<String, String> props = propsToChange.get(device);
+                for (Map.Entry<String, String> prop : props.entrySet()) {
                     String key = prop.getKey();
-                    Object value = prop.getValue();
+                    String value = prop.getValue();
                     setPropValue(key, value);
                 }
                 break;
