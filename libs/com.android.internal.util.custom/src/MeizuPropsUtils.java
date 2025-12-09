@@ -21,8 +21,12 @@ import android.content.Context;
 import android.os.SystemProperties;
 import android.text.TextUtils;
 
+import org.lineageos.platform.internal.R;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,27 +40,66 @@ public final class MeizuPropsUtils extends CommonPropsUtils {
     private static final String DISGUISE_PROPS_FOR_MUSIC_APP =
             "persist.sys.disguise_props_for_music_app";
 
-    private static final Map<String, String> propsToChange;
+    private static final Map<String, Map<String, String>> propsToChange = new HashMap<>();
+    private static final Map<String, String[]> packagesToChange = new HashMap<>();
 
-    private static final String[] packagesToChange = {
-        "cmccwm.mobilemusic",
-        "cn.kuwo.player",
-        "com.hihonor.cloudmusic",
-        "com.kugou.android.lite",
-        "com.kugou.android",
-        "com.meizu.media.music",
-        "com.netease.cloudmusic",
-        "com.tencent.qqmusic",
-    };
+    public static void init() {
+        String[] input = getStringArrayResSafely(R.array.config_meizuHook);
+        if (input.length == 0) return;
+
+        String currentKey = null;
+        List<String> packagesRaw = new ArrayList<>();
+
+        for (int i = 0; i < input.length; i++) {
+            if (currentKey == null && !input[i].contains(":")) {
+                continue;
+            }
+            if (currentKey != null && !input[i].contains(":")) {
+                packagesRaw.add(input[i]);
+                if (i == input.length - 1) {
+                    List<String> packages = packagesRaw;
+                    packagesToChange.put(currentKey, packages.toArray(new String[0]));
+                }
+                continue;
+            }
+            if (currentKey != null && input[i].contains(":")) {
+                List<String> packages = packagesRaw;
+                packagesToChange.put(currentKey, packages.toArray(new String[0]));
+                packagesRaw.clear();
+                currentKey = null;
+            }
+            String[] itemsRaw = input[i].split(":");
+
+            if (itemsRaw.length < 2) {
+                continue;
+            }
+
+            currentKey = itemsRaw[0];
+            if (currentKey == null) {
+                continue;
+            }
+
+            String[] propsRaw = itemsRaw[1].split(",");
+            if (propsRaw == null || propsRaw.length < 6) {
+                currentKey = null;
+                continue;
+            }
+
+            if (currentKey != null) {
+                Map<String, String> props = new HashMap<>();
+                props.put("BRAND", propsRaw[0]);
+                props.put("DEVICE", propsRaw[1]);
+                props.put("MANUFACTURER", propsRaw[2]);
+                props.put("MODEL", propsRaw[3]);
+                props.put("PRODUCT", propsRaw[4]);
+                props.put("DISPLAY", propsRaw[5]);
+                propsToChange.put(currentKey, props);
+            }
+        }
+    }
 
     static {
-        propsToChange = new HashMap<>();
-        propsToChange.put("BRAND", "meizu");
-        propsToChange.put("MANUFACTURER", "Meizu");
-        propsToChange.put("DEVICE", "m1892");
-        propsToChange.put("DISPLAY", "Flyme");
-        propsToChange.put("PRODUCT", "meizu_16thPlus_CN");
-        propsToChange.put("MODEL", "meizu 16th Plus");
+        init();
     }
 
     public static void setProps(Context context) {
@@ -65,16 +108,22 @@ public final class MeizuPropsUtils extends CommonPropsUtils {
         }
 
         final String packageName = context.getPackageName();
+
         if (TextUtils.isEmpty(packageName)) {
             return;
         }
 
-        if (Arrays.asList(packagesToChange).contains(packageName)) {
-            dlog("Defining props for: " + packageName);
-            for (Map.Entry<String, String> prop : propsToChange.entrySet()) {
-                String key = prop.getKey();
-                String value = prop.getValue();
-                setPropValue(key, value);
+        for (String device : packagesToChange.keySet()) {
+            String[] packages = packagesToChange.get(device);
+            if (Arrays.asList(packages).contains(packageName)) {
+                dlog("Defining props for: " + packageName);
+                Map<String, String> props = propsToChange.get(device);
+                for (Map.Entry<String, String> prop : props.entrySet()) {
+                    String key = prop.getKey();
+                    String value = prop.getValue();
+                    setPropValue(key, value);
+                }
+                break;
             }
         }
     }
