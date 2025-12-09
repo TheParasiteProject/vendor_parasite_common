@@ -8,6 +8,9 @@ $(call inherit-product-if-exists, vendor/parasite/signatures/config.mk)
 # Parasite Prebuilts
 $(call inherit-product-if-exists, vendor/parasite/prebuilts/config.mk)
 
+# Parasite Proprietary
+$(call inherit-product-if-exists, vendor/parasite/proprietary/config.mk)
+
 # GMS
 TARGET_CUSTOM_APEX_CERTIFICATE_DIR := \
     $(abspath $(TOP)/vendor/parasite/signatures/common/data)
