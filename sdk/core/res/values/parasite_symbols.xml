@@ -97,9 +97,6 @@
     <!-- Cycle through ringer modes -->
     <java-symbol type="string" name="volume_dialog_ringer_guidance_normal" />
 
-    <java-symbol type="array" name="config_statusBarIconsCustom" />
-    <java-symbol type="string" name="status_bar_network_traffic" />
-
     <!-- Whether to use Richtap vibration -->
     <java-symbol type="bool" name="config_usesRichtapVibration" />
 
