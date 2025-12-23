@@ -18,10 +18,6 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     SystemUITuner
 
-# System UI Clock
-PRODUCT_PACKAGES += \
-    SystemUIClocks-LMO
-
 # Face Unlock
 ifeq ($(TARGET_SUPPORTS_64_BIT_APPS),true)
 TARGET_FACE_UNLOCK_SUPPORTED ?= true
