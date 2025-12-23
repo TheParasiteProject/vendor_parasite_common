@@ -2,6 +2,10 @@
 PRODUCT_PACKAGES += \
     BatteryStatsViewer
 
+# Multiuser
+PRODUCT_PACKAGES += \
+    Multiuser
+
 # BtHelper
 PRODUCT_PACKAGES += \
     BtHelper
