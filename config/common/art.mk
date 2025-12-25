@@ -21,8 +21,10 @@ endif
 
 # Enable whole-program R8 Java optimizations for SystemUI and system_server,
 # but also allow explicit overriding for testing and development.
+ifeq ($(TARGET_BUILD_VARIANT), user)
 SYSTEM_OPTIMIZE_JAVA ?= true
 SYSTEMUI_OPTIMIZE_JAVA ?= true
+endif
 
 # Disable debug infos
 ifeq ($(TARGET_BUILD_VARIANT), user)
