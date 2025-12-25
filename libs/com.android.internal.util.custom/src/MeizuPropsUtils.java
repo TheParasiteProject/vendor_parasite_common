@@ -107,6 +107,10 @@ public final class MeizuPropsUtils extends CommonPropsUtils {
             return;
         }
 
+        if (propsToChange.isEmpty() || packagesToChange.isEmpty()) {
+            return;
+        }
+
         final String packageName = context.getPackageName();
 
         if (TextUtils.isEmpty(packageName)) {
