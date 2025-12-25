@@ -9,11 +9,12 @@ if [[ -f $file_path ]]; then
     file_name=$(basename "$file_path")
     device_name=$(echo "$file_name" | cut -d'_' -f2 | cut -d'-' -f1)
     buildprop=${OUT_DIR:-out}/target/product/$device_name/system/build.prop
+    buildprop_product=${OUT_DIR:-out}/target/product/$device_name/product/etc/build.prop
     file_size=$(stat -c %s "$file_path")
     sha256=$(cut -d' ' -f1 "$file_path".sha256sum)
     datetime=$(grep -w -m 1 "ro\\.build\\.date\\.utc=.*" "$buildprop" | cut -d= -f2)
     version=$(grep -w -m 1 "ro\\.build\\.version\\.release_or_preview_display=.*" $buildprop | cut -d= -f2)
-    romtype=$(grep -w -m 1 "ro\\.custom\\.releasetype=.*" $buildprop | cut -d= -f2)
+    romtype=$(grep -w -m 1 "ro\\.custom\\.releasetype=.*" $buildprop_product | cut -d= -f2)
     link="https://sourceforge.net/projects/theparasiteproject/files/${device_name}/${file_name}/download"
     cat >"$file_path".json <<JSON
 {
