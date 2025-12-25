@@ -16,16 +16,20 @@ PRODUCT_PRODUCT_PROPERTIES += \
     ro.input.video_enabled?=false
 
 # Disable MTE Async on some processes
+ifeq ($(TARGET_BUILD_VARIANT), user)
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
     persist.arm64.memtag.system_server?=off \
     persist.arm64.memtag.process.system_server?=off \
     persist.arm64.memtag.app.com.android.se?=off \
     persist.arm64.memtag.app.com.android.nfc?=off \
     persist.arm64.memtag.app.com.android.bluetooth?=off
+endif
 
 # Disable Scudo to save RAM and use 32-bit libc variant by default
+ifeq ($(TARGET_BUILD_VARIANT), user)
 PRODUCT_DISABLE_SCUDO ?= false
 MALLOC_SVELTE_FOR_LIBC32 ?= true
+endif
 
 # HWUI
 PRODUCT_SYSTEM_EXT_PROPERTIES += \
