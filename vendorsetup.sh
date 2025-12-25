@@ -27,14 +27,14 @@ if [ ! -d "kernel/modules/misc/KernelSU" ]; then
     mkdir -p kernel/modules/misc/KernelSU
 fi
 if [ ! -d "kernel/modules/misc/KernelSU/next" ]; then
-    git clone https://github.com/KernelSU-Next/KernelSU-Next -b next kernel/modules/misc/KernelSU/next
+    git clone https://github.com/KernelSU-Next/KernelSU-Next -b stable kernel/modules/misc/KernelSU/next
 fi
 
 # Update KernelSU repos
 if [ -d "kernel/modules/misc/KernelSU/next" ]; then
     pushd "kernel/modules/misc/KernelSU/next" > /dev/null
     git fetch origin
-    git reset --hard origin/next
+    git reset --hard origin/stable
     popd > /dev/null
 fi
 
