@@ -14,6 +14,7 @@
 
 aconfig_value_set {
     name: "aconfig_value_set-custom-bp4a",
-    values: [
+    srcs: [
+        "*/Android.bp",
     ],
 }
