@@ -24,6 +24,8 @@ endif
 ifeq ($(TARGET_BUILD_VARIANT), user)
 SYSTEM_OPTIMIZE_JAVA ?= true
 SYSTEMUI_OPTIMIZE_JAVA ?= true
+# For full optimization rather than just shrinking
+FULL_SYSTEM_OPTIMIZE_JAVA := true
 endif
 
 # Disable debug infos
