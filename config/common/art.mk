@@ -48,10 +48,9 @@ PRODUCT_ALWAYS_PREOPT_EXTRACTED_APK := true
 # Boot image profile
 PRODUCT_USE_PROFILE_FOR_BOOT_IMAGE := true
 PRODUCT_COPY_FILES += \
-    frameworks/base/boot/preloaded-classes:$(TARGET_COPY_OUT_SYSTEM)/etc/preloaded-classes
+    art/build/boot/preloaded-classes:$(TARGET_COPY_OUT_SYSTEM)/etc/preloaded-classes
 PRODUCT_DEX_PREOPT_BOOT_IMAGE_PROFILE_LOCATION := \
-    frameworks/base/boot/boot-image-profile.txt \
-    frameworks/base/boot/boot-image-profile-extra.txt
+    art/build/boot/boot-image-profile.txt
 
 PRODUCT_ARTIFACT_PATH_REQUIREMENT_ALLOWED_LIST += \
     system/etc/preloaded-classes
